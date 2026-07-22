@@ -9,6 +9,7 @@ The project uses semantic version tags for public releases. Program status chang
 ### Added
 
 - Markdown report renderer combining runner and route-verification outputs for human review.
+- Public external-project intake and feedback templates, with a Git-ignored local workspace for real pilot cases.
 
 ### Fixed
 

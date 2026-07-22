@@ -112,6 +112,8 @@ python3 runtime/verify_route.py \
 
 Полный copyable input и expected decision contract находятся в [examples/example-ai-startup/README.md](examples/example-ai-startup/README.md). Runner остаётся консервативным, если карточке нужна проверка статуса; независимый verifier может выдать route-specific решение, когда snapshot источника и evidence проекта проходят gates.
 
+Для первого внешнего пилота используй короткий [external project intake](docs/external-test-intake.md), а затем собери ответы через [external test feedback form](docs/external-test-feedback.md). Локальные кейсы хранятся в `tests/external-local/`; эта папка игнорируется Git.
+
 ## Пример результата
 
 Публичный fixture `tests/cases/ai_startup.yaml` описывает `Example AI Infrastructure Startup`. Его текущий expected contract:

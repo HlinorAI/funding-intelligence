@@ -28,22 +28,24 @@ Last updated: 2026-07-22
 - Passed GitHub Actions `Validate` run `29901485917` on commit `9355b02`.
 - Published GitHub Release `v0.1.2` from immutable tag `v0.1.2` at release commit `8685abf`.
 - Added `runtime/render_report.py` for short human-readable Markdown opportunity reports.
+- Added public external-project intake and feedback templates plus Git-ignored `tests/external-local/` workspace.
 
 ## In progress
 
 - Keep the first public release limited to the current deterministic capability; do not expand the database or add a UI in this release.
 - Run three external project evaluations and collect human feedback.
 - Use the renderer for the three external reports; do not create another release before feedback identifies a real need.
+- Start with one external project end-to-end before recruiting the second and third.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
 ## Next actions
 
-1. Run three external project evaluations.
-2. Ask reviewers whether the classification, rejection logic, next action, and report saved time.
-3. Record feedback and rule changes without weakening hard gates.
-4. Add live web verification only after the decision logic has been validated externally.
-5. Expand knowledge packs selectively from observed route gaps.
+1. Recruit the first external project using `docs/external-test-intake.md`.
+2. Convert the intake into a local `project.yaml` and evidence pack.
+3. Run runner, verifier, renderer, and collect `docs/external-test-feedback.md`.
+4. Record systematic errors before repeating the test with projects two and three.
+5. Add live web verification only after the decision logic has been validated externally.
 
 ## Decisions already made
 

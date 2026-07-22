@@ -112,6 +112,8 @@ python3 runtime/verify_route.py \
 
 See [examples/example-ai-startup/README.md](examples/example-ai-startup/README.md) for the complete copyable input and expected decision contract. The runner remains conservative when a card needs status verification; the independent verifier can reach a route-specific decision when the source snapshot and project evidence satisfy its gates.
 
+For the first real external pilot, use the short [external project intake](docs/external-test-intake.md) and then collect responses with the [external test feedback form](docs/external-test-feedback.md). Local project cases belong under `tests/external-local/`, which is ignored by Git.
+
 ## Example output
 
 The public fixture `tests/cases/ai_startup.yaml` represents an `Example AI Infrastructure Startup`. Its current expected contract is:
