@@ -8,7 +8,7 @@ Last updated: 2026-07-22
 
 **Release target:** `v0.1.0`
 **Repository mode:** public open-source release
-**Core state:** deterministic opportunity routing and verification is implemented; public release packaging is in progress.
+**Core state:** deterministic opportunity routing and verification is implemented; public release packaging is ready except for GitHub metadata/release settings.
 
 ## Completed
 
@@ -23,6 +23,8 @@ Last updated: 2026-07-22
 
 - Finish GitHub release metadata for `v0.1.0`: description, topics, Issues, tag, and Release notes.
 - Keep the first public release limited to the current deterministic capability; do not expand the database or add a UI in this release.
+
+The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
 ## Next actions
 
@@ -55,7 +57,7 @@ Last updated: 2026-07-22
 - [x] Apache-2.0 license file added.
 - [x] `CONTRIBUTING.md` added.
 - [x] `CHANGELOG.md` and `WORKBOARD.md` added.
-- [ ] Git tag `v0.1.0` pushed.
+- [x] Existing Git tag `v0.1.0` confirmed pushed (points to `d0103e8`).
 - [ ] GitHub Release `v0.1.0` published.
 - [ ] GitHub About description and topics configured.
 - [ ] GitHub Issues confirmed enabled.
