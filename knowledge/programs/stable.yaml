@@ -1,0 +1,33 @@
+id: stablechain-bd
+name: Stable / StableChain Ecosystem BD
+ecosystem: Stable / StableChain
+mechanism: [bd, incentive]
+status:
+  state: BD-ONLY
+  source_label: "Ecosystem allocation is not evidence of an open grant form"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://docs.stable.xyz/en/developers/mainnet/mainnet-information
+best_fit:
+  - USDT0-native settlement or payment flow
+  - product with measurable volume and a clear ecosystem owner
+  - partner integration or joint pilot
+bad_fit:
+  - converting tokenomics allocation into assumed grant
+  - generic multichain port
+  - funding ask before PoC
+required_evidence:
+  - mainnet PoC
+  - payment/settlement use case
+  - volume and KPI
+  - identified developer/ecosystem owner
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15, access: 10}
+failure_modes:
+  - no champion
+  - no USDT0 utility
+  - incentive economics not calculated
+next_action:
+  action: BUILD_AND_OUTREACH
+  deliverable: "USDT0-native PoC and partner brief with joint KPI"
+  horizon_days: 14
+stop_condition: "No champion after three quality follow-ups and no active program"

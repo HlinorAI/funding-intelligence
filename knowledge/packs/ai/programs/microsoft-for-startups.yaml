@@ -1,0 +1,50 @@
+id: microsoft-for-startups
+name: Microsoft for Startups
+ecosystem: Microsoft / Azure
+mechanism: [subsidy, bd]
+resource_type: [startup_program, cloud_credits, technical_support, enterprise_bd]
+status:
+  state: ACTIVE
+  source_label: "Application route with startup credits, AI capabilities, technical support and eligible enterprise GTM resources"
+  last_checked: 2026-07-22
+  needs_verification: true
+  official_source: https://learn.microsoft.com/en-us/startups/microsoft-for-startups/overview
+verification:
+  actual_endpoint: https://startups.microsoft.com/
+  endpoint_kind: application_portal
+  status_check: "Confirm direct application, country eligibility and current credit tier"
+  source_verified: true
+  verified_at: 2026-07-22
+  verified_via: official_web_source
+decision_policy:
+  missing_eligibility: COMPLETE_ELIGIBILITY_DATA
+  readiness_mode: eligibility
+routing:
+  verticals: [ai, artificial_intelligence, agents, agent_infrastructure, b2b, software]
+  stages: [prototype, early_product, pre_seed, seed, series_a, series_b, series_c]
+  goals: [funding, partnerships, technical_support]
+best_fit:
+  - privately held B2B software or AI startup
+  - working toward or already at MVP
+  - enterprise product that can use Azure and Microsoft GTM
+bad_fit:
+  - consultancy, agency or non-software organization
+  - cryptocurrency mining
+  - Series C or later
+  - product with no Azure/enterprise thesis
+required_evidence:
+  - company-owned software product
+  - working MVP or credible build path
+  - private for-profit company
+  - eligible headquarters geography
+  - product and company details for application
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - credits mistaken for cash funding
+  - no Azure workload
+  - no enterprise buyer or GTM thesis
+next_action:
+  action: VERIFY_AND_APPLY
+  deliverable: "Eligibility check, Azure workload map and enterprise customer thesis"
+  horizon_days: 7
+stop_condition: "No eligible private software company or no Azure/enterprise use case"

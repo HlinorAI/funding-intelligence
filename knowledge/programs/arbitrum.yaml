@@ -1,0 +1,32 @@
+id: arbitrum-dao-grants
+name: Arbitrum DAO Grants
+ecosystem: Arbitrum
+mechanism: [proposal_grant, bd]
+status:
+  state: CLOSED
+  source_label: "D.A.O. Grant Program Season 3 intake closed; prepare for a future window"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://forum.arbitrum.foundation/
+best_fit:
+  - exact DAO domain with shipped Arbitrum usage
+  - clear leverage and independently verifiable milestones
+  - strategic project with Foundation/ecosystem BD path
+bad_fit:
+  - apply in closed season
+  - vision without deliverables
+  - milestones dependent on future partners
+required_evidence:
+  - Arbitrum deployment and 30–60 days metrics
+  - domain fit from funded proposals
+  - milestone table and budget
+score: {strategic_fit: 25, evidence: 25, mechanism_fit: 15}
+failure_modes:
+  - no Arbitrum usage
+  - domain mismatch
+  - generic DAO leverage claim
+next_action:
+  action: PREPARE
+  deliverable: "Reverse-engineer 10 funded proposals and ship a measurable Arbitrum pilot"
+  horizon_days: 30
+stop_condition: "No current intake or no Arbitrum-native evidence"

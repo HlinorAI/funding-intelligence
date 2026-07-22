@@ -1,0 +1,33 @@
+id: fuse-ember-business
+name: Fuse Ember Builder and Web3 Business Grant
+ecosystem: Fuse
+mechanism: [proposal_grant]
+status:
+  state: ACTIVE
+  source_label: "Official pages describe evaluation, decision, activation and completion reporting"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://fuse.io/
+best_fit:
+  - working app with unique ecosystem value
+  - payments, fintech or business solution
+  - milestones tied to network activity and business outcomes
+bad_fit:
+  - application before working artifact
+  - generic ecosystem story
+  - marketing testimonials as independent evidence
+required_evidence:
+  - live app or deployable product
+  - customer and payment flow
+  - integration architecture
+  - precise use of funds and outcome metrics
+score: {strategic_fit: 20, evidence: 20, mechanism_fit: 20}
+failure_modes:
+  - no user/adoption logic
+  - budget detached from outcomes
+  - program page not rechecked
+next_action:
+  action: SHIP
+  deliverable: "Deploy a working app and prepare business/network milestone table"
+  horizon_days: 14
+stop_condition: "No working artifact or customer/use-case evidence"

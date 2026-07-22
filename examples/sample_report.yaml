@@ -1,0 +1,51 @@
+verification_version: 2
+project: Hlinor
+mode: source_snapshot
+routes:
+  - program_id: aws-activate
+    program: AWS Activate
+    program_status: {value: ACTIVE, verified_at: 2026-07-22}
+    endpoint_status: {value: AVAILABLE, transport: NOT_RUN, verified_at: 2026-07-22}
+    project_fit: {value: POSSIBLE}
+    project_readiness: INCOMPLETE
+    decision: COMPLETE_ELIGIBILITY_DATA
+    next_action: "Confirm company, stage, AWS account, credits history and provider path"
+  - program_id: microsoft-for-startups
+    program: Microsoft for Startups
+    program_status: {value: ACTIVE, verified_at: 2026-07-22}
+    endpoint_status: {value: AVAILABLE, transport: NOT_RUN, verified_at: 2026-07-22}
+    project_fit: {value: POSSIBLE}
+    project_readiness: INCOMPLETE
+    decision: COMPLETE_ELIGIBILITY_DATA
+    next_action: "Confirm legal/company profile, MVP and Azure workload"
+  - program_id: nvidia-inception
+    program: NVIDIA Inception
+    program_status: {value: ACTIVE, verified_at: 2026-07-22}
+    endpoint_status: {value: AVAILABLE, transport: NOT_RUN, verified_at: 2026-07-22}
+    project_fit: {value: WEAK}
+    project_readiness: BUILD_FIRST
+    decision: BUILD_NVIDIA_USE_CASE
+    next_action: "Show GPU/CUDA/NVIDIA workload or stop pursuing this route"
+  - program_id: openai-for-startups
+    program: OpenAI for Startups
+    program_status: {value: ACTIVE, verified_at: 2026-07-22}
+    endpoint_status: {value: AVAILABLE, transport: NOT_RUN, verified_at: 2026-07-22}
+    project_fit: {value: POSSIBLE}
+    project_readiness: UNKNOWN
+    decision: VERIFY_ACCESS_PATH
+    next_action: "Confirm available founder/VC partner access path"
+  - program_id: y-combinator
+    program: Y Combinator
+    program_status: {value: OPEN, verified_at: 2026-07-22}
+    endpoint_status: {value: AVAILABLE, transport: NOT_RUN, verified_at: 2026-07-22}
+    project_fit: {value: POSSIBLE}
+    project_readiness: BUILD_FIRST
+    decision: BUILD_FIRST
+    next_action: "Build demo, customer/problem thesis and application narrative"
+missing_proof:
+  - company/legal profile
+  - working demo
+  - customer pilots
+  - usage metrics
+  - revenue evidence
+  - milestones

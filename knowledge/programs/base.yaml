@@ -1,0 +1,33 @@
+id: base-funding-ladder
+name: Base Funding Ladder
+ecosystem: Base
+mechanism: [retro, accelerator, investment]
+status:
+  state: ACTIVE
+  source_label: "Ship-first rewards and Builder Grants; Base Batches has separate cohorts"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://docs.base.org/get-started/get-funded
+best_fit:
+  - shipped product on Base mainnet
+  - public-good tooling with measurable usage
+  - venture startup ready for a founder or investment route
+bad_fit:
+  - idea-stage team without live product
+  - testnet-only traction
+  - deck-only retro application
+required_evidence:
+  - live URL and verified contracts
+  - GitHub and README
+  - 30-day users, transactions, repeat usage or volume
+  - Base distribution thesis
+score: {strategic_fit: 25, evidence: 25, mechanism_fit: 20}
+failure_modes:
+  - vanity social metrics
+  - treating a selective cohort as guaranteed funding
+  - mixing retro reward with venture raise
+next_action:
+  action: SHIP
+  deliverable: "Deploy, instrument analytics and publish a shipping cadence"
+  horizon_days: 14
+stop_condition: "No live Base product or measurable usage after the build sprint"

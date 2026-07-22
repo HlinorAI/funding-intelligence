@@ -1,0 +1,20 @@
+.DS_Store
+.env
+.venv/
+__pycache__/
+*.pyc
+
+# Private project evidence and operational history
+evidence/hlinor/
+history/applications.yaml
+history/feedback.yaml
+
+# Generated reports
+reports/
+hlinor-report.yaml
+hlinor-route-verification.yaml
+*.local.yaml
+
+# Private project test fixtures
+tests/live/
+tests/expected/hlinor.yaml

@@ -1,0 +1,33 @@
+id: codex-forward-deployed
+name: Codex Forward-Deployed Integration BD
+ecosystem: Codex
+mechanism: [bd]
+status:
+  state: BD-ONLY
+  source_label: "Production integration route; generic public grant not found"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://www.codex.xyz/
+best_fit:
+  - cross-border payment or infrastructure workload
+  - clear corridor, currencies and settlement pain
+  - integration that unlocks a customer flow
+bad_fit:
+  - cold grant ask
+  - product without customer/workload
+  - vague “partnership” request
+required_evidence:
+  - corridor, rails, stablecoin and FX workflow
+  - compliance and volume
+  - what Codex should not build itself
+  - pilot KPI and integration resources
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 20, access: 10}
+failure_modes:
+  - no customer flow
+  - no implementation owner
+  - no measurable production outcome
+next_action:
+  action: DISCOVERY
+  deliverable: "Integration brief showing the customer flow Codex can unlock"
+  horizon_days: 7
+stop_condition: "No customer/workload signal after discovery"

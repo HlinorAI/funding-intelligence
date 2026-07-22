@@ -1,0 +1,33 @@
+id: algorand-xgov
+name: Algorand xGov
+ecosystem: Algorand
+mechanism: [retro]
+status:
+  state: ACTIVE
+  source_label: "Transparent on-chain retroactive funding"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://xgov.algorand.co/
+best_fit:
+  - shipped Algorand artifact
+  - open-source wallet, DeFi, developer or consumer tooling
+  - public adoption and transparent impact
+bad_fit:
+  - money needed before development
+  - speculative port
+  - ask disconnected from demonstrated contribution
+required_evidence:
+  - shipped artifact
+  - usage/adoption metrics
+  - reusable code
+  - benchmark against funded and rejected proposals
+score: {strategic_fit: 20, evidence: 30, mechanism_fit: 20}
+failure_modes:
+  - asking for pre-funding
+  - oversized ask
+  - weak public discussion response
+next_action:
+  action: SHIP
+  deliverable: "Release artifact, collect metrics and reverse-engineer 10 funded/rejected proposals"
+  horizon_days: 30
+stop_condition: "Product cannot ship cheaply enough to justify a retroactive route"

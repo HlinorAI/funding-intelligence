@@ -1,0 +1,33 @@
+id: stellar-scf
+name: Stellar Community Fund
+ecosystem: Stellar
+mechanism: [proposal_grant]
+status:
+  state: OPEN
+  source_label: "SCF #45 was listed with an indicative 16.08.2026 deadline"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://communityfund.stellar.org/
+best_fit:
+  - Stellar-native payments, asset rails or Soroban applications
+  - ready-to-build integration with measurable use
+  - self-contained milestone proposal
+bad_fit:
+  - generic deck
+  - weak technical integration
+  - milestones dependent on unsigned partnerships
+required_evidence:
+  - Stellar integration plan
+  - live demo or build-ready architecture
+  - budget tied to deliverables
+  - payment/asset flow and completion criteria
+score: {strategic_fit: 25, technical_fit: 20, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - Stellar is only a checkbox
+  - inflated budget
+  - no artifact per milestone
+next_action:
+  action: APPLY_AFTER_VERIFY
+  deliverable: "Eligibility/track check, integration memo and tranche-based application"
+  horizon_days: 7
+stop_condition: "Current round or actual endpoint is not confirmed"

@@ -1,0 +1,48 @@
+id: openai-for-startups
+name: OpenAI for Startups
+ecosystem: OpenAI
+mechanism: [bd, subsidy]
+resource_type: [startup_program, cloud_credits, technical_support, community]
+status:
+  state: ACTIVE
+  source_label: "Founder resources, Build Hours and startup community; API credits and enhanced benefits may require VC referral"
+  last_checked: 2026-07-22
+  needs_verification: true
+  official_source: https://openai.com/startups
+verification:
+  actual_endpoint: https://openai.com/business/why-openai/startups/
+  endpoint_kind: gated_partner_route
+  status_check: "Confirm the founder route and whether the requested benefit requires a VC referral"
+  source_verified: true
+  verified_at: 2026-07-22
+  verified_via: official_web_source
+decision_policy:
+  access_unknown: VERIFY_ACCESS_PATH
+  readiness_mode: access
+routing:
+  verticals: [ai, artificial_intelligence, agents, agent_infrastructure]
+  stages: [prototype, early_product, seed, revenue]
+  goals: [technical_support, partnerships]
+best_fit:
+  - AI product with a concrete OpenAI API use case
+  - agent or application team seeking technical guidance and community
+  - VC-backed startup able to verify referral eligibility for credits
+bad_fit:
+  - treating API credits as grant runway
+  - no product/API thesis
+  - expecting guaranteed investment
+required_evidence:
+  - product description and API use case
+  - company name and key team contacts
+  - valid business email
+  - basic funding details
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - no referral path for credit benefits
+  - unclear model/API dependency
+  - no technical artifact
+next_action:
+  action: VERIFY_AND_BUILD
+  deliverable: "One-page API architecture, current founder route and Build Hour/resource plan"
+  horizon_days: 7
+stop_condition: "No concrete OpenAI use case or no eligible route for the desired benefit"

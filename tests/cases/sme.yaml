@@ -1,0 +1,39 @@
+schema_version: 1
+name: Example Local Payments SME
+description: B2B payment workflow for small exporters in Eastern Europe.
+sector: [fintech, payments, sme]
+stage: revenue
+geography: [EU, Eastern Europe]
+product:
+  description: Cross-border invoicing and settlement workflow
+  customers: [small_businesses, exporters]
+  technology: [payments, compliance]
+  ecosystems: []
+evidence:
+  site: true
+  github: false
+  live_demo: true
+  live_deployment: false
+  users: 180
+  revenue: true
+  pilots: 4
+  partners: 2
+  metrics: true
+  audit: false
+needs:
+  goals: [funding, partnerships]
+  funding: 300000
+  runway_months: 8
+constraints:
+  no_token: true
+  no_dilution: false
+  native_ecosystems: []
+  target_ecosystems: []
+  generic_multichain: false
+readiness:
+  budget: true
+  milestones: true
+  legal_entity: true
+access:
+  champions: 1
+  warm_intros: 2

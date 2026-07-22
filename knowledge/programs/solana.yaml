@@ -1,0 +1,34 @@
+id: solana-foundation
+name: Solana Foundation Funding
+ecosystem: Solana
+mechanism: [proposal_grant, investment, accelerator]
+status:
+  state: ROLLING
+  source_label: "Rolling funding portal; grant, convertible and RFP routes are distinct"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://solana.org/grants-funding
+best_fit:
+  - open-source or public-good infrastructure
+  - Solana-native research, tooling or high-throughput product
+  - venture company that can use a convertible or investment route
+bad_fit:
+  - generic EVM port
+  - grant request framed as runway
+  - proprietary product with artificial open-source layer
+required_evidence:
+  - Solana-specific problem statement
+  - technical feasibility spike or PoC
+  - repository, architecture and license boundary
+  - milestone budget with acceptance criteria
+  - adoption plan or named integrators
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - no reusable public-good output
+  - vague milestones
+  - full port before feasibility signal
+next_action:
+  action: BUILD_FIRST
+  deliverable: "Two-page Solana fit memo, PoC and three target users"
+  horizon_days: 14
+stop_condition: "No native advantage or no credible public-good/venture mechanism after feasibility spike"

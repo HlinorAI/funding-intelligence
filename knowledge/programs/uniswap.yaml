@@ -1,0 +1,33 @@
+id: uniswap-hook-ladder
+name: Uniswap Hook Ecosystem Ladder
+ecosystem: Uniswap
+mechanism: [accelerator, proposal_grant, subsidy, bd]
+status:
+  state: WATCH
+  source_label: "UHI cohort closed 21.06.2026; HPA/Design Lab next intake requires verification"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://www.uniswapfoundation.org/
+best_fit:
+  - Solidity/DeFi team building a real Uniswap v4 hook or extension
+  - product with security, auditability and distribution thesis
+  - progression from prototype to product and integration
+bad_fit:
+  - hook novelty without users/business model
+  - idea-only accelerator application
+  - treating prizes or support as guaranteed grant
+required_evidence:
+  - hook prototype
+  - user/customer interviews
+  - mechanism and economic model
+  - security/audit plan
+score: {strategic_fit: 25, technical_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - no real liquidity/distribution use
+  - confusing incubator, accelerator and grant
+  - weak security posture
+next_action:
+  action: BUILD_FIRST
+  deliverable: "Ship one hook prototype and validate 5–10 users/customers"
+  horizon_days: 21
+stop_condition: "Uniswap is not the natural distribution or liquidity layer"

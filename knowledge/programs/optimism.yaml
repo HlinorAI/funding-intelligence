@@ -1,0 +1,33 @@
+id: optimism-superchain
+name: Optimism / Superchain Funding
+ecosystem: Optimism
+mechanism: [retro, proposal_grant, bd]
+status:
+  state: CLOSED
+  source_label: "Season 9 closed; governance/funding architecture is changing"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://gov.optimism.io/
+best_fit:
+  - measurable public-good or Superchain impact
+  - anchor deployment with downstream L2 demand
+  - strategic BD with named OP Stack networks
+bad_fit:
+  - apply to a closed season
+  - abstract Superchain alignment
+  - cross-chain story without anchor deployment
+required_evidence:
+  - anchor deployment
+  - baseline and 3-month KPI
+  - public-good surface or reusable interface
+  - two ecosystem conversations or demand signals
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - impact not measurable
+  - no named chains/users
+  - budget without outcomes
+next_action:
+  action: PREPARE
+  deliverable: "Ship one anchor deployment and collect evidence for the next window"
+  horizon_days: 30
+stop_condition: "No anchor deployment or no concrete OP Stack demand"

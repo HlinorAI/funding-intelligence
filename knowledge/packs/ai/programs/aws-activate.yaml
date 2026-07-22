@@ -1,0 +1,49 @@
+id: aws-activate
+name: AWS Activate
+ecosystem: AWS
+mechanism: [subsidy]
+resource_type: [cloud_credits, technical_support]
+status:
+  state: ACTIVE
+  source_label: "Founders and Portfolio credit packages; current page lists stage/provider-dependent tiers"
+  last_checked: 2026-07-22
+  needs_verification: true
+  official_source: https://aws.amazon.com/startups/credits/
+verification:
+  actual_endpoint: https://aws.amazon.com/startups/credits/
+  endpoint_kind: application_page
+  status_check: "Confirm Founders vs Portfolio tier, AWS account and provider requirements"
+  source_verified: true
+  verified_at: 2026-07-22
+  verified_via: official_web_source
+decision_policy:
+  missing_eligibility: COMPLETE_ELIGIBILITY_DATA
+  readiness_mode: eligibility
+routing:
+  verticals: [ai, artificial_intelligence, agents, agent_infrastructure, software, b2b]
+  stages: [idea, prototype, early_product, pre_seed, seed, series_a, series_b]
+  goals: [funding, technical_support]
+best_fit:
+  - startup reducing cloud/API burn during build or scale
+  - AI workload using AWS/Bedrock or adjacent infrastructure
+  - self-funded founder or provider-backed startup with matching eligibility
+bad_fit:
+  - treating promotional credits as cash
+  - no functioning company website
+  - wrong funding/provider stage
+  - asking without AWS account or required provider identity
+required_evidence:
+  - functioning company website
+  - accurate funding stage
+  - AWS account and business profile
+  - Activate Provider Org ID when using Portfolio tier
+score: {strategic_fit: 20, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - applying for the wrong package
+  - provider affiliation not verified
+  - credits not matched to an actual workload
+next_action:
+  action: VERIFY_AND_APPLY
+  deliverable: "Choose Founders vs Portfolio tier and quantify the AWS/Bedrock workload"
+  horizon_days: 7
+stop_condition: "No functioning site, AWS account or eligible stage/provider path"

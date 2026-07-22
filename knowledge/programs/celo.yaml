@@ -1,0 +1,33 @@
+id: celo-funding-ladder
+name: Celo Funding Ladder and MiniPay Distribution
+ecosystem: Celo
+mechanism: [retro, incentive, proposal_grant, investment, bd]
+status:
+  state: ACTIVE
+  source_label: "Proof of Ship, Support Streams, Builder Fund and MiniPay are different routes; Prezenti season requires checking"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://docs.celo.org/build-on-celo/fund-your-project
+best_fit:
+  - live Celo product with onchain reputation
+  - mobile, payments or stablecoin use case
+  - product that can use MiniPay as distribution
+bad_fit:
+  - waiting for funding before first proof
+  - mission language without users
+  - calling Builder Fund or MiniPay a grant
+required_evidence:
+  - deployment and project profile
+  - users, payers, volume or retention
+  - mobile/MiniPay-compatible demo
+  - compliance and payment flow where relevant
+score: {strategic_fit: 25, evidence: 25, mechanism_fit: 15}
+failure_modes:
+  - applying to a completed season
+  - vanity onchain activity
+  - no distribution thesis
+next_action:
+  action: SHIP
+  deliverable: "Deploy, publish Proof of Ship and produce a mobile-compatible demo"
+  horizon_days: 30
+stop_condition: "No user or payment signal after the first live deployment"

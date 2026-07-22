@@ -1,0 +1,32 @@
+id: polygon-funding-bd
+name: Polygon Funding and Ecosystem BD
+ecosystem: Polygon
+mechanism: [proposal_grant, bd]
+status:
+  state: VERIFY
+  source_label: "No generic open community-grant intake was confirmed in the current portal"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://polygon.technology/
+best_fit:
+  - exact active call or Polygon priority/use case
+  - deployed PoC with measurable transactions, payments or infrastructure savings
+  - relationship-led ecosystem proposal
+bad_fit:
+  - relying on old treasury headlines
+  - Polygon fit without specific advantage
+  - grant writing without current intake or champion
+required_evidence:
+  - current official call or named BD owner
+  - Polygon-specific use case
+  - PoC/deployment and KPI
+score: {strategic_fit: 20, evidence: 20, mechanism_fit: 10, access: 10}
+failure_modes:
+  - stale form
+  - no active program
+  - no champion
+next_action:
+  action: VERIFY_AND_OUTREACH
+  deliverable: "Check portal, identify one priority owner and send a measurable one-page brief"
+  horizon_days: 2
+stop_condition: "No active call, no champion and no Polygon-specific distribution advantage"

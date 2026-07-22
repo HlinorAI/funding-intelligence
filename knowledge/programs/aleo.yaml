@@ -1,0 +1,32 @@
+id: aleo-developer-grants
+name: Aleo Developer Grants
+ecosystem: Aleo
+mechanism: [proposal_grant]
+status:
+  state: ACTIVE
+  source_label: "Milestone developer grant; current program page lists up to $100k"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://aleo.org/
+best_fit:
+  - privacy application
+  - ZK infrastructure or developer tooling
+  - open-source ecosystem primitive
+bad_fit:
+  - full rewrite only to chase a grant
+  - privacy as a keyword
+  - no Aleo-native deliverable
+required_evidence:
+  - repo/prototype
+  - why Aleo/ZK architecture
+  - milestones, budget and open-source boundary
+  - adoption or integration targets
+score: {strategic_fit: 25, technical_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - no native ZK advantage
+  - proprietary scope with no ecosystem output
+next_action:
+  action: BUILD_FIRST
+  deliverable: "Aleo-native feasibility spike and public-good boundary"
+  horizon_days: 21
+stop_condition: "Aleo-native architecture cannot improve the product materially"

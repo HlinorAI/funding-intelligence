@@ -1,0 +1,40 @@
+schema_version: 1
+name: Example Base Developer Infrastructure
+description: Open-source analytics and reliability tooling for Base contracts.
+sector: [web3, developer_tools]
+stage: mainnet
+geography: [EU]
+product:
+  description: Monitoring and analytics for smart-contract teams
+  customers: [protocols, developers]
+  technology: [evm, smart_contracts, open_source]
+  ecosystems: [Base]
+evidence:
+  site: true
+  github: true
+  live_demo: true
+  live_deployment: true
+  users: 1400
+  transactions: 220000
+  volume: 0
+  revenue: true
+  pilots: 3
+  partners: 2
+  metrics: true
+  audit: false
+needs:
+  goals: [funding, distribution]
+  funding: 150000
+  runway_months: 9
+constraints:
+  no_token: true
+  no_dilution: true
+  native_ecosystems: [Base]
+  target_ecosystems: [Base]
+  generic_multichain: false
+readiness:
+  budget: true
+  milestones: true
+access:
+  champions: 1
+  warm_intros: 1

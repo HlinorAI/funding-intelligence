@@ -1,0 +1,33 @@
+id: usual-usd0
+name: Usual / USD0 Ecosystem BD
+ecosystem: Usual / USD0
+mechanism: [bd, incentive]
+status:
+  state: BD-ONLY
+  source_label: "Ecosystem incentives may exist; universal public builder grant not confirmed"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://usual.money/ecosystem
+best_fit:
+  - product adding USD0 utility, TVL or volume
+  - integration with measurable economic contribution
+  - sponsor/governance route
+bad_fit:
+  - generic product port
+  - ecosystem bucket treated as open grant
+  - no USD0-specific value
+required_evidence:
+  - integration/PoC
+  - target users and use case
+  - liquidity/volume KPI
+  - governance or sponsor route
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15, access: 10}
+failure_modes:
+  - no utility thesis
+  - no sponsor
+  - funding before ecosystem proof
+next_action:
+  action: BUILD_AND_OUTREACH
+  deliverable: "USD0 integration and governance-ready KPI brief"
+  horizon_days: 14
+stop_condition: "No ecosystem owner or measurable USD0 utility"

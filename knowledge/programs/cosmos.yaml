@@ -1,0 +1,32 @@
+id: interchain-builders
+name: Interchain Builders Program
+ecosystem: Cosmos / Interchain
+mechanism: [accelerator, bd]
+status:
+  state: ACTIVE
+  source_label: "Technical/business acceleration and BD support; not guaranteed cash grant"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://interchain.io/
+best_fit:
+  - sovereign or interchain-native architecture
+  - team needing architecture, partner and ecosystem navigation
+  - clear intended zones, chains and users
+bad_fit:
+  - treating support as a cash grant
+  - generic chain deployment
+  - pitch without technical design
+required_evidence:
+  - technical design
+  - intended zones/chains/users
+  - product and partner thesis
+score: {strategic_fit: 25, technical_fit: 20, mechanism_fit: 15, access: 10}
+failure_modes:
+  - no interchain need
+  - unclear downstream users
+  - grant amount assumed
+next_action:
+  action: APPLY_FOR_SUPPORT
+  deliverable: "Architecture brief plus partner and downstream-funding questions"
+  horizon_days: 7
+stop_condition: "Money, rather than architecture or ecosystem access, is the only need"

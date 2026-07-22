@@ -1,0 +1,34 @@
+id: ethereum-esp
+name: Ethereum Foundation ESP
+ecosystem: Ethereum
+mechanism: [proposal_grant]
+status:
+  state: WATCH
+  source_label: "Targeted Wishlist/RFP model; broad generic intake is not the default"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://esp.ethereum.foundation/
+best_fit:
+  - open-source public-good work
+  - exact match to an active Wishlist or RFP
+  - protocol, research, developer or ecosystem infrastructure
+bad_fit:
+  - startup runway
+  - token launch
+  - proprietary SaaS without a public-good layer
+  - generic Ethereum expansion pitch
+required_evidence:
+  - exact published problem match
+  - methodology and technical team proof
+  - public deliverables
+  - milestones and budget
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 20}
+failure_modes:
+  - applying without an exact active need
+  - confusing Wishlist fit with an open general form
+  - vague public-good claim
+next_action:
+  action: VERIFY
+  deliverable: "Record the current Wishlist/RFP match and actual intake endpoint"
+  horizon_days: 1
+stop_condition: "No exact active Wishlist/RFP match"

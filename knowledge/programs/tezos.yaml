@@ -1,0 +1,33 @@
+id: tezos-foundation
+name: Tezos Foundation Grants
+ecosystem: Tezos
+mechanism: [proposal_grant]
+status:
+  state: ROLLING
+  source_label: "Submissions accepted with quarterly/current review cadence"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://tezos.foundation/grants/
+best_fit:
+  - serious technical or public-good work
+  - functional prototype and reusable scope
+  - team with Tezos familiarity and maintenance plan
+bad_fit:
+  - quick runway request
+  - generic proposal
+  - no prototype or ecosystem alignment
+required_evidence:
+  - functional technical detail
+  - team proof
+  - ecosystem value
+  - sustainable milestones and budget
+score: {strategic_fit: 20, technical_fit: 20, evidence: 20, mechanism_fit: 20}
+failure_modes:
+  - high-rejection route treated as easy funding
+  - no pre-alignment
+  - unclear maintenance
+next_action:
+  action: PREPARE
+  deliverable: "Prototype, named integrators and benchmarked milestone budget"
+  horizon_days: 21
+stop_condition: "No technical/public-good scope or no ecosystem alignment"

@@ -1,0 +1,48 @@
+id: nvidia-inception
+name: NVIDIA Inception
+ecosystem: NVIDIA
+mechanism: [bd, subsidy]
+resource_type: [startup_program, technical_support, cloud_credits, enterprise_bd]
+status:
+  state: ACTIVE
+  source_label: "Free, no cohort/deadline program with developer resources, preferred pricing, partner offers, investor and GTM access"
+  last_checked: 2026-07-22
+  needs_verification: true
+  official_source: https://www.nvidia.com/en-us/startups/
+verification:
+  actual_endpoint: https://www.nvidia.com/en-us/startups/
+  endpoint_kind: rolling_application
+  status_check: "Confirm application access and incorporation, developer and website eligibility"
+  source_verified: true
+  verified_at: 2026-07-22
+  verified_via: official_web_source
+decision_policy:
+  weak_fit: BUILD_NVIDIA_USE_CASE
+routing:
+  verticals: [ai, artificial_intelligence, agents, agent_infrastructure, robotics, deeptech, hardware]
+  stages: [prototype, early_product, seed, revenue]
+  goals: [partnerships, technical_support, funding]
+  native_signals: [nvidia, gpu, cuda, tensorrt, triton, nim, gpu_acceleration, accelerated_computing]
+best_fit:
+  - AI startup with a technical product and a working website
+  - agentic AI, accelerated computing, robotics or deeptech workload
+  - incorporated company with at least one developer
+bad_fit:
+  - non-technical business with no AI workload
+  - no working website
+  - calling member benefits guaranteed investment
+required_evidence:
+  - working website
+  - incorporated company
+  - at least one developer
+  - product and AI workload description
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - benefits treated as cash funding
+  - no NVIDIA-relevant workload
+  - no company/product proof
+next_action:
+  action: VERIFY_AND_APPLY
+  deliverable: "AI workload brief, incorporation/site check and Inception application"
+  horizon_days: 7
+stop_condition: "No working product/site or no credible AI/deeptech workload"

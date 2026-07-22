@@ -1,0 +1,32 @@
+id: sui-programs
+name: Sui Hydropower and DeFi Moonshots
+ecosystem: Sui
+mechanism: [accelerator, incentive, investment]
+status:
+  state: ACTIVE
+  source_label: "Current programs/capital routes are distinct; exact cohort window must be checked"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://www.sui.io/programs-funding
+best_fit:
+  - Sui-native DeFi or object-model product
+  - durable users, revenue or capital efficiency
+  - founder team ready for accelerator/investment route
+bad_fit:
+  - copy-paste EVM port
+  - vanity TVL
+  - liquidity incentives treated as grant revenue
+required_evidence:
+  - Sui-native architecture memo
+  - prototype and economic model
+  - retention, revenue, organic volume or liquidity efficiency
+score: {strategic_fit: 25, technical_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - no native mechanism
+  - mercenary liquidity
+  - wrong mechanism label
+next_action:
+  action: BUILD_FIRST
+  deliverable: "Prototype one Sui-native mechanism and define durable-usage KPIs"
+  horizon_days: 21
+stop_condition: "Native architecture adds no material product advantage"

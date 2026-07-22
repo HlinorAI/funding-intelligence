@@ -1,0 +1,4 @@
+decision: VERIFY_FIRST
+must_include: base-funding-ladder
+must_not_be_now: true
+gate_passed: false

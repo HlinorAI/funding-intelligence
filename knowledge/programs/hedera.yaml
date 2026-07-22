@@ -1,0 +1,33 @@
+id: hedera-tha
+name: Hedera / The Hashgraph Association Funding
+ecosystem: Hedera
+mechanism: [proposal_grant, bd]
+status:
+  state: ACTIVE
+  source_label: "Institutional diligence route with technical, business, legal and financial review"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://www.hashgraph-association.com/
+best_fit:
+  - enterprise workload or institutional infrastructure
+  - customer, pilot or LOI with measurable Hedera deployment
+  - team ready for KYC, legal and financial DD
+bad_fit:
+  - speculative consumer product without enterprise case
+  - Hedera is optional
+  - lightweight grant request with no company readiness
+required_evidence:
+  - legal entity, cap table and funding history
+  - financial model
+  - architecture, compliance and security
+  - Hedera KPI plan and pilot/LOI
+score: {strategic_fit: 25, evidence: 25, mechanism_fit: 15, access: 10}
+failure_modes:
+  - failed KYC/DD
+  - no customer need
+  - no co-funding logic
+next_action:
+  action: PREPARE
+  deliverable: "Build institutional data room and Hedera workload/KPI brief"
+  horizon_days: 21
+stop_condition: "No customer/pilot or inability to pass legal/KYC/financial readiness"

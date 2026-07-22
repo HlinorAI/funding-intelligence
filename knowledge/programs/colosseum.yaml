@@ -1,0 +1,32 @@
+id: solana-colosseum
+name: Colosseum Accelerator / Eternal
+ecosystem: Solana
+mechanism: [accelerator, investment]
+status:
+  state: ACTIVE
+  source_label: "Hackathon/challenge funnel; selected accelerator startups receive investment; exact intake varies"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://www.colosseum.org/
+best_fit:
+  - venture startup with native Solana demo
+  - team seeking capital, ecosystem and investor access
+  - product that can show usage quickly
+bad_fit:
+  - non-dilutive grant expectation
+  - no PoC
+  - expensive rewrite without native demand
+required_evidence:
+  - 2–4 week native demo
+  - market, team and traction thesis
+  - clear investment route and terms readiness
+score: {strategic_fit: 20, technical_fit: 20, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - calling investment a grant
+  - entering with deck only
+  - no Solana integrators/users
+next_action:
+  action: BUILD_FIRST
+  deliverable: "Native demo and hackathon/challenge-ready founder narrative"
+  horizon_days: 21
+stop_condition: "No fast native demo or no venture-scale case"

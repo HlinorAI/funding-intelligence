@@ -1,0 +1,32 @@
+id: mina-current-route
+name: Mina Ecosystem Grants and Treasury Routes
+ecosystem: Mina
+mechanism: [proposal_grant, bd]
+status:
+  state: HOLD
+  source_label: "Historical programs and proposals are useful benchmarks; current intake must be verified"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://minaprotocol.com/grants
+best_fit:
+  - Mina-native ZK technical work
+  - team able to use public historical proposals as benchmark
+  - contribution route confirmed by current o1Labs/Mina announcement
+bad_fit:
+  - old zkIgnite form
+  - assuming historical grant is open
+  - application before transition status check
+required_evidence:
+  - current official intake confirmation
+  - technical scope, milestones and public artifact
+  - relevant funded proposal benchmarks
+score: {strategic_fit: 20, technical_fit: 20, evidence: 15, mechanism_fit: 10}
+failure_modes:
+  - stale landing page
+  - historical award treated as current probability
+  - no transition owner
+next_action:
+  action: VERIFY
+  deliverable: "Check current o1Labs/Mina route and study 10 similar public proposals"
+  horizon_days: 2
+stop_condition: "No current intake or responsible owner confirmed"

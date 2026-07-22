@@ -1,0 +1,32 @@
+id: web3-foundation-polkadot
+name: Web3 Foundation / Polkadot Grants
+ecosystem: Polkadot
+mechanism: [proposal_grant]
+status:
+  state: VERIFY
+  source_label: "Technical milestone grant; exact current track and intake must be checked"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://grants.web3.foundation/
+best_fit:
+  - open-source component, API, integration or tooling
+  - precise technical scope with tests and docs
+  - maintainable public artifact
+bad_fit:
+  - sales/GTM or marketing budget
+  - generic company development
+  - accelerator-style ask
+required_evidence:
+  - repo and license
+  - specs, implementation, tests, docs and demo
+  - milestone cost/FTE breakdown
+score: {strategic_fit: 20, technical_fit: 25, evidence: 25, mechanism_fit: 20}
+failure_modes:
+  - scope too broad
+  - no review/fix cycle
+  - no open-source boundary
+next_action:
+  action: PREPARE
+  deliverable: "Reverse-engineer similar accepted proposals and write a technical milestone table"
+  horizon_days: 14
+stop_condition: "Deliverable cannot be independently verified as open-source technical work"

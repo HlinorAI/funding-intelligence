@@ -1,0 +1,33 @@
+id: bnb-chain
+name: BNB Chain Grants, MVB and BIA
+ecosystem: BNB Chain
+mechanism: [proposal_grant, accelerator, investment]
+status:
+  state: ACTIVE
+  source_label: "Grant, MVB and BIA are separate routes; exact category/window must be checked"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://www.bnbchain.org/
+best_fit:
+  - public ecosystem contribution or infrastructure
+  - venture-scale team with BNB-native traction
+  - current wishlist/category match
+bad_fit:
+  - marketing payroll disguised as grant
+  - “we support BNB too” without activity
+  - proprietary product under public-good framing
+required_evidence:
+  - BNB-specific gap
+  - deployed product or execution proof
+  - milestones, budget and legal/KYC readiness
+  - market, team and traction for MVB/BIA
+score: {strategic_fit: 20, evidence: 20, mechanism_fit: 20}
+failure_modes:
+  - grant/investment terms mixed
+  - inflated ask without evidence
+  - assuming MVB acceptance
+next_action:
+  action: ROUTE
+  deliverable: "Choose grant vs MVB/BIA and prepare the matching evidence pack"
+  horizon_days: 7
+stop_condition: "No current category match and no BNB-native activity"

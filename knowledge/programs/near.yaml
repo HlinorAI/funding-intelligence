@@ -1,0 +1,32 @@
+id: near-funding-ladder
+name: NEAR Protocol Rewards, Horizon and Hackathons
+ecosystem: NEAR
+mechanism: [retro, accelerator, investment]
+status:
+  state: ACTIVE
+  source_label: "Mixed funding ladder; generic old Foundation grant framing is deprecated"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://www.near.org/founders
+best_fit:
+  - product-native NEAR account/UX/chain abstraction use case
+  - founder team with market and growth case
+  - measurable ecosystem contribution
+bad_fit:
+  - searching for a universal old grant form
+  - no NEAR-specific product thesis
+  - guaranteed-grant expectation from accelerator
+required_evidence:
+  - NEAR deployment/use
+  - product and market proof
+  - choice of rewards, accelerator or investment route
+score: {strategic_fit: 20, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - wrong route
+  - no distribution advantage
+  - rewards treated as grant
+next_action:
+  action: ROUTE
+  deliverable: "Ship/use NEAR first, then choose rewards, Horizon or founder/investor path"
+  horizon_days: 21
+stop_condition: "No product-native reason to use NEAR"

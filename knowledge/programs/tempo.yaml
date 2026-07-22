@@ -1,0 +1,32 @@
+id: tempo-bd
+name: Tempo Production Workload BD
+ecosystem: Tempo
+mechanism: [bd]
+status:
+  state: BD-ONLY
+  source_label: "Mainnet live; generic public grant not found"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://tempo.xyz/
+best_fit:
+  - regulated payments or enterprise production workload
+  - stablecoin corridors and measurable volume
+  - integration that Tempo should not build itself
+bad_fit:
+  - cold funding ask without customer/workload
+  - generic multichain positioning
+required_evidence:
+  - countries/corridors
+  - stablecoins, volume, transactions and latency needs
+  - compliance/privacy requirements
+  - pilot/LOI and rollout plan
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 20, access: 10}
+failure_modes:
+  - no exact workload
+  - no customer or pilot
+  - integration ask without KPI
+next_action:
+  action: DISCOVERY
+  deliverable: "One-page production integration brief and design-partner outreach"
+  horizon_days: 7
+stop_condition: "No named workload or champion after three quality follow-ups"

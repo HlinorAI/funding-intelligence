@@ -1,0 +1,38 @@
+schema_version: 1
+name: Example Industrial Hardware Startup
+description: Sensor and edge-compute system for industrial monitoring.
+sector: [hardware, industrial]
+stage: prototype
+geography: [EU]
+product:
+  description: Industrial sensor platform with edge inference
+  customers: [manufacturers, utilities]
+  technology: [iot, edge_computing]
+  ecosystems: []
+evidence:
+  site: true
+  github: false
+  live_demo: true
+  live_deployment: false
+  users: 12
+  revenue: false
+  pilots: 2
+  partners: 1
+  metrics: true
+  audit: false
+needs:
+  goals: [funding, partnerships]
+  funding: 750000
+  runway_months: 10
+constraints:
+  no_token: true
+  no_dilution: true
+  native_ecosystems: []
+  target_ecosystems: []
+  generic_multichain: false
+readiness:
+  budget: true
+  milestones: false
+access:
+  champions: 1
+  warm_intros: 1

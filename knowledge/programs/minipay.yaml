@@ -1,0 +1,33 @@
+id: minipay-distribution
+name: MiniPay Distribution Route
+ecosystem: Celo
+mechanism: [bd]
+status:
+  state: ACTIVE
+  source_label: "Distribution and integration route, not a standalone grant"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://celo.org/builders
+best_fit:
+  - mobile-compatible Celo product
+  - clear retention and payment/use-case proof
+  - user experience that benefits from MiniPay distribution
+bad_fit:
+  - treating MiniPay as cash funding
+  - no live mobile flow
+  - crypto jargon with no user benefit
+required_evidence:
+  - mobile demo
+  - retention and active users
+  - stablecoin/payment flow
+  - integration and listing proposal
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15, access: 10}
+failure_modes:
+  - no mobile UX
+  - no retention
+  - funding ask before distribution proof
+next_action:
+  action: BUILD_AND_OUTREACH
+  deliverable: "MiniPay-quality demo, retention baseline and integration brief"
+  horizon_days: 30
+stop_condition: "No mobile use case or no measurable retention"

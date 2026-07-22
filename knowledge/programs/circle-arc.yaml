@@ -1,0 +1,33 @@
+id: circle-arc
+name: Circle / Arc Builder and Investment Routes
+ecosystem: Circle / Arc
+mechanism: [proposal_grant, accelerator, investment, bd]
+status:
+  state: CLOSED
+  source_label: "Grant endpoint was listed closed despite marketing pages that may say Apply; Arc Builders Fund is investment"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://www.circle.com/
+best_fit:
+  - real Circle/Arc integration and production path
+  - payment or stablecoin product with pilot/traction
+  - investment-ready venture team for Arc route
+bad_fit:
+  - applying from a marketing page without live endpoint
+  - treating investment as non-dilutive grant
+  - shallow integration
+required_evidence:
+  - current actual intake endpoint
+  - product/business roadmap
+  - Circle/Arc integration
+  - traction, milestones and production path
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15, access: 10}
+failure_modes:
+  - conflicting official pages
+  - no production use
+  - terms not separated
+next_action:
+  action: BUILD_AND_VERIFY
+  deliverable: "Integration prototype, pilot proof and endpoint check before submission"
+  horizon_days: 14
+stop_condition: "Endpoint remains closed and no sponsor or investment fit exists"

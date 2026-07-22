@@ -1,0 +1,33 @@
+id: canton-development-fund
+name: Canton Protocol Development Fund
+ecosystem: Canton
+mechanism: [proposal_grant, bd]
+status:
+  state: ACTIVE
+  source_label: "Institutional/shared infrastructure route; member endorsement may matter more than cold application"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://www.canton.network/
+best_fit:
+  - shared infrastructure, protocol tooling, security or institutional DeFi
+  - regulated participant workflow with reusable network value
+  - team able to secure a member champion
+bad_fit:
+  - retail crypto narrative
+  - fully proprietary product with no shared value
+  - formal proposal before sponsor signal
+required_evidence:
+  - three to five target members
+  - sponsor/champion or endorsement
+  - regulated workflow, confidentiality and settlement design
+  - maintenance plan
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15, access: 15}
+failure_modes:
+  - no institutional counterpart
+  - no endorsement
+  - unclear shared-network value
+next_action:
+  action: OUTREACH_FIRST
+  deliverable: "Technical/BD discovery with target members before formal proposal"
+  horizon_days: 14
+stop_condition: "No member champion after three targeted conversations"

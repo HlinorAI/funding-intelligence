@@ -1,0 +1,29 @@
+id: celestia-delegation
+name: Celestia Delegation Program
+ecosystem: Celestia
+mechanism: [incentive]
+status:
+  state: ACTIVE
+  source_label: "Validator-specific delegation route; not a generic builder grant"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://celestia.org/
+best_fit:
+  - active validator or infrastructure operator
+  - mainnet operational history and ecosystem contribution
+bad_fit:
+  - dApp startup seeking development funding
+  - no validator operations
+required_evidence:
+  - uptime and performance
+  - infrastructure and compliance
+  - community/ecosystem contribution
+score: {strategic_fit: 15, evidence: 25, mechanism_fit: 20}
+failure_modes:
+  - calling delegation a builder grant
+  - no cohort eligibility
+next_action:
+  action: VERIFY_ELIGIBILITY
+  deliverable: "Validator history and current cohort eligibility check"
+  horizon_days: 2
+stop_condition: "Project is not a validator/infrastructure operator"

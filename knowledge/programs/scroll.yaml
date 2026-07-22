@@ -1,0 +1,32 @@
+id: scroll-security-subsidy
+name: Scroll Security Subsidy
+ecosystem: Scroll
+mechanism: [subsidy]
+status:
+  state: ACTIVE
+  source_label: "Security subsidy active; generic product/community intake closed"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://scroll.io/
+best_fit:
+  - mature codebase committed to Scroll deployment
+  - defined audit scope and security owner
+bad_fit:
+  - raw repository
+  - using audit subsidy as runway
+  - conditional “maybe deploy” plan
+required_evidence:
+  - frozen scope
+  - threat model and security goals
+  - Scroll deployment commitment
+  - provider/scope comparison and remediation plan
+score: {strategic_fit: 15, evidence: 25, mechanism_fit: 20}
+failure_modes:
+  - immature code
+  - no deployment commitment
+  - subsidy counted as company funding
+next_action:
+  action: PREPARE
+  deliverable: "Freeze audit scope and prepare security-cost offset application"
+  horizon_days: 14
+stop_condition: "No mature codebase or no Scroll deployment commitment"

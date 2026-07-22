@@ -1,0 +1,32 @@
+id: avalanche-retro9000
+name: Avalanche Retro9000 and Research Routes
+ecosystem: Avalanche
+mechanism: [retro, proposal_grant]
+status:
+  state: CLOSED
+  source_label: "Last Retro9000 C-Chain round was listed as closed 17.07.2026; other routes need separate check"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://www.avax.network/
+best_fit:
+  - shipped Avalanche impact for a future retro round
+  - formal research with reproducible artifact
+  - public updates and verifiable metrics
+bad_fit:
+  - late apply to a closed round
+  - commercial GTM disguised as research
+  - treating leaderboard position as guaranteed funding
+required_evidence:
+  - Avalanche deployment
+  - public project profile and updates
+  - impact metrics or paper/code/benchmark
+score: {strategic_fit: 20, evidence: 25, mechanism_fit: 15}
+failure_modes:
+  - no shipped impact
+  - weak research artifact
+  - outdated round assumption
+next_action:
+  action: BUILD_FIRST
+  deliverable: "Deploy, document impact and monitor the next official round"
+  horizon_days: 30
+stop_condition: "No measurable Avalanche impact and no exact research fit"

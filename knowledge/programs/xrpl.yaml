@@ -1,0 +1,33 @@
+id: xrpl-routes
+name: XRPL Grants, Accelerators and BD
+ecosystem: XRPL
+mechanism: [proposal_grant, accelerator, bd]
+status:
+  state: VERIFY
+  source_label: "General grant call was not open in the current application manager; accelerators may differ"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://xrpl.org/
+best_fit:
+  - payments, RWA, tokenization or institutional use
+  - XRPL-specific prototype and customer workload
+  - accelerator or partnership route when grant is closed
+bad_fit:
+  - claiming XRPL grant is open without endpoint
+  - generic crypto product
+  - no payment/RWA/institutional thesis
+required_evidence:
+  - current call or named ecosystem owner
+  - XRPL-specific demo/repo
+  - market, team and traction for accelerator
+  - payment/RWA KPI for BD
+score: {strategic_fit: 20, technical_fit: 20, evidence: 20, access: 10}
+failure_modes:
+  - stale grant route
+  - no exact workload
+  - mechanism mismatch
+next_action:
+  action: VERIFY_AND_ROUTE
+  deliverable: "Check calls, then choose grant, accelerator or named BD owner"
+  horizon_days: 2
+stop_condition: "No current route and no XRPL-specific customer/workload signal"

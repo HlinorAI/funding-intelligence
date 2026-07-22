@@ -1,0 +1,32 @@
+id: oasis-sapphire
+name: Oasis Sapphire Funding and BD
+ecosystem: Oasis
+mechanism: [proposal_grant, bd]
+status:
+  state: VERIFY
+  source_label: "Current public intake unclear; old grant pages must not be treated as live"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://oasisprotocol.org/
+best_fit:
+  - confidential execution is essential to the architecture
+  - selective disclosure, privacy or compliance workflow
+  - small PoC with technical champion
+bad_fit:
+  - old grant form without current confirmation
+  - privacy as a keyword only
+  - full proposal before route confirmation
+required_evidence:
+  - Sapphire-specific architecture
+  - confidentiality primitive and disclosure model
+  - PoC and users/integrators
+score: {strategic_fit: 25, technical_fit: 25, evidence: 15, access: 10}
+failure_modes:
+  - stale page
+  - no technical champion
+  - no real confidential workflow
+next_action:
+  action: VERIFY_AND_OUTREACH
+  deliverable: "One-page architecture, PoC outline and targeted ecosystem outreach"
+  horizon_days: 2
+stop_condition: "No active route or champion after focused verification"

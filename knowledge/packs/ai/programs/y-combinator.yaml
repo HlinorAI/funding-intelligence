@@ -1,0 +1,48 @@
+id: y-combinator
+name: Y Combinator
+ecosystem: Y Combinator
+mechanism: [accelerator, investment]
+resource_type: [accelerator, venture_investment, founder_network]
+status:
+  state: OPEN
+  source_label: "Official application page listed Summer 2026 applications, including late applications; batch windows change"
+  last_checked: 2026-07-22
+  needs_verification: true
+  official_source: https://www.ycombinator.com/apply
+verification:
+  actual_endpoint: https://www.ycombinator.com/apply
+  endpoint_kind: cohort_application
+  status_check: "Confirm current batch, deadline/late-application policy and application availability"
+  source_verified: true
+  verified_at: 2026-07-22
+  verified_via: official_web_source
+decision_policy:
+  missing_proof: BUILD_FIRST
+  readiness_mode: build_proof
+routing:
+  verticals: [ai, artificial_intelligence, agents, agent_infrastructure, software, b2b]
+  stages: [idea, prototype, early_product, seed, revenue]
+  goals: [funding, accelerator, partnerships]
+best_fit:
+  - venture-scale startup with clear problem and team
+  - AI product with differentiated technical or distribution thesis
+  - founders ready for application, interview and accelerator process
+bad_fit:
+  - applying only to obtain cloud credits
+  - no clear customer/problem
+  - no founder commitment or execution proof
+required_evidence:
+  - concise application
+  - product/demo or clear build proof
+  - team and founder-market fit
+  - customer/problem thesis
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - confusing accelerator selection with grant
+  - generic AI story
+  - no customer insight
+next_action:
+  action: PREPARE_AND_VERIFY
+  deliverable: "Application narrative, demo and batch/deadline verification"
+  horizon_days: 14
+stop_condition: "No clear customer problem, founder fit or current application window"

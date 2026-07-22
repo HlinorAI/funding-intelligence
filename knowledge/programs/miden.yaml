@@ -1,0 +1,33 @@
+id: miden-pioneer
+name: Miden Pioneer Program
+ecosystem: Miden
+mechanism: [proposal_grant, accelerator]
+status:
+  state: VERIFY
+  source_label: "Staged PoC to invited scale-up; current intake endpoint must be confirmed"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://miden.xyz/
+best_fit:
+  - privacy/compliance/RWA/payments workflow matching a published lighthouse use case
+  - advanced application with Miden-native thesis
+  - team able to build a PoC before asking for scale-up
+bad_fit:
+  - generic technology deck
+  - asking for Phase 2 before design partners or production plan
+  - ignoring buyer access and ecosystem maturity
+required_evidence:
+  - Miden PoC
+  - execution/data/security boundary
+  - compliance/disclosure model
+  - user workflow and design partners
+score: {strategic_fit: 25, technical_fit: 25, evidence: 15, mechanism_fit: 15}
+failure_modes:
+  - no lighthouse fit
+  - scale-up ask without Phase 1 proof
+  - grant size used as proxy for market demand
+next_action:
+  action: BUILD_FIRST
+  deliverable: "Three-week PoC with one lighthouse workflow and Phase 1 proposal"
+  horizon_days: 21
+stop_condition: "No Miden-native workflow or no buyer/design-partner signal"

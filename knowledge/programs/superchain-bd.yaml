@@ -1,0 +1,33 @@
+id: superchain-strategic-bd
+name: Superchain Strategic BD
+ecosystem: Superchain
+mechanism: [bd, retro]
+status:
+  state: WATCH
+  source_label: "Strategic route starts with one anchor deployment, not a universal grant ask"
+  last_checked: 2026-07-20
+  needs_verification: true
+  official_source: https://gov.optimism.io/
+best_fit:
+  - one production anchor chain
+  - reusable interface and two downstream demand signals
+  - measurable cross-chain economics
+bad_fit:
+  - “fund deployment everywhere”
+  - cross-chain story before first proof
+  - no named L2 users
+required_evidence:
+  - anchor deployment
+  - common technical interface
+  - two LOIs or demand signals
+  - KPI dashboard
+score: {strategic_fit: 25, evidence: 25, mechanism_fit: 15, access: 10}
+failure_modes:
+  - universal layer without demand
+  - no shared component
+  - no outcome measurement
+next_action:
+  action: SHIP
+  deliverable: "Anchor deployment, two ecosystem conversations and reusable interface"
+  horizon_days: 30
+stop_condition: "No anchor adoption or no second-chain demand signal"
