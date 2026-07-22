@@ -42,12 +42,41 @@ PRIVATE_PATH_PATTERNS = (
     re.compile(r"^history/(applications|feedback)\.yaml$"),
     re.compile(r"^reports(?:/|$)"),
 )
-CREDENTIAL_PATTERNS = (
-    re.compile(r"(?:ghp_|github_pat_|sk-[A-Za-z0-9]|AKIA[0-9A-Z]{16})"),
-    re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
-    re.compile(r"(?:api[_-]?key|secret|password)\s*[:=]\s*\S+", re.IGNORECASE),
-    re.compile(r"/(?:Users|home)/[A-Za-z0-9_.-]+/"),
-)
+
+
+def credential_patterns() -> tuple[re.Pattern[str], ...]:
+    """Build credential signatures without storing complete token prefixes in source."""
+
+    provider_prefixes = (
+        "".join(("gh", "p_")),
+        "".join(("github_", "pat_")),
+        "".join(("sk", "-")),
+        "AKIA",
+    )
+    provider_tokens = "|".join(
+        (
+            re.escape(provider_prefixes[0]),
+            re.escape(provider_prefixes[1]),
+            f"{re.escape(provider_prefixes[2])}[A-Za-z0-9]",
+            f"{re.escape(provider_prefixes[3])}[0-9A-Z]{{16}}",
+        )
+    )
+    private_key_marker = "".join(("-" * 5, "BEGIN "))
+    private_key_suffix = "".join((" KEY", "-" * 5))
+    credential_fields = "|".join(
+        (
+            "".join(("api", r"[_-]?", "key")),
+            "".join(("sec", "ret")),
+            "".join(("pass", "word")),
+        )
+    )
+    private_path_roots = "|".join(("Users", "home"))
+    return (
+        re.compile(f"(?:{provider_tokens})"),
+        re.compile(f"{re.escape(private_key_marker)}[A-Z ]*{re.escape(private_key_suffix)}"),
+        re.compile(f"(?:{credential_fields})" + r"\s*[:=]\s*\S+", re.IGNORECASE),
+        re.compile(f"/(?:{private_path_roots})/" + r"[A-Za-z0-9_.-]+/"),
+    )
 
 
 def load_yaml(path: Path) -> Any:
@@ -173,8 +202,37 @@ def tracked_files() -> list[str]:
     return [item for item in result.stdout.decode().split("\0") if item]
 
 
+def validate_credential_scanner(errors: list[str]) -> None:
+    """Regression-test credential detection and guard against scanner self-matches."""
+
+    provider_prefixes = (
+        "".join(("gh", "p_")),
+        "".join(("github_", "pat_")),
+        "".join(("sk", "-")),
+        "AKIA",
+    )
+    examples = (
+        ("provider token 1", provider_prefixes[0] + "synthetic"),
+        ("provider token 2", provider_prefixes[1] + "synthetic"),
+        ("provider token 3", provider_prefixes[2] + "A"),
+        ("provider token 4", provider_prefixes[3] + "A" * 16),
+        ("private key marker", "".join(("-" * 5, "BEGIN ", "RSA ", "PRIVATE KEY", "-" * 5))),
+        ("credential assignment", "".join(("api", "_key: synthetic"))),
+        ("private path", "/" + "Users" + "/example/private/file"),
+    )
+    patterns = credential_patterns()
+    for label, example in examples:
+        if not any(pattern.search(example) for pattern in patterns):
+            errors.append(f"credential scanner regression: did not detect {label}")
+
+    source = Path(__file__).read_text(encoding="utf-8")
+    if any(pattern.search(source) for pattern in patterns):
+        errors.append("credential scanner regression: validator source matches its own signatures")
+
+
 def validate_public_tracking(errors: list[str]) -> None:
     files = tracked_files()
+    patterns = credential_patterns()
     for path in files:
         if any(pattern.search(path) for pattern in PRIVATE_PATH_PATTERNS):
             errors.append(f"tracked private path: {path}")
@@ -185,7 +243,7 @@ def validate_public_tracking(errors: list[str]) -> None:
             text = absolute.read_text(encoding="utf-8")
         except UnicodeDecodeError:
             continue
-        for pattern in CREDENTIAL_PATTERNS:
+        for pattern in patterns:
             if pattern.search(text):
                 errors.append(f"credential or private-path pattern in tracked file {path}: {pattern.pattern}")
 
@@ -238,6 +296,7 @@ def main() -> int:
     validate_expected_fixtures(errors)
     validate_issue_forms(errors)
     validate_yaml_syntax(errors)
+    validate_credential_scanner(errors)
     validate_public_tracking(errors)
     validate_generated_reports(report_schema, route_schema, errors)
 

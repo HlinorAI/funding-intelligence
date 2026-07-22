@@ -12,6 +12,10 @@ The project uses semantic version tags for public releases. Program status chang
 - GitHub Actions validation on pushes and pull requests.
 - Formal project, program-card, route-verification, and runner-report schemas with a public contract validator.
 
+### Fixed
+
+- Prevented the credential scanner from matching its own source while preserving detection of provider-token signatures, private-key markers, credential assignments, and private paths.
+
 ### Planned
 
 - Run evaluations on three external projects and collect human feedback.

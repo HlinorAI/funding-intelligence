@@ -22,10 +22,12 @@ Last updated: 2026-07-22
 - Added public Bug Report and Feature Request issue forms to `main`.
 - Added GitHub Actions validation for pushes and pull requests.
 - Added formal YAML schemas and `runtime/validate_schemas.py` for public contract validation.
+- Resolved the CI failure caused by the credential scanner matching literal signatures in its own validator source; added synthetic credential and self-match regression checks.
 
 ## In progress
 
 - Keep the first public release limited to the current deterministic capability; do not expand the database or add a UI in this release.
+- Keep `v0.1.2` unreleased until the GitHub Actions `Validate` workflow is green on the fix commit.
 - Complete the public end-to-end AI example and route-specific evidence requirements before tagging `v0.1.2`.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
