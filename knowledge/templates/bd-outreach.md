@@ -25,7 +25,7 @@ Best,
 
 ## Follow-up sequence
 
-1. Day 0: send one-page brief.
+1. Day 0: send a one-page brief.
 2. Day 4: add one new proof point or artifact.
 3. Day 10: ask for the correct owner and close the loop.
 

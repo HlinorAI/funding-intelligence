@@ -1,6 +1,6 @@
 # Project input schema
 
-`project.yaml` — единый вход для evaluator.
+`project.yaml` is the single evaluator input.
 
 ```yaml
 schema_version: 1

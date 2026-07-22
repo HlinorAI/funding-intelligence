@@ -6,7 +6,7 @@ Use the deterministic runner first:
 python3 runtime/runner.py tests/cases/ai_startup.yaml
 ```
 
-For a real project:
+For a project supplied by a user:
 
 ```bash
 python3 runtime/runner.py project.yaml --output report.yaml
@@ -17,9 +17,9 @@ Then use `agent/FUNDING_ANALYST.md` to turn the machine report into a concise op
 Required sequence:
 
 1. Extract facts and preserve `UNKNOWN`.
-2. Classify stage, sector, goals and likely mechanism.
+2. Classify stage, sector, goals, and likely mechanism.
 3. Run score and penalties.
 4. Run the anti-hallucination gate.
 5. Shortlist at most seven routes.
-6. Write NOW/NEXT/LATER/DO NOT APPLY.
-7. Add 7/30/90-day execution plan and missing proof.
+6. Write `NOW` / `NEXT` / `LATER` / `DO_NOT_APPLY`.
+7. Add a 7/30/90-day execution plan and missing proof.

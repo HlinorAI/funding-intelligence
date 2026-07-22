@@ -1,83 +1,183 @@
 # Funding Intelligence
 
-**v0.1 — deterministic opportunity routing and verification**
+[Русский](README.ru.md)
 
-Внутренняя capability для выбора наиболее вероятного маршрута получения ресурса. Это не SaaS, не интерфейс и не автоматическая система подачи заявок.
+An evidence-gated, deterministic engine for routing startups and technical projects to funding, accelerator, cloud-credit, investment, incentive, and business-development opportunities.
 
-## Вход
+## Why this exists
 
-- описание проекта и продукта;
-- сектор, стадия и география;
-- сайт, GitHub, demo и deployment, если они подтверждены;
-- пользователи, пилоты, выручка и метрики;
-- цель: деньги, кредиты, партнёрства или акселератор;
-- `evidence/<project>/` с дополнительными фактами.
+Generic LLM workflows tend to produce long lists of plausible-looking programs. Funding Intelligence is designed to make fewer, more defensible decisions:
 
-Неизвестные данные передаются как `unknown`. Агент не заполняет их предположениями.
+- irrelevant routes are rejected before recommendation;
+- `unknown` is not treated as evidence;
+- a transport failure is not treated as `CLOSED`;
+- a failed hard gate cannot become `NOW` through prose or a high raw score;
+- every recommendation includes a reason, next action, and stop condition.
 
-## Выход
+The project is an internal capability and open-source engine prototype, not a funding marketplace or an application service.
 
-Система разделяет независимые состояния:
+## What it does
 
-- статус программы;
-- доступность endpoint;
-- fit проекта;
-- готовность проекта;
-- требуемые доказательства;
-- следующий шаг и stop condition.
+- classifies project stage, sector, goals, and mechanism fit;
+- matches projects to local opportunity cards and vertical packs;
+- calculates a deterministic score and penalties;
+- gates recommendations on structured evidence;
+- keeps program status, endpoint status, endpoint transport, project fit, and project readiness independent;
+- emits route-specific decisions;
+- preserves an explainable `decision_trace` in the machine report.
 
-Основные решения v0.1:
+## What it does not do
 
-- `NOW` — можно выполнять действие сейчас;
-- `VERIFY_FIRST` — сначала подтвердить маршрут;
-- `COMPLETE_ELIGIBILITY_DATA` — сначала заполнить eligibility-данные;
-- `VERIFY_ACCESS_PATH` — сначала найти фактический путь входа;
-- `BUILD_FIRST` — сначала усилить продукт или доказательства;
-- `BUILD_NVIDIA_USE_CASE` — сначала доказать нативный NVIDIA/GPU use case;
-- `DO_NOT_APPLY` / `NO_ACTIONABLE_ENDPOINT` — не тратить время.
+- guarantee funding, acceptance, or investment;
+- submit applications automatically;
+- treat credits, incentives, accelerator access, or BD value as cash grants;
+- invent missing facts or convert claims into evidence;
+- treat a dated snapshot as permanent truth;
+- replace legal, financial, compliance, or investment advice.
 
-## Что система не обещает
+## Resource types
 
-- принятие заявки или получение финансирования;
-- актуальный статус без проверенного официального источника;
-- превращение cloud credits, BD или акселератора в cash grant;
-- автоматическую подачу, юридическую или инвестиционную рекомендацию;
-- достоверность фактов, которых нет во входных данных.
+- `proposal_grant` — review-based funding against scope, milestones, and reporting;
+- `retro` — ship first, then seek a reward for demonstrated impact;
+- `incentive` — rewards tied to activity, liquidity, or network outcomes;
+- `accelerator` / `investment` — selection, capital, mentorship, or investor access;
+- `bd` — strategic partnerships, pilots, integrations, and distribution;
+- `cloud_credits` / `startup_support` — infrastructure credits, technical support, or founder resources.
 
-## Команды
+## Decision examples
 
-Проверка всей базовой тестовой матрицы:
+- `COMPLETE_ELIGIBILITY_DATA` — the route may be relevant, but required company or account facts are missing;
+- `VERIFY_ACCESS_PATH` — the opportunity exists as a category, but the actual path into the benefit is not established;
+- `BUILD_FIRST` — product, traction, or application proof must be built before applying;
+- `BUILD_NVIDIA_USE_CASE` — the project lacks a credible native NVIDIA/GPU use case;
+- `DO_NOT_APPLY` — the mechanism, stage, ecosystem, or project fit is wrong;
+- `NO_ACTIONABLE_ENDPOINT` — no usable intake endpoint is known.
 
-```bash
-python3 runtime/runner.py --check-all
+## Repository structure
+
+```text
+agent/       operator policy for the Funding Intelligence Agent
+knowledge/   program cards, vertical packs, rules, and templates
+runtime/     schemas, deterministic runner, and route verifier
+tests/       public synthetic cases and expected decisions
+examples/    public sample report artifacts
+history/     documentation for human-maintained application history
 ```
 
-Проверка пяти AI-маршрутов для Hlinor по source snapshot:
+Private evidence, live project fixtures, operational history, and generated reports are excluded by `.gitignore`.
+
+## Installation
+
+Python 3 with PyYAML is required:
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+No web service or database is required for the local runner.
+
+## Usage
+
+Run the deterministic evaluator on a public synthetic AI fixture:
+
+```bash
+python3 runtime/runner.py tests/cases/ai_startup.yaml --output /tmp/example-ai-report.yaml
+```
+
+Run route verification on a public synthetic Web3 fixture. This deliberately uses a card without a verified source snapshot, so it demonstrates the `VERIFY_FIRST` path:
 
 ```bash
 python3 runtime/verify_route.py \
-  tests/live/hlinor.yaml \
-  --all-ai \
-  --evidence-dir evidence/hlinor \
-  --verified-at 2026-07-22
+  tests/cases/web3.yaml \
+  --route base-funding-ladder \
+  --output /tmp/base-route-verification.yaml
 ```
 
-Для HTTP transport probe добавляется `--live`. Сетевая недоступность при наличии проверенного официального источника не переименовывается в `CLOSED`.
+Add `--live` only when you explicitly want an HTTP transport probe. A failed probe does not automatically mean that a program is closed.
 
-## Hlinor: v0.1 snapshot
+## Example output
 
-Для Hlinor текущая система маршрутизирует:
+The public fixture `tests/cases/ai_startup.yaml` represents an `Example AI Infrastructure Startup`. Its current expected contract is:
 
-- AWS Activate — `COMPLETE_ELIGIBILITY_DATA`;
-- Microsoft for Startups — `COMPLETE_ELIGIBILITY_DATA`;
-- NVIDIA Inception — `BUILD_NVIDIA_USE_CASE`;
-- OpenAI for Startups — `VERIFY_ACCESS_PATH`;
-- Y Combinator — `BUILD_FIRST`.
+```yaml
+project: Example AI Infrastructure Startup
+decision: VERIFY_FIRST
+gate_passed: false
+must_include: microsoft-for-startups
+```
 
-Это не пять обещаний подачи. AWS Activate и Microsoft for Startups в данном наборе описываются прежде всего как startup/cloud-credit и support-маршруты, NVIDIA — как startup support с требованием релевантного GPU/NVIDIA use case, OpenAI — как маршрут с отдельно проверяемым access path, YC — как accelerator/investment route. Официальные точки проверки карточек: [AWS Activate](https://aws.amazon.com/startups/credits/), [Microsoft for Startups](https://learn.microsoft.com/en-us/startups/microsoft-for-startups/overview), [NVIDIA Inception](https://www.nvidia.com/en-us/startups/), [OpenAI for Startups](https://openai.com/business/why-openai/startups/), [Y Combinator Apply](https://www.ycombinator.com/apply).
+The compact sample artifact is available at [examples/sample_report.yaml](examples/sample_report.yaml).
 
-Читаемый результат сохранён в [reports/hlinor.md](/Users/andrejananev/Documents/funding-intelligence/reports/hlinor.md), а исходные подтверждения и пробелы — в [evidence/hlinor/](/Users/andrejananev/Documents/funding-intelligence/evidence/hlinor/).
+## Knowledge coverage
 
-## Граница следующего теста
+The repository currently contains:
 
-`tests/cases/web3.yaml` используется только как вертикальный regression fixture. Это не внешний клиентский проект. Для production-like внешнего теста нужны три реальных входных профиля и человеческая оценка отчётов; до их появления база и verifier не расширяются.
+- an AI opportunity pack covering startup programs, cloud/API credits, technical support, enterprise access, and accelerator/investment routes;
+- Web3 and ecosystem cards for selected chains, infrastructure, incentives, retro routes, and BD paths;
+- shared mechanism, scoring, rejection, status-verification, and stop-condition rules.
+
+This is a deliberately bounded knowledge snapshot. It is not a comprehensive global database, and a route outside the cards is not evidence that the project has no other options.
+
+## Status verification model
+
+Route verification keeps these states separate:
+
+- `program_status` — the status recorded for the program, with source and verification date;
+- `endpoint_status` — whether an actionable endpoint is known;
+- endpoint transport — whether the runtime could reach that URL in a live probe;
+- `project_fit` — how the structured project facts match the route;
+- `project_readiness` — whether the evidence and eligibility gates are complete;
+- final `decision` — the route-specific action produced by the policy.
+
+If an official source was checked but a later HTTP probe cannot reach it, the verifier preserves the source-backed status and records transport as `UNREACHABLE`. It does not silently convert a network problem into `CLOSED`.
+
+## Tests
+
+Run the public regression suite:
+
+```bash
+python3 runtime/runner.py --check-all
+python3 -m py_compile runtime/runner.py runtime/verify_route.py
+```
+
+Validate all public YAML files:
+
+```bash
+python3 - <<'PY'
+from pathlib import Path
+import yaml
+
+files = sorted(Path(".").rglob("*.yaml"))
+for path in files:
+    if any(part in {".git", ".venv"} for part in path.parts):
+        continue
+    with path.open("r", encoding="utf-8") as f:
+        yaml.safe_load(f)
+print(f"yaml_ok {len(files)}")
+PY
+```
+
+## Contributing
+
+When adding a program card:
+
+1. identify the mechanism and resource type;
+2. link an official source and record a snapshot date;
+3. document fit, bad fit, required evidence, next action, and stop condition;
+4. do not rely on an aggregator as the only verification source;
+5. add or update a public synthetic fixture and expected decision;
+6. run the regression and YAML checks.
+
+Do not add real project evidence, credentials, contacts, internal metrics, or generated private reports.
+
+## Limitations
+
+- program cards are snapshots and require re-verification before a real application;
+- scoring is deterministic but only as good as the structured facts and card quality;
+- the current knowledge coverage is selective;
+- human review is still required for claims, eligibility, and execution decisions;
+- no license file is included yet. The repository's licensing terms are intentionally left undecided.
+
+## Official source examples
+
+The AI pack currently points to official pages such as [AWS Activate](https://aws.amazon.com/startups/credits/), [Microsoft for Startups](https://learn.microsoft.com/en-us/startups/microsoft-for-startups/overview), [NVIDIA Inception](https://www.nvidia.com/en-us/startups/), [OpenAI for Startups](https://openai.com/business/why-openai/startups/), and [Y Combinator Apply](https://www.ycombinator.com/apply). These links document source locations; they do not guarantee eligibility or acceptance.

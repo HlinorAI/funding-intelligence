@@ -2,12 +2,12 @@
 
 ## Hard gates
 
-1. `CLOSED` не может попасть в `NOW` или получить совет `APPLY`.
-2. `VERIFY` и `WATCH` требуют проверки official source и actual intake endpoint.
-3. Механизм обязан совпадать с ask: retro не финансирует идею до shipping, incentive не является runway, investment не является grant.
-4. Для chain/ecosystem route нужен конкретный native value: deployment, architecture, users, integrations или public-good artifact.
-5. Если обязательное evidence отсутствует, итоговая рекомендация — `BUILD FIRST`, а не speculative application.
-6. Если проект не указывает target/native ecosystem, chain-specific card получает `DO_NOT_APPLY`, а не «слабый fit».
+1. `CLOSED` cannot reach `NOW` or receive an `APPLY` recommendation.
+2. `VERIFY` and `WATCH` require an official-source and actual-intake-endpoint check.
+3. The mechanism must match the ask: retro does not fund an idea before shipping, incentive is not runway, and investment is not a grant.
+4. A chain/ecosystem route requires concrete native value: deployment, architecture, users, integrations, or a public-good artifact.
+5. If required evidence is missing, the recommendation is `BUILD_FIRST`, not a speculative application.
+6. If a project does not specify a target/native ecosystem, a chain-specific card receives `DO_NOT_APPLY`, not “weak fit.”
 
 ## Base score — 100
 
@@ -20,28 +20,30 @@
 
 ## Penalties
 
-- `-25`: закрытая программа предложена как apply;
-- `-20`: generic multichain port без native thesis;
-- `-15`: pre-funding ask в retro/incentive route;
-- `-15`: нет shipped product там, где он обязателен;
-- `-10`: бюджет — только payroll без ecosystem outcome;
-- `-10`: нет измеримых milestones;
-- `-10`: обещаны users/TVL без distribution plan.
+- `-25`: a closed program is presented as an application route;
+- `-20`: generic multichain port without a native thesis;
+- `-15`: pre-funding ask in a retro/incentive route;
+- `-15`: no shipped product where it is required;
+- `-10`: budget is only payroll without an ecosystem outcome;
+- `-10`: no measurable milestones;
+- `-10`: users/TVL are promised without a distribution plan.
 
 ## Interpretation
 
 - `80–100`: `NOW`;
-- `65–79`: `NOW` или `NEXT` после закрытия gaps;
+- `65–79`: `NOW` or `NEXT` after closing gaps;
 - `50–64`: `LATER` / relationship building;
-- `<50`: `DO NOT APPLY`.
+- `<50`: `DO_NOT_APPLY`.
+
+The anti-hallucination gate can still block any score band.
 
 ## Output contract
 
-Для каждого выбранного маршрута агент указывает:
+For every selected route, the agent states:
 
-- fit и score;
-- точный mechanism и status;
-- почему подходит;
+- fit and score;
+- exact mechanism and status;
+- why it fits;
 - missing proof;
-- следующий шаг;
+- next step;
 - stop condition.
