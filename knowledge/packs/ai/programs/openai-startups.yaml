@@ -36,6 +36,15 @@ required_evidence:
   - company name and key team contacts
   - valid business email
   - basic funding details
+evidence_requirements:
+  bd:
+    - concrete OpenAI API use case with named technical owner
+    - product demo and target customer workflow
+    - partnership request with a measurable adoption or integration outcome
+  subsidy:
+    - company identity and valid business contact
+    - API usage estimate and model dependency
+    - VC referral or other eligibility path for any gated credit benefit
 score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
 failure_modes:
   - no referral path for credit benefits

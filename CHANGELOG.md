@@ -11,6 +11,8 @@ The project uses semantic version tags for public releases. Program status chang
 - Public GitHub issue forms for bug reports and feature requests.
 - GitHub Actions validation on pushes and pull requests.
 - Formal project, program-card, route-verification, and runner-report schemas with a public contract validator.
+- A complete synthetic AI startup example with project facts, evidence pack, runner output contract, and verifier commands.
+- Mechanism-specific evidence requirements for the AI opportunity pack.
 
 ### Fixed
 
@@ -21,8 +23,6 @@ The project uses semantic version tags for public releases. Program status chang
 - Run evaluations on three external projects and collect human feedback.
 - Add live web verification as a separate adapter after the decision logic is validated.
 - Improve knowledge coverage selectively, based on observed project needs.
-- Add a complete public end-to-end AI example with evidence and expected output.
-- Replace generic route proof lists with route-specific evidence requirements.
 
 ## [0.1.0] - 2026-07-22
 

@@ -1,0 +1,6 @@
+project: Example AI Infrastructure Startup
+users: 5000
+pilots: 2
+revenue: false
+usage_metrics: weekly active teams and inference volume are tracked
+retention: early retention cohort is measured but not yet public

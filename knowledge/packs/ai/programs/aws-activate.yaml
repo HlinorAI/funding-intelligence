@@ -37,6 +37,11 @@ required_evidence:
   - accurate funding stage
   - AWS account and business profile
   - Activate Provider Org ID when using Portfolio tier
+evidence_requirements:
+  subsidy:
+    - legal entity, headquarters and current funding stage
+    - AWS account and current Activate access path
+    - monthly AWS/Bedrock workload estimate tied to the requested credits
 score: {strategic_fit: 20, evidence: 20, mechanism_fit: 15}
 failure_modes:
   - applying for the wrong package

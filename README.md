@@ -96,6 +96,22 @@ python3 runtime/verify_route.py \
 
 Add `--live` only when you explicitly want an HTTP transport probe. A failed probe does not automatically mean that a program is closed.
 
+Run the complete public AI example, including its evidence pack:
+
+```bash
+python3 runtime/runner.py \
+  examples/example-ai-startup/project.yaml \
+  --output /tmp/example-ai-report.yaml
+
+python3 runtime/verify_route.py \
+  examples/example-ai-startup/project.yaml \
+  --all-ai \
+  --evidence-dir examples/example-ai-startup/evidence \
+  --output /tmp/example-ai-routes.yaml
+```
+
+See [examples/example-ai-startup/README.md](examples/example-ai-startup/README.md) for the complete copyable input and expected decision contract. The runner remains conservative when a card needs status verification; the independent verifier can reach a route-specific decision when the source snapshot and project evidence satisfy its gates.
+
 ## Example output
 
 The public fixture `tests/cases/ai_startup.yaml` represents an `Example AI Infrastructure Startup`. Its current expected contract is:
@@ -192,3 +208,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [CHANGELOG.md](CHANGELOG.md), and [WORKB
 ## Official source examples
 
 The AI pack currently points to official pages such as [AWS Activate](https://aws.amazon.com/startups/credits/), [Microsoft for Startups](https://learn.microsoft.com/en-us/startups/microsoft-for-startups/overview), [NVIDIA Inception](https://www.nvidia.com/en-us/startups/), [OpenAI for Startups](https://openai.com/business/why-openai/startups/), and [Y Combinator Apply](https://www.ycombinator.com/apply). These links document source locations; they do not guarantee eligibility or acceptance.
+
+AI program cards also carry mechanism-specific `evidence_requirements`. Cloud-credit routes ask for account, legal, geography and workload proof; BD routes ask for a named workload, champion or buyer and an outcome; accelerator/investment routes ask for founder, market, product and traction proof; NVIDIA routes require a native GPU/NVIDIA use case.

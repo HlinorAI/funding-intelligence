@@ -1,0 +1,5 @@
+project: Example AI Infrastructure Startup
+repository: https://github.com/example/example-ai-platform
+working_demo: true
+architecture: API gateway, inference routing and evaluation pipeline
+deployment_proof: production deployment with synthetic public metrics

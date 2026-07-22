@@ -1,0 +1,38 @@
+schema_version: 1
+name: Example AI Infrastructure Startup
+description: A synthetic seed-stage company providing an API platform for production AI workloads.
+sector: [artificial_intelligence, developer_tools]
+stage: seed
+geography: [EU]
+product:
+  description: API platform for deploying and monitoring production AI workloads.
+  customers: [software teams, startups]
+  technology: [machine_learning, api, kubernetes]
+  ecosystems: [OpenAI, AWS]
+evidence:
+  site: true
+  github: true
+  live_demo: true
+  live_deployment: true
+  users: 5000
+  revenue: false
+  pilots: 2
+  partners: 0
+  metrics: true
+  audit: false
+needs:
+  goals: [funding, partnerships, technical_support]
+  funding: 500000
+  runway_months: 12
+constraints:
+  no_token: true
+  no_dilution: false
+  native_ecosystems: []
+  target_ecosystems: []
+  generic_multichain: false
+readiness:
+  budget: true
+  milestones: true
+access:
+  champions: 0
+  warm_intros: 0

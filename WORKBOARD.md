@@ -23,12 +23,14 @@ Last updated: 2026-07-22
 - Added GitHub Actions validation for pushes and pull requests.
 - Added formal YAML schemas and `runtime/validate_schemas.py` for public contract validation.
 - Resolved the CI failure caused by the credential scanner matching literal signatures in its own validator source; added synthetic credential and self-match regression checks.
+- Added a copyable public AI end-to-end example with evidence pack and expected route decisions.
+- Added mechanism-specific evidence requirements to all AI opportunity cards and schema checks for their coverage.
 
 ## In progress
 
 - Keep the first public release limited to the current deterministic capability; do not expand the database or add a UI in this release.
 - Keep `v0.1.2` unreleased until the GitHub Actions `Validate` workflow is green on the fix commit.
-- Complete the public end-to-end AI example and route-specific evidence requirements before tagging `v0.1.2`.
+- Run the final release CI check, then tag and publish `v0.1.2`.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
@@ -77,6 +79,6 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - [x] Public issue forms added to `main`.
 - [x] CI workflow added for push and pull request validation.
 - [x] Formal schemas and schema validator added.
-- [ ] Public end-to-end AI example added.
-- [ ] Route-specific evidence requirements completed.
+- [x] Public end-to-end AI example added.
+- [x] Route-specific evidence requirements completed.
 - [ ] Tag and GitHub Release `v0.1.2` published.

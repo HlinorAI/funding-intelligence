@@ -1,0 +1,7 @@
+project: Example AI Infrastructure Startup
+product: production AI infrastructure API
+website: https://example.invalid/ai-platform
+api_use_case: inference routing, evaluation and observability for production AI teams
+problem: software teams need reliable deployment and cost controls for AI workloads
+customer: software teams and startups
+technology: Kubernetes and managed model APIs

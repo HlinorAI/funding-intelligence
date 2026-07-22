@@ -18,7 +18,11 @@ SCHEMA_DIR = ROOT / "schemas"
 
 PROGRAM_CARD_PATHS = sorted((ROOT / "knowledge" / "programs").glob("*.yaml"))
 PROGRAM_CARD_PATHS += sorted((ROOT / "knowledge" / "packs").glob("*/programs/*.yaml"))
+AI_PROGRAM_CARD_PATHS = sorted((ROOT / "knowledge" / "packs" / "ai" / "programs").glob("*.yaml"))
 PROJECT_PATHS = sorted((ROOT / "tests" / "cases").glob("*.yaml"))
+EXAMPLE_DIR = ROOT / "examples" / "example-ai-startup"
+EXAMPLE_PROJECT_PATH = EXAMPLE_DIR / "project.yaml"
+EXAMPLE_EXPECTED_PATH = EXAMPLE_DIR / "expected-report.yaml"
 
 DECISION_VALUES = {"NOW", "NEXT", "LATER", "VERIFY_FIRST", "BUILD_FIRST", "DO_NOT_APPLY"}
 RESOURCE_TYPES = {
@@ -123,6 +127,20 @@ def validate_program_card(path: Path, card_schema: dict[str, Any], errors: list[
         for field in ("verified_at", "source_verified", "actual_endpoint"):
             if field not in verification:
                 errors.append(f"{path.relative_to(ROOT)}: verification.{field} is required when verification is present")
+
+    route_requirements = card.get("evidence_requirements")
+    if path in AI_PROGRAM_CARD_PATHS:
+        if not isinstance(route_requirements, dict):
+            errors.append(f"{path.relative_to(ROOT)}: evidence_requirements is required for AI pack cards")
+        else:
+            mechanisms = {str(value) for value in card.get("mechanism", [])}
+            missing_routes = sorted(mechanisms - set(route_requirements))
+            if missing_routes:
+                errors.append(f"{path.relative_to(ROOT)}: missing evidence_requirements for mechanisms {missing_routes}")
+    if isinstance(route_requirements, dict):
+        for route, requirements in route_requirements.items():
+            if not isinstance(requirements, list) or not requirements or not all(isinstance(item, str) and item.strip() for item in requirements):
+                errors.append(f"{path.relative_to(ROOT)}: evidence_requirements.{route} must be a non-empty string list")
 
     resource_types = card.get("resource_type")
     if resource_types is not None:
@@ -282,6 +300,71 @@ def validate_generated_reports(report_schema: dict[str, Any], route_schema: dict
         validate_document(normalize_dates(load_yaml(sample_path)), route_schema, sample_path, errors)
 
 
+def validate_public_example(
+    project_schema: dict[str, Any], report_schema: dict[str, Any], route_schema: dict[str, Any], errors: list[str]
+) -> None:
+    required_files = [
+        EXAMPLE_PROJECT_PATH,
+        EXAMPLE_EXPECTED_PATH,
+        *(EXAMPLE_DIR / "evidence").glob("*.yaml"),
+    ]
+    missing_files = [path for path in required_files if not path.exists()]
+    for path in missing_files:
+        errors.append(f"public example missing file: {path.relative_to(ROOT)}")
+    if missing_files or not EXAMPLE_PROJECT_PATH.exists():
+        return
+
+    project = normalize_dates(load_yaml(EXAMPLE_PROJECT_PATH))
+    validate_document(project, project_schema, EXAMPLE_PROJECT_PATH, errors)
+    sys.path.insert(0, str(ROOT / "runtime"))
+    from runner import build_report, load_yaml as runner_load_yaml
+
+    generated_report = normalize_dates(build_report(runner_load_yaml(EXAMPLE_PROJECT_PATH)))
+    validate_document(generated_report, report_schema, EXAMPLE_PROJECT_PATH.with_name("generated-report.yaml"), errors)
+
+    expected = normalize_dates(load_yaml(EXAMPLE_EXPECTED_PATH))
+    if not isinstance(expected, dict):
+        errors.append(f"{EXAMPLE_EXPECTED_PATH.relative_to(ROOT)}: expected report must be a mapping")
+        return
+    runner_expectation = expected.get("runner") or {}
+    generated_opportunities = {item["program_id"]: item for item in generated_report["opportunities"]}
+    if generated_report["project"] != expected.get("project"):
+        errors.append(f"{EXAMPLE_EXPECTED_PATH.relative_to(ROOT)}: project does not match generated report")
+    primary = generated_report["opportunities"][0]["decision"] if generated_report["opportunities"] else None
+    if primary != runner_expectation.get("primary_decision"):
+        errors.append(f"{EXAMPLE_EXPECTED_PATH.relative_to(ROOT)}: primary runner decision changed")
+    if generated_report["gate"]["passed"] != runner_expectation.get("gate_passed"):
+        errors.append(f"{EXAMPLE_EXPECTED_PATH.relative_to(ROOT)}: runner gate result changed")
+    for route in runner_expectation.get("opportunities", []):
+        program_id = route.get("program_id")
+        actual = generated_opportunities.get(program_id)
+        if actual is None:
+            errors.append(f"{EXAMPLE_EXPECTED_PATH.relative_to(ROOT)}: missing generated route {program_id}")
+        elif actual["decision"] != route.get("decision"):
+            errors.append(f"{EXAMPLE_EXPECTED_PATH.relative_to(ROOT)}: decision changed for {program_id}")
+    if runner_expectation.get("must_not_be_now") and any(item["decision"] == "NOW" for item in generated_report["opportunities"]):
+        errors.append(f"{EXAMPLE_EXPECTED_PATH.relative_to(ROOT)}: an unverified opportunity reached NOW")
+
+    command = [
+        sys.executable,
+        str(ROOT / "runtime" / "verify_route.py"),
+        str(EXAMPLE_PROJECT_PATH),
+        "--all-ai",
+        "--evidence-dir",
+        str(EXAMPLE_DIR / "evidence"),
+    ]
+    process = subprocess.run(command, cwd=ROOT, check=True, capture_output=True, text=True)
+    route_report = normalize_dates(yaml.safe_load(process.stdout))
+    validate_document(route_report, route_schema, EXAMPLE_EXPECTED_PATH, errors)
+    expected_decisions = (expected.get("verifier") or {}).get("decisions") or {}
+    actual_decisions = {item["program_id"]: item["decision"] for item in route_report.get("routes", [])}
+    if len(route_report.get("routes", [])) != (expected.get("verifier") or {}).get("route_count"):
+        errors.append(f"{EXAMPLE_EXPECTED_PATH.relative_to(ROOT)}: verifier route count changed")
+    for program_id, decision in expected_decisions.items():
+        if actual_decisions.get(program_id) != decision:
+            errors.append(f"{EXAMPLE_EXPECTED_PATH.relative_to(ROOT)}: verifier decision changed for {program_id}")
+
+
 def main() -> int:
     errors: list[str] = []
     project_schema = schema("project.schema.yaml")
@@ -299,6 +382,7 @@ def main() -> int:
     validate_credential_scanner(errors)
     validate_public_tracking(errors)
     validate_generated_reports(report_schema, route_schema, errors)
+    validate_public_example(project_schema, report_schema, route_schema, errors)
 
     if errors:
         for error in errors:

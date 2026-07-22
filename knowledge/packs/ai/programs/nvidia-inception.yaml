@@ -36,6 +36,15 @@ required_evidence:
   - incorporated company
   - at least one developer
   - product and AI workload description
+evidence_requirements:
+  bd:
+    - named GPU/NVIDIA workload and technical champion
+    - customer or partner workload that NVIDIA access could accelerate
+    - measurable integration, deployment or performance target
+  subsidy:
+    - incorporated company and working technical product
+    - CUDA, GPU, TensorRT, Triton, NIM or equivalent native dependency
+    - concrete compute requirement and expected performance benefit
 score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
 failure_modes:
   - benefits treated as cash funding

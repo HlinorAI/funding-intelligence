@@ -36,6 +36,15 @@ required_evidence:
   - product/demo or clear build proof
   - team and founder-market fit
   - customer/problem thesis
+evidence_requirements:
+  accelerator:
+    - founder team, roles and founder-market fit
+    - product demo plus customer problem and learning velocity
+    - concise application narrative and current batch/deadline fit
+  investment:
+    - market size, growth thesis and customer evidence
+    - fundraising status, cap table and use of funds
+    - product velocity, retention or revenue evidence
 score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
 failure_modes:
   - confusing accelerator selection with grant

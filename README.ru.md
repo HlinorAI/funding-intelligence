@@ -96,6 +96,22 @@ python3 runtime/verify_route.py \
 
 Добавляй `--live` только если нужен HTTP transport probe. Ошибка probe сама по себе не означает, что программа закрыта.
 
+Полный публичный AI example с evidence pack:
+
+```bash
+python3 runtime/runner.py \
+  examples/example-ai-startup/project.yaml \
+  --output /tmp/example-ai-report.yaml
+
+python3 runtime/verify_route.py \
+  examples/example-ai-startup/project.yaml \
+  --all-ai \
+  --evidence-dir examples/example-ai-startup/evidence \
+  --output /tmp/example-ai-routes.yaml
+```
+
+Полный copyable input и expected decision contract находятся в [examples/example-ai-startup/README.md](examples/example-ai-startup/README.md). Runner остаётся консервативным, если карточке нужна проверка статуса; независимый verifier может выдать route-specific решение, когда snapshot источника и evidence проекта проходят gates.
+
 ## Пример результата
 
 Публичный fixture `tests/cases/ai_startup.yaml` описывает `Example AI Infrastructure Startup`. Его текущий expected contract:
@@ -192,3 +208,5 @@ PY
 ## Примеры официальных источников
 
 AI pack сейчас ссылается на официальные страницы [AWS Activate](https://aws.amazon.com/startups/credits/), [Microsoft for Startups](https://learn.microsoft.com/en-us/startups/microsoft-for-startups/overview), [NVIDIA Inception](https://www.nvidia.com/en-us/startups/), [OpenAI for Startups](https://openai.com/business/why-openai/startups/) и [Y Combinator Apply](https://www.ycombinator.com/apply). Эти ссылки показывают расположение источников, но не гарантируют eligibility или acceptance.
+
+AI program cards также содержат mechanism-specific `evidence_requirements`: для cloud credits нужны account, legal, geography и workload proof; для BD — named workload, champion или buyer и measurable outcome; для accelerator/investment — founder, market, product и traction proof; для NVIDIA — native GPU/NVIDIA use case.

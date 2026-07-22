@@ -1,0 +1,24 @@
+project: Example AI Infrastructure Startup
+runner:
+  primary_decision: VERIFY_FIRST
+  gate_passed: false
+  must_not_be_now: true
+  opportunities:
+    - program_id: aws-activate
+      decision: VERIFY_FIRST
+    - program_id: y-combinator
+      decision: VERIFY_FIRST
+    - program_id: microsoft-for-startups
+      decision: VERIFY_FIRST
+    - program_id: nvidia-inception
+      decision: VERIFY_FIRST
+    - program_id: openai-for-startups
+      decision: VERIFY_FIRST
+verifier:
+  route_count: 5
+  decisions:
+    aws-activate: COMPLETE_ELIGIBILITY_DATA
+    microsoft-for-startups: NOW
+    nvidia-inception: BUILD_NVIDIA_USE_CASE
+    openai-for-startups: VERIFY_ACCESS_PATH
+    y-combinator: BUILD_FIRST

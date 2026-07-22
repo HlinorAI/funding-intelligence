@@ -38,6 +38,15 @@ required_evidence:
   - private for-profit company
   - eligible headquarters geography
   - product and company details for application
+evidence_requirements:
+  subsidy:
+    - private for-profit legal entity and eligible headquarters country
+    - working MVP plus Azure workload and expected consumption
+    - current Microsoft intake path and prior-credit history
+  bd:
+    - named enterprise buyer or design partner
+    - Azure architecture and integration boundary
+    - pilot thesis with measurable enterprise outcome
 score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
 failure_modes:
   - credits mistaken for cash funding
