@@ -8,7 +8,7 @@ Last updated: 2026-07-22
 
 **Release target:** `v0.1.2`
 **Repository mode:** public open-source release
-**Core state:** deterministic opportunity routing and verification is implemented; v0.1.2 release candidate is CI-green and ready to publish.
+**Core state:** deterministic opportunity routing and verification is implemented; v0.1.2 is published and the next step is external evaluation.
 
 ## Completed
 
@@ -26,11 +26,12 @@ Last updated: 2026-07-22
 - Added a copyable public AI end-to-end example with evidence pack and expected route decisions.
 - Added mechanism-specific evidence requirements to all AI opportunity cards and schema checks for their coverage.
 - Passed GitHub Actions `Validate` run `29901485917` on commit `9355b02`.
+- Published GitHub Release `v0.1.2` from immutable tag `v0.1.2` at release commit `8685abf`.
 
 ## In progress
 
 - Keep the first public release limited to the current deterministic capability; do not expand the database or add a UI in this release.
-- After publishing `v0.1.2`, run three external project evaluations and collect human feedback.
+- Run three external project evaluations and collect human feedback.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
@@ -82,4 +83,4 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - [x] Public end-to-end AI example added.
 - [x] Route-specific evidence requirements completed.
 - [x] GitHub Actions `Validate` run `29901485917` passed.
-- [ ] Tag and GitHub Release `v0.1.2` published.
+- [x] Tag and GitHub Release `v0.1.2` published.
