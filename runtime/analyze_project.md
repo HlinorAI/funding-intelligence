@@ -21,5 +21,5 @@ Required sequence:
 3. Run score and penalties.
 4. Run the anti-hallucination gate.
 5. Shortlist at most seven routes.
-6. Write `NOW` / `NEXT` / `LATER` / `DO_NOT_APPLY`.
+6. Write `NOW` / `NEXT` / `LATER` / `APPLY_AGAIN_AFTER_CHANGE` / `DO_NOT_APPLY`.
 7. Add a 7/30/90-day execution plan and missing proof.

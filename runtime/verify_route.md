@@ -27,6 +27,8 @@ The command does not mutate knowledge cards. It emits one route record with inde
 - `project_fit`: `STRONG`, `POSSIBLE`, `WEAK`, or `NONE`;
 - `project_readiness`: `READY`, `BUILD_FIRST`, `INCOMPLETE`, `UNKNOWN`, or `INELIGIBLE`.
 
+Program affiliation is a separate precedence gate. A current or previously successful relationship produces `INELIGIBLE` and `DO_NOT_APPLY`; a previous rejection produces `REAPPLY_AFTER_CHANGE` and `APPLY_AGAIN_AFTER_CHANGE`; an unverified relationship produces `UNKNOWN` and `VERIFY_FIRST`.
+
 It also emits:
 
 - snapshot status and actual endpoint;
@@ -36,6 +38,6 @@ It also emits:
 - project fit and score;
 - next action and stop condition;
 - verification timestamp;
-- `NOW`, `BUILD_FIRST`, `VERIFY_FIRST`, or `DO_NOT_APPLY`.
+- `NOW`, `BUILD_FIRST`, `VERIFY_FIRST`, `APPLY_AGAIN_AFTER_CHANGE`, or `DO_NOT_APPLY`.
 
 If the runtime cannot reach an endpoint but the official source was already checked, the result keeps `program_status: ACTIVE` and `endpoint_status: AVAILABLE`, while recording `transport: UNREACHABLE`. A failed HTTP check is never treated as evidence that a program is closed.

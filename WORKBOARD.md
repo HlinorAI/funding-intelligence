@@ -31,6 +31,7 @@ Last updated: 2026-07-22
 - Added public external-project intake and feedback templates plus Git-ignored `tests/external-local/` workspace.
 - Prepared local-only public-data benchmark v1 for Orvixo with source list, evidence pack, runner output, verifier output, and Markdown report; no founder feedback has been collected yet.
 - Fixed the first benchmark logic bug: current program affiliations now produce `DO_NOT_APPLY` and cannot be hidden by the rejected-route shortlist cap; added a synthetic regression case.
+- Expanded the affiliation model to current, previous successful, rejected, and unknown relationship states with three regression cases.
 
 ## In progress
 
@@ -40,6 +41,7 @@ Last updated: 2026-07-22
 - Start with one external project end-to-end before recruiting the second and third.
 - Review Orvixo benchmark v1 for factual accuracy, then request owner correction/feedback if contact is appropriate.
 - Review Orvixo report v2 against the benchmark review before contacting the owner.
+- Reserve a local-only workspace for the second public benchmark; do not commit external project evidence.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
@@ -48,8 +50,9 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 1. Review the corrected Orvixo report v2 for factual accuracy.
 2. Send report v2 to the project owner only if a suitable public contact path is available.
 3. Record factual corrections and feedback using `docs/external-test-feedback.md`.
-4. Recruit projects two and three only after the first case is reviewed.
-5. Add live web verification only after the decision logic has been validated externally.
+4. Select a second benchmark with a different affiliation state or sector after the first case is reviewed.
+5. Recruit projects two and three only after the first case is reviewed.
+6. Add live web verification only after the decision logic has been validated externally.
 
 ## Decisions already made
 
@@ -60,6 +63,7 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - A transport failure must not be interpreted as a closed program.
 - Public fixtures must be synthetic; private project evidence stays outside Git.
 - Changes to `runtime/runner.py` and `runtime/verify_route.py` require explicit contract tests and changelog entries.
+- Existing program affiliation precedence is a core policy: current/previous successful relationships override fit; rejected relationships require a material change before reapplication; unknown relationships require verification.
 
 ## Intentionally deferred
 
@@ -68,6 +72,7 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - Broad expansion to hundreds of additional programs.
 - Automatic web-driven knowledge updates.
 - Public release of real project evidence, application history, feedback records, or generated private reports.
+- A second public benchmark remains intentionally uncommitted until its facts and source policy are reviewed.
 
 ## Recently completed
 

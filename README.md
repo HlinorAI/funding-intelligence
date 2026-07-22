@@ -51,7 +51,27 @@ The project is an internal capability and open-source engine prototype, not a fu
 - `BUILD_FIRST` — product, traction, or application proof must be built before applying;
 - `BUILD_NVIDIA_USE_CASE` — the project lacks a credible native NVIDIA/GPU use case;
 - `DO_NOT_APPLY` — the mechanism, stage, ecosystem, or project fit is wrong;
+- `APPLY_AGAIN_AFTER_CHANGE` — a previous application was rejected; make a material change before reapplying;
 - `NO_ACTIONABLE_ENDPOINT` — no usable intake endpoint is known.
+
+## Existing affiliation boundary
+
+A project may fit a program and still have an existing affiliation, acceptance, membership, grant relationship, or previous participation. Affiliation precedence is checked before an application recommendation:
+
+- current or previously successful affiliation → `DO_NOT_APPLY`;
+- previous rejection → `APPLY_AGAIN_AFTER_CHANGE`;
+- recorded relationship with an unknown outcome → `VERIFY_FIRST`;
+- no recorded relationship → normal opportunity scoring.
+
+Example project input:
+
+```yaml
+program_affiliations:
+  - program_id: y-combinator
+    status: current
+    source: https://www.ycombinator.com/companies/example
+    verified_at: 2026-07-22
+```
 
 ## Repository structure
 

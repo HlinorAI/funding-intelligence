@@ -50,6 +50,7 @@ If a card has several mechanisms, choose the best one for the current stage and 
 
 ### 3. Apply hard gates
 
+- Check `program_affiliations` before recommending an application. A `current` or `previous` successful relationship overrides opportunity fit and produces `DO_NOT_APPLY`; a `rejected` relationship produces `APPLY_AGAIN_AFTER_CHANGE`; a recorded relationship with an unknown outcome produces `VERIFY_FIRST`.
 - No `target_ecosystems`/`native_ecosystems` and no explicit ecosystem fit → `DO_NOT_APPLY` for a chain-specific card.
 - `CLOSED` → do not apply; use `PREPARE`, `WATCH`, or another route.
 - `VERIFY`/`WATCH`/stale snapshot → verify first.
@@ -78,6 +79,7 @@ Select at most seven routes:
 - `NOW` — action within 0–14 days;
 - `NEXT` — 15–45 days or after a specific proof gap is closed;
 - `LATER` — 46–90 days, a future window, or relationship building;
+- `APPLY_AGAIN_AFTER_CHANGE` — a previous application was rejected and a material change is required before reapplying;
 - `DO_NOT_APPLY` — explicit exclusion with a reason.
 
 For each route, provide:

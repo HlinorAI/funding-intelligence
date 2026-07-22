@@ -59,7 +59,7 @@ $defs:
       program: {type: string, minLength: 1}
       status: {type: string, minLength: 1}
       score: {type: number, minimum: 0, maximum: 100}
-      decision: {type: string, enum: [NOW, NEXT, LATER, VERIFY_FIRST, BUILD_FIRST, DO_NOT_APPLY]}
+      decision: {type: string, enum: [NOW, NEXT, LATER, VERIFY_FIRST, BUILD_FIRST, DO_NOT_APPLY, APPLY_AGAIN_AFTER_CHANGE]}
       mechanism:
         type: array
         minItems: 1
@@ -97,7 +97,7 @@ $defs:
           score: {type: number, minimum: 0, maximum: 100}
           positive: {type: array, items: {type: string}}
           negative: {type: array, items: {type: string}}
-          decision: {type: string, enum: [NOW, NEXT, LATER, VERIFY_FIRST, BUILD_FIRST, DO_NOT_APPLY]}
+          decision: {type: string, enum: [NOW, NEXT, LATER, VERIFY_FIRST, BUILD_FIRST, DO_NOT_APPLY, APPLY_AGAIN_AFTER_CHANGE]}
           why: {type: array, items: {type: string}}
       official_source:
         type: [string, 'null']

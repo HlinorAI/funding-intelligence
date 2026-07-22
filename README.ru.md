@@ -51,7 +51,27 @@
 - `BUILD_FIRST` — до подачи нужно создать product, traction или application proof;
 - `BUILD_NVIDIA_USE_CASE` — у проекта нет достоверного native NVIDIA/GPU use case;
 - `DO_NOT_APPLY` — не совпадают mechanism, stage, ecosystem или project fit;
+- `APPLY_AGAIN_AFTER_CHANGE` — предыдущая заявка отклонена; перед повторной подачей нужно внести существенное изменение;
 - `NO_ACTIONABLE_ENDPOINT` — не найден рабочий intake endpoint.
+
+## Граница существующей affiliation
+
+Проект может подходить программе, но уже иметь с ней действующую связь, acceptance, membership, grant relationship или previous participation. Affiliation проверяется до рекомендации подачи:
+
+- текущая или ранее успешная affiliation → `DO_NOT_APPLY`;
+- предыдущий отказ → `APPLY_AGAIN_AFTER_CHANGE`;
+- связь записана, но outcome неизвестен → `VERIFY_FIRST`;
+- связь не записана → обычный opportunity scoring.
+
+Пример входных данных проекта:
+
+```yaml
+program_affiliations:
+  - program_id: y-combinator
+    status: current
+    source: https://www.ycombinator.com/companies/example
+    verified_at: 2026-07-22
+```
 
 ## Структура репозитория
 

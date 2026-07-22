@@ -14,6 +14,7 @@ DECISION_GROUPS = {
     "NOW": {"NOW"},
     "BUILD_FIRST": {"BUILD_FIRST", "BUILD_NVIDIA_USE_CASE"},
     "VERIFY_ACCESS_PATH": {"VERIFY_ACCESS_PATH", "COMPLETE_ELIGIBILITY_DATA", "VERIFY_FIRST"},
+    "APPLY_AGAIN_AFTER_CHANGE": {"APPLY_AGAIN_AFTER_CHANGE"},
     "DO_NOT_APPLY": {"DO_NOT_APPLY"},
 }
 
@@ -197,6 +198,7 @@ def render(report: dict[str, Any], verification: dict[str, Any]) -> str:
         "NOW": "NOW",
         "BUILD_FIRST": "BUILD_FIRST",
         "VERIFY_ACCESS_PATH": "VERIFY_ACCESS_PATH",
+        "APPLY_AGAIN_AFTER_CHANGE": "APPLY_AGAIN_AFTER_CHANGE",
         "DO_NOT_APPLY": "DO_NOT_APPLY",
     }
     for group, title in section_titles.items():

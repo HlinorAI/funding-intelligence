@@ -79,20 +79,38 @@ def project_goals(project: dict[str, Any]) -> list[str]:
     return goals
 
 
-def current_program_affiliation(project: dict[str, Any], program_id: str | None) -> str | None:
-    """Return the current affiliation status for a route, if publicly evidenced."""
+def program_affiliation_state(project: dict[str, Any], program_id: str | None) -> str | None:
+    """Normalize a project's public relationship with a program into a routing state."""
 
     if not program_id:
         return None
-    for affiliation in as_list(project.get("program_affiliations")):
-        if not isinstance(affiliation, dict):
-            continue
-        if str(affiliation.get("program_id")) != program_id:
-            continue
+    records = [
+        affiliation
+        for affiliation in as_list(project.get("program_affiliations"))
+        if isinstance(affiliation, dict) and str(affiliation.get("program_id")) == program_id
+    ]
+    for affiliation in records:
+        if str(affiliation.get("status", "")).lower() == "current":
+            return "current"
+    for affiliation in records:
         status = str(affiliation.get("status", "")).lower()
-        if status == "current":
-            return status
+        outcome = str(affiliation.get("outcome", "")).lower()
+        if status in {"previous", "alumni"} and outcome in {"accepted", "completed", "graduated", "successful"}:
+            return "previous_successful"
+    for affiliation in records:
+        status = str(affiliation.get("status", "")).lower()
+        outcome = str(affiliation.get("outcome", "")).lower()
+        if status == "rejected" or outcome == "rejected":
+            return "rejected"
+    if records:
+        return "unknown"
     return None
+
+
+def current_program_affiliation(project: dict[str, Any], program_id: str | None) -> str | None:
+    """Backward-compatible helper for the current-affiliation hard gate."""
+
+    return "current" if program_affiliation_state(project, program_id) == "current" else None
 
 
 def text_tokens(project: dict[str, Any]) -> set[str]:
@@ -180,6 +198,7 @@ def mechanism_score(project: dict[str, Any], card: dict[str, Any]) -> tuple[int,
 def gates(project: dict[str, Any], card: dict[str, Any]) -> dict[str, bool]:
     status = card.get("status") or {}
     next_action = card.get("next_action") or {}
+    affiliation_state = program_affiliation_state(project, str(card.get("id")))
     return {
         "project_fit": project_fit(project, card)[0],
         "status_verified": status.get("needs_verification") is False and status.get("state") in ACTIVE_STATES,
@@ -187,7 +206,8 @@ def gates(project: dict[str, Any], card: dict[str, Any]) -> dict[str, bool]:
         "mechanism_identified": bool(as_list(card.get("mechanism"))),
         "evidence_requirements_known": bool(as_list(card.get("required_evidence"))),
         "next_action_exists": bool(next_action.get("action") and next_action.get("deliverable")),
-        "not_already_affiliated": current_program_affiliation(project, str(card.get("id"))) is None,
+        "affiliation_verified": affiliation_state != "unknown",
+        "not_already_affiliated": affiliation_state not in {"current", "previous_successful"},
     }
 
 
@@ -243,18 +263,28 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
     if "bd" in mechanisms and not truthy(project, "distribution", "plan"):
         penalties["no_distribution_plan"] = -10
 
-    affiliation = current_program_affiliation(project, str(card.get("id")))
-    if affiliation:
-        reasons.append(f"project already has current {card.get('name')} affiliation")
+    affiliation_state = program_affiliation_state(project, str(card.get("id")))
+    if affiliation_state in {"current", "previous_successful"}:
+        reasons.append(f"project already has {affiliation_state.replace('_', ' ')} {card.get('name')} affiliation")
         penalties["already_affiliated"] = -100
+    elif affiliation_state == "rejected":
+        reasons.append(f"project has a previous rejected {card.get('name')} application")
+        penalties["previous_rejection"] = -5
+    elif affiliation_state == "unknown":
+        reasons.append(f"project {card.get('name')} affiliation outcome is unknown")
+        missing.append("verified program affiliation status")
 
     raw_score = strategic + technical + evidence_points + mechanism + max(0, readiness) + access + sum(penalties.values())
     score = max(0, min(100, raw_score))
     gate = gates(project, card)
     gate["passed"] = all(gate.values())
 
-    if affiliation:
+    if affiliation_state in {"current", "previous_successful"}:
         decision = "DO_NOT_APPLY"
+    elif affiliation_state == "rejected":
+        decision = "APPLY_AGAIN_AFTER_CHANGE"
+    elif affiliation_state == "unknown":
+        decision = "VERIFY_FIRST"
     elif state in BLOCKED_STATES:
         decision = "DO_NOT_APPLY"
     elif not gate["project_fit"]:

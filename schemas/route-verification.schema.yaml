@@ -63,7 +63,7 @@ $defs:
           score: {type: number, minimum: 0, maximum: 100}
       project_readiness:
         type: string
-        enum: [READY, BUILD_FIRST, INCOMPLETE, UNKNOWN, INELIGIBLE]
+        enum: [READY, BUILD_FIRST, INCOMPLETE, UNKNOWN, INELIGIBLE, REAPPLY_AFTER_CHANGE]
       actual_endpoint: {$ref: '#/$defs/nullableString'}
       eligibility:
         type: object
@@ -98,4 +98,4 @@ $defs:
       verified_at: {$ref: '#/$defs/nullableString'}
       decision:
         type: string
-        enum: [NOW, VERIFY_FIRST, BUILD_FIRST, DO_NOT_APPLY, NO_ACTIONABLE_ENDPOINT, COMPLETE_ELIGIBILITY_DATA, VERIFY_ACCESS_PATH, BUILD_NVIDIA_USE_CASE]
+        enum: [NOW, VERIFY_FIRST, BUILD_FIRST, DO_NOT_APPLY, NO_ACTIONABLE_ENDPOINT, COMPLETE_ELIGIBILITY_DATA, VERIFY_ACCESS_PATH, BUILD_NVIDIA_USE_CASE, APPLY_AGAIN_AFTER_CHANGE]

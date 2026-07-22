@@ -10,11 +10,12 @@ The project uses semantic version tags for public releases. Program status chang
 
 - Markdown report renderer combining runner and route-verification outputs for human review.
 - Public external-project intake and feedback templates, with a Git-ignored local workspace for real pilot cases.
+- Public affiliation metadata in the project schema, with regression fixtures for current, previous successful, and rejected program relationships.
 
 ### Fixed
 
-- No unreleased fixes.
 - Current program affiliations now hard-gate duplicate accelerator/program applications and remain visible in the rejected-route shortlist.
+- Affiliation precedence now distinguishes current/previous successful, rejected, and unknown program relationships before opportunity fit becomes an application recommendation.
 
 ### Planned
 

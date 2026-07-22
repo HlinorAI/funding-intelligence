@@ -24,7 +24,7 @@ EXAMPLE_DIR = ROOT / "examples" / "example-ai-startup"
 EXAMPLE_PROJECT_PATH = EXAMPLE_DIR / "project.yaml"
 EXAMPLE_EXPECTED_PATH = EXAMPLE_DIR / "expected-report.yaml"
 
-DECISION_VALUES = {"NOW", "NEXT", "LATER", "VERIFY_FIRST", "BUILD_FIRST", "DO_NOT_APPLY"}
+DECISION_VALUES = {"NOW", "NEXT", "LATER", "VERIFY_FIRST", "BUILD_FIRST", "DO_NOT_APPLY", "APPLY_AGAIN_AFTER_CHANGE"}
 RESOURCE_TYPES = {
     "startup_program",
     "cloud_credits",
