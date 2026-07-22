@@ -58,7 +58,8 @@
 ```text
 agent/       operator policy для Funding Intelligence Agent
 knowledge/   program cards, vertical packs, rules и templates
-runtime/     schemas, deterministic runner и route verifier
+runtime/     deterministic runner, route verifier и schema validator
+schemas/     formal schemas для project, program card, route и report
 tests/       публичные synthetic cases и expected decisions
 examples/    публичные sample report artifacts
 history/     документация для human-maintained application history
@@ -139,6 +140,14 @@ Route verification разделяет состояния:
 python3 runtime/runner.py --check-all
 python3 -m py_compile runtime/runner.py runtime/verify_route.py
 ```
+
+Полный public contract validator:
+
+```bash
+python3 runtime/validate_schemas.py
+```
+
+Валидатор проверяет публичные YAML, project fixtures, структуру program cards, generated runner reports, public route-verification record, issue forms, private-path exclusions и credential-like patterns. GitHub Actions запускает эти проверки на каждом push и pull request.
 
 Проверка публичных YAML:
 

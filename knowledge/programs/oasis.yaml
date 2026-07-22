@@ -20,7 +20,7 @@ required_evidence:
   - Sapphire-specific architecture
   - confidentiality primitive and disclosure model
   - PoC and users/integrators
-score: {strategic_fit: 25, technical_fit: 25, evidence: 15, access: 10}
+score: {strategic_fit: 25, technical_fit: 25, evidence: 15, mechanism_fit: 15, access: 10}
 failure_modes:
   - stale page
   - no technical champion

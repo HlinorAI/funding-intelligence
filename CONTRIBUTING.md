@@ -19,6 +19,7 @@ Run the public checks before submitting a change:
 ```bash
 python3 runtime/runner.py --check-all
 python3 -m py_compile runtime/runner.py runtime/verify_route.py
+python3 runtime/validate_schemas.py
 ```
 
 Validate public YAML files with the command in [README.md](README.md).

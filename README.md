@@ -58,7 +58,8 @@ The project is an internal capability and open-source engine prototype, not a fu
 ```text
 agent/       operator policy for the Funding Intelligence Agent
 knowledge/   program cards, vertical packs, rules, and templates
-runtime/     schemas, deterministic runner, and route verifier
+runtime/     deterministic runner, route verifier, and schema validator
+schemas/     formal project, program-card, route, and report schemas
 tests/       public synthetic cases and expected decisions
 examples/    public sample report artifacts
 history/     documentation for human-maintained application history
@@ -139,6 +140,14 @@ Run the public regression suite:
 python3 runtime/runner.py --check-all
 python3 -m py_compile runtime/runner.py runtime/verify_route.py
 ```
+
+Run the full public contract validator locally:
+
+```bash
+python3 runtime/validate_schemas.py
+```
+
+The validator checks every public YAML file, project fixtures, program-card structure, generated runner reports, a public route-verification record, issue forms, private-path exclusions, and credential-like patterns. GitHub Actions runs the same checks on every push and pull request.
 
 Validate all public YAML files:
 

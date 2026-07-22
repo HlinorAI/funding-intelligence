@@ -4,20 +4,82 @@ mode: source_snapshot
 routes:
   - program_id: microsoft-for-startups
     program: Microsoft for Startups
-    program_status: {value: ACTIVE, verified_at: null}
-    endpoint_status: {value: UNKNOWN, transport: NOT_RUN, verified_at: null}
-    project_fit: {value: POSSIBLE}
+    program_status:
+      value: ACTIVE
+      verified_at: null
+      source: https://learn.microsoft.com/en-us/startups/microsoft-for-startups/overview
+      source_verified: false
+      verified_via: null
+    endpoint_status:
+      value: UNKNOWN
+      transport: NOT_RUN
+      transport_error: null
+      verified_at: null
+    project_fit:
+      value: POSSIBLE
+      basis: [vertical fit, goal/mechanism fit]
+      score: 62
     project_readiness: INCOMPLETE
+    actual_endpoint: https://startups.microsoft.com/
+    eligibility:
+      state: INCOMPLETE
+      passed: [company-owned software product]
+      missing: [current official eligibility, intake endpoint verification]
+      notes: [Verify the current official eligibility and intake endpoint]
+    resource_type: [startup_program, cloud_credits, technical_support, enterprise_bd]
+    required_proof:
+      - requirement: company-owned software product
+        field: product
+        status: PASS
+        value: AI infrastructure platform
+      - requirement: current eligibility and intake endpoint
+        field: verification
+        status: MISSING
+        value: UNKNOWN
+    next_action:
+      action: VERIFY_FIRST
+      deliverable: Verify the current official eligibility and intake endpoint
+      horizon_days: 2
+    stop_condition: No eligible private software company or no Azure/enterprise use case
+    verified_at: null
     decision: VERIFY_FIRST
-    next_action: "Verify the current official eligibility and intake endpoint"
   - program_id: y-combinator
     program: Y Combinator
-    program_status: {value: OPEN, verified_at: 2026-07-22}
-    endpoint_status: {value: AVAILABLE, transport: NOT_RUN, verified_at: 2026-07-22}
-    project_fit: {value: POSSIBLE}
+    program_status:
+      value: OPEN
+      verified_at: null
+      source: https://www.ycombinator.com/apply
+      source_verified: false
+      verified_via: null
+    endpoint_status:
+      value: UNKNOWN
+      transport: NOT_RUN
+      transport_error: null
+      verified_at: null
+    project_fit:
+      value: POSSIBLE
+      basis: [vertical fit, goal/mechanism fit]
+      score: 54
     project_readiness: BUILD_FIRST
+    actual_endpoint: https://www.ycombinator.com/apply
+    eligibility:
+      state: BUILD_FIRST
+      passed: []
+      missing: [demo, customer thesis, application narrative]
+      notes: [Build proof before applying]
+    resource_type: [accelerator, venture_investment, founder_network]
+    required_proof:
+      - requirement: product/demo or clear build proof
+        field: live_demo
+        status: MISSING
+        value: UNKNOWN
+    next_action:
+      action: BUILD_FIRST
+      deliverable: Strengthen the demo, customer thesis, and application narrative
+      horizon_days: 14
+    stop_condition: No clear customer problem, founder fit, or current application window
+    verified_at: null
     decision: BUILD_FIRST
-    next_action: "Strengthen the demo, customer thesis, and application narrative"
 missing_proof:
   - live deployment
   - repeat usage

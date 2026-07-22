@@ -6,9 +6,9 @@ Last updated: 2026-07-22
 
 ## Current status
 
-**Release target:** `v0.1.1`
+**Release target:** `v0.1.2`
 **Repository mode:** public open-source release
-**Core state:** deterministic opportunity routing and verification is implemented; v0.1.0 and v0.1.1 GitHub Releases are published.
+**Core state:** deterministic opportunity routing and verification is implemented; v0.1.2 technical hardening is in progress.
 
 ## Completed
 
@@ -20,11 +20,13 @@ Last updated: 2026-07-22
 - Added Apache-2.0 licensing and contribution/release documentation.
 - Published GitHub Releases `v0.1.0` and `v0.1.1`; configured repository description, topics, and Issues.
 - Added public Bug Report and Feature Request issue forms to `main`.
+- Added GitHub Actions validation for pushes and pull requests.
+- Added formal YAML schemas and `runtime/validate_schemas.py` for public contract validation.
 
 ## In progress
 
 - Keep the first public release limited to the current deterministic capability; do not expand the database or add a UI in this release.
-- Decide whether the issue-form follow-up should receive a future patch tag; the immutable `v0.1.1` tag predates the issue-form commit.
+- Complete the public end-to-end AI example and route-specific evidence requirements before tagging `v0.1.2`.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
@@ -71,3 +73,8 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - [x] GitHub About description and topics configured.
 - [x] GitHub Issues confirmed enabled.
 - [x] Public issue forms added to `main`.
+- [x] CI workflow added for push and pull request validation.
+- [x] Formal schemas and schema validator added.
+- [ ] Public end-to-end AI example added.
+- [ ] Route-specific evidence requirements completed.
+- [ ] Tag and GitHub Release `v0.1.2` published.

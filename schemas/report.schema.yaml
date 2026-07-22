@@ -1,0 +1,105 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/HlinorAI/funding-intelligence/blob/main/schemas/report.schema.yaml
+title: Funding Intelligence runner report
+type: object
+additionalProperties: true
+required: [report_version, project, classification, gate, opportunities, do_not_apply, coverage_gaps, missing_proof, execution_plan]
+properties:
+  report_version:
+    type: integer
+    const: 1
+  project: {type: string, minLength: 1}
+  classification:
+    type: object
+    required: [stage, stage_claims, sectors, goals, confidence]
+    properties:
+      stage: {type: string, minLength: 1}
+      stage_claims: {type: array, items: {type: string}}
+      sectors: {type: array, items: {type: string}}
+      goals:
+        type: array
+        items: {type: string, enum: [funding, partnerships, accelerator, distribution, technical_support]}
+      confidence: {type: string, enum: [high, medium, low]}
+  gate:
+    $ref: '#/$defs/gate'
+  opportunities:
+    type: array
+    maxItems: 7
+    items: {$ref: '#/$defs/route'}
+  do_not_apply:
+    type: array
+    items: {$ref: '#/$defs/route'}
+  coverage_gaps: {type: array, items: {type: string}}
+  missing_proof: {type: array, items: {type: string}}
+  execution_plan:
+    type: object
+    required: [days_7, days_30, days_90]
+    properties:
+      days_7: {type: array, items: {type: string}}
+      days_30: {type: array, items: {type: string}}
+      days_90: {type: array, items: {type: string}}
+$defs:
+  gate:
+    type: object
+    required: [project_fit, status_verified, application_endpoint_exists, mechanism_identified, evidence_requirements_known, next_action_exists, passed]
+    properties:
+      project_fit: {type: boolean}
+      status_verified: {type: boolean}
+      application_endpoint_exists: {type: boolean}
+      mechanism_identified: {type: boolean}
+      evidence_requirements_known: {type: boolean}
+      next_action_exists: {type: boolean}
+      passed: {type: boolean}
+  route:
+    type: object
+    additionalProperties: true
+    required: [program_id, program, status, score, decision, mechanism, resource_type, components, gate, why, missing, next_action, stop_condition, decision_trace, official_source, last_checked]
+    properties:
+      program_id: {type: string, pattern: '^[a-z0-9][a-z0-9-]*$'}
+      program: {type: string, minLength: 1}
+      status: {type: string, minLength: 1}
+      score: {type: number, minimum: 0, maximum: 100}
+      decision: {type: string, enum: [NOW, NEXT, LATER, VERIFY_FIRST, BUILD_FIRST, DO_NOT_APPLY]}
+      mechanism:
+        type: array
+        minItems: 1
+        items: {type: string, enum: [proposal_grant, retro, incentive, accelerator, investment, subsidy, bd]}
+      resource_type: {type: array, items: {type: string}}
+      components:
+        type: object
+        required: [strategic_fit, technical_fit, evidence, mechanism_fit, readiness, access, penalties]
+        properties:
+          strategic_fit: {type: number}
+          technical_fit: {type: number}
+          evidence: {type: number}
+          mechanism_fit: {type: number}
+          readiness: {type: number}
+          access: {type: number}
+          penalties: {type: object, additionalProperties: {type: number}}
+      gate: {$ref: '#/$defs/gate'}
+      why: {type: array, items: {type: string}}
+      missing: {type: array, items: {type: string}}
+      next_action:
+        type: object
+        required: [action, deliverable, horizon_days]
+        properties:
+          action: {type: string, minLength: 1}
+          deliverable: {type: string, minLength: 1}
+          horizon_days: {type: integer, minimum: 0}
+      stop_condition: {type: string, minLength: 1}
+      decision_trace:
+        type: object
+        required: [program, considered, rejected, score, positive, negative, decision, why]
+        properties:
+          program: {type: string, minLength: 1}
+          considered: {type: boolean}
+          rejected: {type: boolean}
+          score: {type: number, minimum: 0, maximum: 100}
+          positive: {type: array, items: {type: string}}
+          negative: {type: array, items: {type: string}}
+          decision: {type: string, enum: [NOW, NEXT, LATER, VERIFY_FIRST, BUILD_FIRST, DO_NOT_APPLY]}
+          why: {type: array, items: {type: string}}
+      official_source:
+        type: [string, 'null']
+      last_checked:
+        type: [string, 'null']

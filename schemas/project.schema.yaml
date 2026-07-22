@@ -1,0 +1,139 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/HlinorAI/funding-intelligence/blob/main/schemas/project.schema.yaml
+title: Funding Intelligence project input
+type: object
+additionalProperties: true
+required:
+  - schema_version
+  - name
+  - description
+  - sector
+  - stage
+  - geography
+  - product
+  - evidence
+  - needs
+  - constraints
+properties:
+  schema_version:
+    type: integer
+    const: 1
+  name:
+    type: string
+    minLength: 1
+  description:
+    type: string
+    minLength: 1
+  sector:
+    type: array
+    minItems: 1
+    items:
+      type: string
+      minLength: 1
+  stage:
+    oneOf:
+      - type: string
+        enum: [idea, prototype, early_product, pre_seed, seed, series_a, series_b, series_c, testnet, mainnet, revenue, unknown]
+      - type: array
+        minItems: 1
+        items:
+          type: string
+          enum: [idea, prototype, early_product, pre_seed, seed, series_a, series_b, series_c, testnet, mainnet, revenue, unknown]
+  geography:
+    type: array
+    items:
+      type: string
+      minLength: 1
+  product:
+    type: object
+    additionalProperties: true
+    required: [description]
+    properties:
+      description:
+        type: string
+        minLength: 1
+      customers:
+        type: array
+        items: {type: string}
+      technology:
+        type: array
+        items: {type: string}
+      ecosystems:
+        type: array
+        items: {type: string}
+  evidence:
+    type: object
+    additionalProperties: true
+    properties:
+      site: {$ref: '#/$defs/knownBoolean'}
+      github: {$ref: '#/$defs/knownBoolean'}
+      live_demo: {$ref: '#/$defs/knownBoolean'}
+      live_deployment: {$ref: '#/$defs/knownBoolean'}
+      users: {$ref: '#/$defs/knownNumber'}
+      transactions: {$ref: '#/$defs/knownNumber'}
+      volume: {$ref: '#/$defs/knownNumber'}
+      tvl: {$ref: '#/$defs/knownNumber'}
+      revenue: {$ref: '#/$defs/knownBooleanOrNumber'}
+      pilots: {$ref: '#/$defs/knownNumber'}
+      partners: {$ref: '#/$defs/knownNumber'}
+      metrics: {$ref: '#/$defs/knownBoolean'}
+      audit: {$ref: '#/$defs/knownBoolean'}
+  needs:
+    type: object
+    additionalProperties: true
+    properties:
+      goals:
+        type: array
+        items:
+          type: string
+          enum: [funding, partnerships, accelerator, distribution, technical_support]
+      funding:
+        type: [number, string]
+        minimum: 0
+      runway_months:
+        type: [number, string]
+        minimum: 0
+  constraints:
+    type: object
+    additionalProperties: true
+    properties:
+      no_token: {$ref: '#/$defs/knownBoolean'}
+      no_dilution: {$ref: '#/$defs/knownBoolean'}
+      generic_multichain: {$ref: '#/$defs/knownBoolean'}
+      native_ecosystems:
+        type: array
+        items: {type: string}
+      target_ecosystems:
+        type: array
+        items: {type: string}
+  readiness:
+    type: object
+    additionalProperties: true
+    properties:
+      budget: {$ref: '#/$defs/knownBoolean'}
+      milestones: {$ref: '#/$defs/knownBoolean'}
+  access:
+    type: object
+    additionalProperties: true
+    properties:
+      champions: {$ref: '#/$defs/knownNumber'}
+      warm_intros: {$ref: '#/$defs/knownNumber'}
+  stage_claims:
+    type: array
+    items: {type: string}
+$defs:
+  knownBoolean:
+    oneOf:
+      - type: boolean
+      - type: string
+        enum: [unknown, UNKNOWN, TODO, not_provided, NOT_PROVIDED]
+  knownNumber:
+    oneOf:
+      - type: number
+        minimum: 0
+      - type: string
+        enum: [unknown, UNKNOWN, TODO, not_provided, NOT_PROVIDED]
+  knownBooleanOrNumber:
+    oneOf:
+      - {$ref: '#/$defs/knownBoolean'}
+      - {$ref: '#/$defs/knownNumber'}

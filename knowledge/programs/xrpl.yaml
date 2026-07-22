@@ -21,7 +21,7 @@ required_evidence:
   - XRPL-specific demo/repo
   - market, team and traction for accelerator
   - payment/RWA KPI for BD
-score: {strategic_fit: 20, technical_fit: 20, evidence: 20, access: 10}
+score: {strategic_fit: 20, technical_fit: 20, evidence: 20, mechanism_fit: 15, access: 10}
 failure_modes:
   - stale grant route
   - no exact workload
