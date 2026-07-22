@@ -170,13 +170,15 @@ When adding a program card:
 
 Do not add real project evidence, credentials, contacts, internal metrics, or generated private reports.
 
+See [CONTRIBUTING.md](CONTRIBUTING.md), [CHANGELOG.md](CHANGELOG.md), and [WORKBOARD.md](WORKBOARD.md) for contribution and project-state guidance.
+
 ## Limitations
 
 - program cards are snapshots and require re-verification before a real application;
 - scoring is deterministic but only as good as the structured facts and card quality;
 - the current knowledge coverage is selective;
 - human review is still required for claims, eligibility, and execution decisions;
-- no license file is included yet. The repository's licensing terms are intentionally left undecided.
+- licensed under the [Apache License 2.0](LICENSE).
 
 ## Official source examples
 

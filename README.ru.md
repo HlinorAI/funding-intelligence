@@ -170,13 +170,15 @@ PY
 
 Не добавляй реальные project evidence, credentials, contacts, внутренние метрики или generated private reports.
 
+Правила contribution и состояние проекта описаны в [CONTRIBUTING.md](CONTRIBUTING.md), [CHANGELOG.md](CHANGELOG.md) и [WORKBOARD.md](WORKBOARD.md).
+
 ## Ограничения
 
 - program cards являются snapshots и требуют повторной проверки перед реальной заявкой;
 - scoring детерминирован, но зависит от качества structured facts и cards;
 - текущее knowledge coverage выборочное;
 - для claims, eligibility и execution decisions всё ещё нужен human review;
-- license file пока не включён. Лицензионные условия намеренно не выбраны.
+- репозиторий распространяется по [Apache License 2.0](LICENSE).
 
 ## Примеры официальных источников
 

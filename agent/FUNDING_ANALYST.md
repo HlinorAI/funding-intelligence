@@ -158,3 +158,12 @@ Future flow:
 `web search → program verifier → official source check → knowledge update`
 
 Until that verifier exists, the agent may use only the local snapshot and must expose the verification gap instead of silently updating status.
+
+## Project memory requirements
+
+When changing the public behavior, knowledge cards, decision rules, verification semantics, or release state:
+
+- update `CHANGELOG.md` with the user-visible change and affected release section;
+- update `WORKBOARD.md` so completed work, current work, decisions, deferred items, and next actions remain accurate;
+- keep release notes factual and do not claim live verification, coverage, or acceptance that the repository does not prove;
+- keep private project evidence and generated operational reports out of tracked files.
