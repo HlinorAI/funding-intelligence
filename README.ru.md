@@ -154,7 +154,7 @@ Route verification разделяет состояния:
 
 ```bash
 python3 runtime/runner.py --check-all
-python3 -m py_compile runtime/runner.py runtime/verify_route.py
+python3 -m py_compile runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py
 ```
 
 Полный public contract validator:
@@ -164,6 +164,15 @@ python3 runtime/validate_schemas.py
 ```
 
 Валидатор проверяет публичные YAML, project fixtures, структуру program cards, generated runner reports, public route-verification record, issue forms, private-path exclusions и credential-like patterns. GitHub Actions запускает эти проверки на каждом push и pull request.
+
+Генерация читаемого Markdown-отчёта из runner и verifier output:
+
+```bash
+python3 runtime/render_report.py \
+  /tmp/example-ai-report.yaml \
+  /tmp/example-ai-routes.yaml \
+  --output /tmp/opportunity-report.md
+```
 
 Проверка публичных YAML:
 

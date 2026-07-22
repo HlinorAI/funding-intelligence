@@ -154,7 +154,7 @@ Run the public regression suite:
 
 ```bash
 python3 runtime/runner.py --check-all
-python3 -m py_compile runtime/runner.py runtime/verify_route.py
+python3 -m py_compile runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py
 ```
 
 Run the full public contract validator locally:
@@ -164,6 +164,15 @@ python3 runtime/validate_schemas.py
 ```
 
 The validator checks every public YAML file, project fixtures, program-card structure, generated runner reports, a public route-verification record, issue forms, private-path exclusions, and credential-like patterns. GitHub Actions runs the same checks on every push and pull request.
+
+Render a human-readable Markdown report from runner and verifier outputs:
+
+```bash
+python3 runtime/render_report.py \
+  /tmp/example-ai-report.yaml \
+  /tmp/example-ai-routes.yaml \
+  --output /tmp/opportunity-report.md
+```
 
 Validate all public YAML files:
 

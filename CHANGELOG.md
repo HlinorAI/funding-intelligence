@@ -6,6 +6,10 @@ The project uses semantic version tags for public releases. Program status chang
 
 ## [Unreleased]
 
+### Added
+
+- Markdown report renderer combining runner and route-verification outputs for human review.
+
 ### Fixed
 
 - No unreleased fixes.

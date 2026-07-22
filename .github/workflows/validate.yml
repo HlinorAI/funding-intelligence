@@ -28,7 +28,14 @@ jobs:
         run: python3 runtime/runner.py --check-all
 
       - name: Compile Python modules
-        run: python3 -m py_compile runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py
+        run: python3 -m py_compile runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py
 
       - name: Validate YAML, schemas, program cards, route output, issue forms, and privacy
         run: python3 runtime/validate_schemas.py
+
+      - name: Render public Markdown report
+        run: |
+          python3 runtime/runner.py examples/example-ai-startup/project.yaml --output /tmp/example-report.yaml
+          python3 runtime/verify_route.py examples/example-ai-startup/project.yaml --all-ai --evidence-dir examples/example-ai-startup/evidence --output /tmp/example-routes.yaml
+          python3 runtime/render_report.py /tmp/example-report.yaml /tmp/example-routes.yaml --output /tmp/opportunity-report.md
+          test -s /tmp/opportunity-report.md

@@ -27,11 +27,13 @@ Last updated: 2026-07-22
 - Added mechanism-specific evidence requirements to all AI opportunity cards and schema checks for their coverage.
 - Passed GitHub Actions `Validate` run `29901485917` on commit `9355b02`.
 - Published GitHub Release `v0.1.2` from immutable tag `v0.1.2` at release commit `8685abf`.
+- Added `runtime/render_report.py` for short human-readable Markdown opportunity reports.
 
 ## In progress
 
 - Keep the first public release limited to the current deterministic capability; do not expand the database or add a UI in this release.
 - Run three external project evaluations and collect human feedback.
+- Use the renderer for the three external reports; do not create another release before feedback identifies a real need.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
