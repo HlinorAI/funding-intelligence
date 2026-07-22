@@ -6,6 +6,18 @@ The project uses semantic version tags for public releases. Program status chang
 
 ## [Unreleased]
 
+### Fixed
+
+- No unreleased fixes.
+
+### Planned
+
+- Run evaluations on three external projects and collect human feedback.
+- Add live web verification as a separate adapter after the decision logic is validated.
+- Improve knowledge coverage selectively, based on observed project needs.
+
+## [0.1.2] - 2026-07-22
+
 ### Added
 
 - Public GitHub issue forms for bug reports and feature requests.
@@ -17,12 +29,6 @@ The project uses semantic version tags for public releases. Program status chang
 ### Fixed
 
 - Prevented the credential scanner from matching its own source while preserving detection of provider-token signatures, private-key markers, credential assignments, and private paths.
-
-### Planned
-
-- Run evaluations on three external projects and collect human feedback.
-- Add live web verification as a separate adapter after the decision logic is validated.
-- Improve knowledge coverage selectively, based on observed project needs.
 
 ## [0.1.0] - 2026-07-22
 
@@ -45,5 +51,6 @@ The project uses semantic version tags for public releases. Program status chang
 
 - Private project evidence, live fixtures, application history, feedback records, and generated reports remain excluded from the public repository.
 
-[Unreleased]: https://github.com/HlinorAI/funding-intelligence/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/HlinorAI/funding-intelligence/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/HlinorAI/funding-intelligence/releases/tag/v0.1.2
 [0.1.0]: https://github.com/HlinorAI/funding-intelligence/releases/tag/v0.1.0

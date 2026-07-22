@@ -8,7 +8,7 @@ Last updated: 2026-07-22
 
 **Release target:** `v0.1.2`
 **Repository mode:** public open-source release
-**Core state:** deterministic opportunity routing and verification is implemented; v0.1.2 technical hardening is in progress.
+**Core state:** deterministic opportunity routing and verification is implemented; v0.1.2 release candidate is CI-green and ready to publish.
 
 ## Completed
 
@@ -25,12 +25,12 @@ Last updated: 2026-07-22
 - Resolved the CI failure caused by the credential scanner matching literal signatures in its own validator source; added synthetic credential and self-match regression checks.
 - Added a copyable public AI end-to-end example with evidence pack and expected route decisions.
 - Added mechanism-specific evidence requirements to all AI opportunity cards and schema checks for their coverage.
+- Passed GitHub Actions `Validate` run `29901485917` on commit `9355b02`.
 
 ## In progress
 
 - Keep the first public release limited to the current deterministic capability; do not expand the database or add a UI in this release.
-- Keep `v0.1.2` unreleased until the GitHub Actions `Validate` workflow is green on the fix commit.
-- Run the final release CI check, then tag and publish `v0.1.2`.
+- After publishing `v0.1.2`, run three external project evaluations and collect human feedback.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
@@ -81,4 +81,5 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - [x] Formal schemas and schema validator added.
 - [x] Public end-to-end AI example added.
 - [x] Route-specific evidence requirements completed.
+- [x] GitHub Actions `Validate` run `29901485917` passed.
 - [ ] Tag and GitHub Release `v0.1.2` published.
