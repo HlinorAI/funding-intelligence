@@ -13,7 +13,7 @@ from urllib.request import Request, urlopen
 
 import yaml
 
-from runner import ROOT, evaluate, load_yaml, project_fit, text_tokens
+from runner import ROOT, current_program_affiliation, evaluate, load_yaml, project_fit, text_tokens
 
 
 UNKNOWN = {None, "", "UNKNOWN", "unknown", "TODO", "NOT_PROVIDED", "not_provided"}
@@ -214,7 +214,9 @@ def project_fit_state(project: dict[str, Any], card: dict[str, Any], evaluation:
     return {"value": "STRONG" if native_signals & tokens else "POSSIBLE", "basis": basis, "score": evaluation["score"]}
 
 
-def readiness_state(card: dict[str, Any], fit: dict[str, Any], missing: list[str]) -> str:
+def readiness_state(card: dict[str, Any], fit: dict[str, Any], missing: list[str], already_affiliated: bool = False) -> str:
+    if already_affiliated:
+        return "INELIGIBLE"
     if fit["value"] == "NONE":
         return "INELIGIBLE"
     if fit["value"] == "WEAK":
@@ -232,7 +234,9 @@ def readiness_state(card: dict[str, Any], fit: dict[str, Any], missing: list[str
     return "READY"
 
 
-def decision_for(card: dict[str, Any], program_status: dict[str, Any], endpoint_status: dict[str, Any], fit: dict[str, Any], readiness: str) -> str:
+def decision_for(project: dict[str, Any], card: dict[str, Any], program_status: dict[str, Any], endpoint_status: dict[str, Any], fit: dict[str, Any], readiness: str) -> str:
+    if current_program_affiliation(project, str(card.get("id"))):
+        return "DO_NOT_APPLY"
     if fit["value"] == "NONE" or program_status["value"] in {"CLOSED", "HOLD"}:
         return "DO_NOT_APPLY"
     if endpoint_status["value"] == "MISSING":
@@ -260,8 +264,9 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
     proofs = [proof_status(project, pack, item) for item in card.get("required_evidence", [])]
     missing = [item["requirement"] for item in proofs if item["status"] != "PASS"]
     fit = project_fit_state(project, card, evaluation)
-    readiness = readiness_state(card, fit, missing)
-    decision = decision_for(card, program_status, endpoint_status, fit, readiness)
+    already_affiliated = current_program_affiliation(project, str(card.get("id"))) is not None
+    readiness = readiness_state(card, fit, missing, already_affiliated)
+    decision = decision_for(project, card, program_status, endpoint_status, fit, readiness)
     policy = card.get("decision_policy") or {}
     next_action = dict(card.get("next_action") or {})
     next_action["action"] = decision

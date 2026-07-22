@@ -79,6 +79,22 @@ def project_goals(project: dict[str, Any]) -> list[str]:
     return goals
 
 
+def current_program_affiliation(project: dict[str, Any], program_id: str | None) -> str | None:
+    """Return the current affiliation status for a route, if publicly evidenced."""
+
+    if not program_id:
+        return None
+    for affiliation in as_list(project.get("program_affiliations")):
+        if not isinstance(affiliation, dict):
+            continue
+        if str(affiliation.get("program_id")) != program_id:
+            continue
+        status = str(affiliation.get("status", "")).lower()
+        if status == "current":
+            return status
+    return None
+
+
 def text_tokens(project: dict[str, Any]) -> set[str]:
     product = project.get("product") or {}
     values = []
@@ -171,6 +187,7 @@ def gates(project: dict[str, Any], card: dict[str, Any]) -> dict[str, bool]:
         "mechanism_identified": bool(as_list(card.get("mechanism"))),
         "evidence_requirements_known": bool(as_list(card.get("required_evidence"))),
         "next_action_exists": bool(next_action.get("action") and next_action.get("deliverable")),
+        "not_already_affiliated": current_program_affiliation(project, str(card.get("id"))) is None,
     }
 
 
@@ -226,12 +243,19 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
     if "bd" in mechanisms and not truthy(project, "distribution", "plan"):
         penalties["no_distribution_plan"] = -10
 
+    affiliation = current_program_affiliation(project, str(card.get("id")))
+    if affiliation:
+        reasons.append(f"project already has current {card.get('name')} affiliation")
+        penalties["already_affiliated"] = -100
+
     raw_score = strategic + technical + evidence_points + mechanism + max(0, readiness) + access + sum(penalties.values())
     score = max(0, min(100, raw_score))
     gate = gates(project, card)
     gate["passed"] = all(gate.values())
 
-    if state in BLOCKED_STATES:
+    if affiliation:
+        decision = "DO_NOT_APPLY"
+    elif state in BLOCKED_STATES:
         decision = "DO_NOT_APPLY"
     elif not gate["project_fit"]:
         decision = "DO_NOT_APPLY"
@@ -311,7 +335,9 @@ def build_report(project: dict[str, Any]) -> dict[str, Any]:
     evaluations = [evaluate(project, card) for card in cards]
     evaluations.sort(key=lambda item: (item["decision"] == "DO_NOT_APPLY", -item["score"]))
     opportunities = [item for item in evaluations if item["decision"] != "DO_NOT_APPLY"][:7]
-    do_not_apply = [item for item in evaluations if item["decision"] == "DO_NOT_APPLY"][:10]
+    rejected = [item for item in evaluations if item["decision"] == "DO_NOT_APPLY"]
+    rejected.sort(key=lambda item: (item["gate"].get("not_already_affiliated", True), -item["score"]))
+    do_not_apply = rejected[:10]
     evidence = project.get("evidence") or {}
     readiness = project.get("readiness") or {}
     all_gates = {

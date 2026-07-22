@@ -30,6 +30,7 @@ Last updated: 2026-07-22
 - Added `runtime/render_report.py` for short human-readable Markdown opportunity reports.
 - Added public external-project intake and feedback templates plus Git-ignored `tests/external-local/` workspace.
 - Prepared local-only public-data benchmark v1 for Orvixo with source list, evidence pack, runner output, verifier output, and Markdown report; no founder feedback has been collected yet.
+- Fixed the first benchmark logic bug: current program affiliations now produce `DO_NOT_APPLY` and cannot be hidden by the rejected-route shortlist cap; added a synthetic regression case.
 
 ## In progress
 
@@ -38,13 +39,14 @@ Last updated: 2026-07-22
 - Use the renderer for the three external reports; do not create another release before feedback identifies a real need.
 - Start with one external project end-to-end before recruiting the second and third.
 - Review Orvixo benchmark v1 for factual accuracy, then request owner correction/feedback if contact is appropriate.
+- Review Orvixo report v2 against the benchmark review before contacting the owner.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
 ## Next actions
 
-1. Review the Orvixo public-data benchmark for factual accuracy.
-2. Send report v1 to the project owner only if a suitable public contact path is available.
+1. Review the corrected Orvixo report v2 for factual accuracy.
+2. Send report v2 to the project owner only if a suitable public contact path is available.
 3. Record factual corrections and feedback using `docs/external-test-feedback.md`.
 4. Recruit projects two and three only after the first case is reviewed.
 5. Add live web verification only after the decision logic has been validated externally.

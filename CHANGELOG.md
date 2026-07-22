@@ -14,6 +14,7 @@ The project uses semantic version tags for public releases. Program status chang
 ### Fixed
 
 - No unreleased fixes.
+- Current program affiliations now hard-gate duplicate accelerator/program applications and remain visible in the rejected-route shortlist.
 
 ### Planned
 

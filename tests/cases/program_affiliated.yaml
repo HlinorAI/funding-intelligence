@@ -1,0 +1,43 @@
+schema_version: 1
+name: Synthetic YC Affiliated AI Startup
+description: Public-safe synthetic AI startup already affiliated with Y Combinator.
+sector: [artificial_intelligence, software]
+stage: seed
+geography: [US]
+product:
+  description: AI workflow software for business teams.
+  customers: [business teams]
+  technology: [machine_learning, api]
+  ecosystems: []
+program_affiliations:
+  - program_id: y-combinator
+    status: current
+    source: https://www.ycombinator.com/apply
+    verified_at: 2026-07-22
+evidence:
+  site: true
+  github: true
+  live_demo: true
+  live_deployment: true
+  users: 10
+  revenue: false
+  pilots: 1
+  partners: 0
+  metrics: true
+  audit: false
+needs:
+  goals: [funding, accelerator]
+  funding: 250000
+  runway_months: 12
+constraints:
+  no_token: true
+  no_dilution: false
+  generic_multichain: false
+  native_ecosystems: []
+  target_ecosystems: []
+readiness:
+  budget: true
+  milestones: true
+access:
+  champions: 0
+  warm_intros: 0
