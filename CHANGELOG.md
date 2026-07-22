@@ -6,6 +6,10 @@ The project uses semantic version tags for public releases. Program status chang
 
 ## [Unreleased]
 
+### Added
+
+- Public GitHub issue forms for bug reports and feature requests.
+
 ### Planned
 
 - Run evaluations on three external projects and collect human feedback.

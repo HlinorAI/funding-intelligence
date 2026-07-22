@@ -1,0 +1,47 @@
+name: Bug report
+description: Report a reproducible problem in the runner, verifier, documentation, or public fixtures.
+title: "bug: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please keep reports reproducible and public-safe. Do not include private project evidence, credentials, tokens, or internal metrics.
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: What went wrong?
+      placeholder: Short description of the problem
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Reproduction
+      description: Include the public command, fixture, or minimal input needed to reproduce the issue.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What should the runner, verifier, or documentation do instead?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What did you observe? Include the relevant public output.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: v0.1.1 or commit SHA
+    validations:
+      required: true

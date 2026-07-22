@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest a public, evidence-gated improvement to Funding Intelligence.
+title: "feat: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Proposals should preserve deterministic gates, explainability, public-safe fixtures, and the distinction between resource types.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user or maintainer problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Describe the smallest useful change and its expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: What workarounds or alternatives have you considered?
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Public-safety checklist
+      options:
+        - label: This proposal does not require real private project evidence or credentials.
+          required: true
+        - label: I have considered the impact on schemas, enum values, tests, CHANGELOG.md, and WORKBOARD.md.
+          required: true

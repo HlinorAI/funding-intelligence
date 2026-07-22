@@ -6,9 +6,9 @@ Last updated: 2026-07-22
 
 ## Current status
 
-**Release target:** `v0.1.0`
+**Release target:** `v0.1.1`
 **Repository mode:** public open-source release
-**Core state:** deterministic opportunity routing and verification is implemented; public release packaging is ready except for GitHub metadata/release settings.
+**Core state:** deterministic opportunity routing and verification is implemented; v0.1.0 and v0.1.1 GitHub Releases are published.
 
 ## Completed
 
@@ -18,11 +18,13 @@ Last updated: 2026-07-22
 - Added public synthetic fixtures and regression checks for five project shapes.
 - Made English the primary public documentation language and preserved a complete Russian README.
 - Added Apache-2.0 licensing and contribution/release documentation.
+- Published GitHub Releases `v0.1.0` and `v0.1.1`; configured repository description, topics, and Issues.
+- Added public Bug Report and Feature Request issue forms to `main`.
 
 ## In progress
 
-- Finish GitHub release metadata for `v0.1.0`: description, topics, Issues, tag, and Release notes.
 - Keep the first public release limited to the current deterministic capability; do not expand the database or add a UI in this release.
+- Decide whether the issue-form follow-up should receive a future patch tag; the immutable `v0.1.1` tag predates the issue-form commit.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
@@ -52,12 +54,20 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - Automatic web-driven knowledge updates.
 - Public release of real project evidence, application history, feedback records, or generated private reports.
 
+## Recently completed
+
+- [x] GitHub Release `v0.1.0` published from the existing technical snapshot.
+- [x] GitHub Release `v0.1.1` published from the release-packaging tag.
+- [x] GitHub About description and topics configured.
+- [x] GitHub Issues confirmed enabled.
+
 ## Release checklist
 
 - [x] Apache-2.0 license file added.
 - [x] `CONTRIBUTING.md` added.
 - [x] `CHANGELOG.md` and `WORKBOARD.md` added.
 - [x] Existing Git tag `v0.1.0` confirmed pushed (points to `d0103e8`).
-- [ ] GitHub Release `v0.1.0` published.
-- [ ] GitHub About description and topics configured.
-- [ ] GitHub Issues confirmed enabled.
+- [x] GitHub Releases `v0.1.0` and `v0.1.1` published.
+- [x] GitHub About description and topics configured.
+- [x] GitHub Issues confirmed enabled.
+- [x] Public issue forms added to `main`.
