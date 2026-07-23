@@ -12,6 +12,7 @@ The project uses semantic version tags for public releases. Program status chang
 - Public external-project intake and feedback templates, with a Git-ignored local workspace for real pilot cases.
 - Public affiliation metadata in the project schema, with regression fixtures for current, previous successful, and rejected program relationships.
 - Read-only program-card health check with weekly/manual GitHub Actions workflow, artifact output, and a human-reviewed `stale-data` issue lifecycle.
+- Validation of embedded `actions/github-script` JavaScript in workflow YAML.
 - Removed the legacy language mirror and translated the remaining tracked Hlinor report so public repository content is English-only.
 
 ### Fixed
@@ -19,6 +20,9 @@ The project uses semantic version tags for public releases. Program status chang
 - Current program affiliations now hard-gate duplicate accelerator/program applications and remain visible in the rejected-route shortlist.
 - Affiliation precedence now distinguishes current/previous successful, rejected, and unknown program relationships before opportunity fit becomes an application recommendation.
 - The project schema now accepts a single `unknown` value for fields that may be boolean or numeric without treating the value as ambiguous.
+- Corrected invalid embedded JavaScript in the health-check workflow.
+- Aligned repository version metadata with the latest published release.
+- Removed the obsolete README language self-link.
 
 ### Planned
 
@@ -39,6 +43,17 @@ The project uses semantic version tags for public releases. Program status chang
 ### Fixed
 
 - Prevented the credential scanner from matching its own source while preserving detection of provider-token signatures, private-key markers, credential assignments, and private paths.
+
+## [0.1.1] - 2026-07-22
+
+### Added
+
+- Apache-2.0 licensing, contribution guidance, and maintained changelog/workboard files.
+- GitHub repository metadata and public issue forms for open-source maintenance.
+
+### Changed
+
+- Established English as the primary language for public repository documentation.
 
 ## [0.1.0] - 2026-07-22
 
@@ -63,4 +78,5 @@ The project uses semantic version tags for public releases. Program status chang
 
 [Unreleased]: https://github.com/HlinorAI/funding-intelligence/compare/v0.1.2...HEAD
 [0.1.2]: https://github.com/HlinorAI/funding-intelligence/releases/tag/v0.1.2
+[0.1.1]: https://github.com/HlinorAI/funding-intelligence/releases/tag/v0.1.1
 [0.1.0]: https://github.com/HlinorAI/funding-intelligence/releases/tag/v0.1.0

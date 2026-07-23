@@ -88,8 +88,23 @@ jobs:
               });
             }
 
-            const rows = actionable.map((item) => `| ${item.program_id} | `${item.state}` | ${item.http_status || '—'} | ${item.source || 'missing'} |`).join('\n');
-            const body = `## Program card health check\n\nChecked at: `${report.checked_at}`\n\nThe job found source conditions that require human review. This workflow does not modify knowledge cards.\n\n| Program | State | HTTP | Source |\n|---|---|---:|---|\n${rows}\n\n**Policy:** `UNREACHABLE` is a transport failure, not evidence that a program is closed. Review the official source, then update the card and its verification date manually.`;
+            const code = '`';
+            const rows = actionable
+              .map((item) => `| ${item.program_id} | ${code}${item.state}${code} | ${item.http_status || '—'} | ${item.source || 'missing'} |`)
+              .join('\n');
+            const body = [
+              '## Program card health check',
+              '',
+              `Checked at: ${code}${report.checked_at}${code}`,
+              '',
+              'The job found source conditions that require human review. This workflow does not modify knowledge cards.',
+              '',
+              '| Program | State | HTTP | Source |',
+              '|---|---|---:|---|',
+              rows,
+              '',
+              `**Policy:** ${code}UNREACHABLE${code} is a transport failure, not evidence that a program is closed. Review the official source, then update the card and its verification date manually.`,
+            ].join('\n');
             const issue = existing.find((item) => item.title === title);
             if (issue) {
               await github.rest.issues.update({

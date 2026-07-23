@@ -1,7 +1,5 @@
 # Funding Intelligence
 
-[English documentation](README.md)
-
 An evidence-gated, deterministic engine for routing startups and technical projects to funding, accelerator, cloud-credit, investment, incentive, and business-development opportunities.
 
 ## Why this exists
@@ -97,6 +95,8 @@ python3 -m pip install -r requirements.txt
 ```
 
 No web service or database is required for the local runner.
+
+`VERSION` records the latest published repository release and is release metadata only; it does not control runtime behavior.
 
 ## Usage
 

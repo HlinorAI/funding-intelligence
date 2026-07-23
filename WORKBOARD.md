@@ -6,9 +6,11 @@ Last updated: 2026-07-23
 
 ## Current status
 
-**Release target:** `v0.1.2`
+**Release target:** none
+**Current phase:** external decision-quality validation
+**Next release:** `v0.2.0` only after benchmark breadth and external feedback justify it.
 **Repository mode:** public open-source release
-**Core state:** deterministic opportunity routing and verification is implemented; v0.1.2 is published and the next step is external evaluation.
+**Core state:** deterministic opportunity routing and verification is implemented; v0.1.2 is published and external evaluation is the active work.
 
 ## Completed
 
@@ -34,30 +36,26 @@ Last updated: 2026-07-23
 - Expanded the affiliation model to current, previous successful, rejected, and unknown relationship states with three regression cases.
 - Added the Decision Quality benchmark contract, one completed public-only Orvixo case, immutable runner/verifier expectations, and benchmark methodology.
 - Added read-only program-card health checking with deterministic HTTP classification, self-test coverage, and a scheduled GitHub workflow that never mutates knowledge cards.
+- Resolved the health-check workflow's embedded JavaScript syntax defect and added regression validation for `actions/github-script` blocks.
 - Removed remaining non-English characters from tracked repository artifacts; public repository text is now English-only.
 
 ## In progress
 
-- Keep the first public release limited to the current deterministic capability; do not expand the database or add a UI in this release.
-- Run three external project evaluations and collect human feedback.
-- Use the renderer for the three external reports; do not create another release before feedback identifies a real need.
-- Start with one external project end-to-end before recruiting the second and third.
-- Review Orvixo benchmark v1 for factual accuracy, then request owner correction/feedback if contact is appropriate.
-- Review Orvixo report v2 against the benchmark review before contacting the owner.
-- Reserve a local-only workspace for the second public benchmark; do not commit external project evidence.
-- Build the remaining nine benchmark cases only after public sources and expected decisions are reviewed.
-- Review the first health-check artifact and tune source-specific handling only from observed false positives.
+- One completed public-only benchmark; nine planned benchmark cases remain uncounted until their facts and expectations are reviewed.
+- Promotion and product claims remain blocked until additional cases and human feedback demonstrate practical decision quality.
+- Collect factual corrections and owner feedback for Orvixo before treating the benchmark as external validation.
+- Prepare the next benchmark in a different sector or affiliation state without committing private project evidence.
+- Perform new technical work only when a benchmark or external test identifies a confirmed defect.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
 ## Next actions
 
 1. Review the tracked Orvixo benchmark expectations against the existing public-data review.
-2. Select and source the second benchmark with a different affiliation state or sector.
-3. Record factual corrections and feedback using `docs/external-test-feedback.md`.
-4. Add eight more completed public benchmark cases without inventing unknown facts.
-5. Recruit projects two and three only after the first case is reviewed.
-6. Add live web verification only after the decision logic has been validated externally.
+2. Record factual corrections and feedback using `docs/external-test-feedback.md`.
+3. Select and source the second benchmark with a different affiliation state or sector.
+4. Complete the remaining nine cases only after public sources and expected decisions are reviewed.
+5. Recruit external projects only after the first owner-reviewed case is assessed.
 
 ## Decisions already made
 
@@ -71,6 +69,7 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - Existing program affiliation precedence is a core policy: current/previous successful relationships override fit; rejected relationships require a material change before reapplication; unknown relationships require verification.
 - Public benchmark expectations are source-bound and must fail closed when the engine changes; benchmark cases are not evidence of funding outcomes.
 - Health checks may create or update a `stale-data` issue, but only a human may change a card's program status or verification date.
+- Benchmark and external-test findings are the only authorized triggers for new technical work during the current phase.
 
 ## Intentionally deferred
 

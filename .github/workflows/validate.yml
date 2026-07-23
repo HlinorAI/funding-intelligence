@@ -31,10 +31,15 @@ jobs:
         run: python3 runtime/run_benchmarks.py
 
       - name: Compile Python modules
-        run: python3 -m py_compile runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py runtime/run_benchmarks.py runtime/health_check.py
+        run: python3 -m py_compile runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py runtime/run_benchmarks.py runtime/health_check.py runtime/validate_workflows.py
 
       - name: Health-check self-test
         run: python3 runtime/health_check.py --self-test
+
+      - name: Validate embedded GitHub Actions scripts
+        run: |
+          python3 runtime/validate_workflows.py --self-test
+          python3 runtime/validate_workflows.py
 
       - name: Validate YAML, schemas, program cards, route output, issue forms, and privacy
         run: python3 runtime/validate_schemas.py
