@@ -38,6 +38,7 @@ Last updated: 2026-07-23
 - Added read-only program-card health checking with deterministic HTTP classification, self-test coverage, and a scheduled GitHub workflow that never mutates knowledge cards.
 - Resolved the health-check workflow's embedded JavaScript syntax defect and added regression validation for `actions/github-script` blocks.
 - Resolved health-check JSON artifact serialization for YAML date metadata, found by the first manual workflow dispatch.
+- Triaged the first health-check issue: updated verified Aptos and Stable sources, retained OpenAI's verified access path, and made manually reviewed `403`/`429` transport restrictions visible but non-actionable.
 - Removed remaining non-English characters from tracked repository artifacts; public repository text is now English-only.
 
 ## In progress

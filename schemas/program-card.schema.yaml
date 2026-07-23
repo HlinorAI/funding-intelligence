@@ -44,6 +44,19 @@ properties:
       official_source:
         type: string
         pattern: '^https?://[^\s]+$'
+      health_check:
+        type: object
+        additionalProperties: false
+        properties:
+          known_access_http_statuses:
+            type: array
+            uniqueItems: true
+            items:
+              type: integer
+              enum: [403, 429]
+          note:
+            type: string
+            minLength: 1
   verification:
     type: object
     additionalProperties: true

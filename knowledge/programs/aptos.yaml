@@ -4,10 +4,13 @@ ecosystem: Aptos
 mechanism: [proposal_grant, accelerator, subsidy]
 status:
   state: ACTIVE
-  source_label: "Ecosystem grants/subsidies exist; exact Aptos Foundation call and Thala cohort require checking"
-  last_checked: 2026-07-20
+  source_label: "Aptos Foundation Grants are active; exact Thala Foundry cohort still requires checking"
+  last_checked: 2026-07-23
   needs_verification: true
-  official_source: https://aptosfoundation.org/
+  official_source: https://aptosnetwork.com/grants
+  health_check:
+    known_access_http_statuses: [429]
+    note: "The official site is manually verified; GitHub-hosted transport may be rate limited."
 best_fit:
   - Move/Aptos-native product or DeFi mechanism
   - small-to-medium milestone asks

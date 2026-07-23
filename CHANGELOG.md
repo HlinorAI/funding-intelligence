@@ -13,6 +13,7 @@ The project uses semantic version tags for public releases. Program status chang
 - Public affiliation metadata in the project schema, with regression fixtures for current, previous successful, and rejected program relationships.
 - Read-only program-card health check with weekly/manual GitHub Actions workflow, artifact output, and a human-reviewed `stale-data` issue lifecycle.
 - Validation of embedded `actions/github-script` JavaScript in workflow YAML.
+- Explicit per-card handling for manually verified GitHub transport restrictions (`403` and `429`) in the health check.
 - Removed the legacy language mirror and translated the remaining tracked Hlinor report so public repository content is English-only.
 
 ### Fixed
@@ -22,6 +23,8 @@ The project uses semantic version tags for public releases. Program status chang
 - The project schema now accepts a single `unknown` value for fields that may be boolean or numeric without treating the value as ambiguous.
 - Corrected invalid embedded JavaScript in the health-check workflow.
 - Normalized YAML date metadata in health-check reports so JSON artifact output remains serializable.
+- Updated verified Aptos and Stable official source routes after the first program-card health review.
+- Prevented known, manually reviewed GitHub `403` and `429` access restrictions from reopening the stale-data issue while retaining their raw report state.
 - Aligned repository version metadata with the latest published release.
 - Removed the obsolete README language self-link.
 

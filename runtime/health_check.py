@@ -74,23 +74,42 @@ def probe(url: str, timeout: int = 15) -> dict[str, Any]:
         }
 
 
+def known_access_http_statuses(status: dict[str, Any]) -> set[int]:
+    """Return manually reviewed bot/rate-limit status codes for one card."""
+    health_check = status.get("health_check") or {}
+    if not isinstance(health_check, dict):
+        return set()
+    values = health_check.get("known_access_http_statuses") or []
+    return {value for value in values if isinstance(value, int) and value in {403, 429}}
+
+
+def needs_review(state: str, http_status: int | None, expected_access_statuses: set[int]) -> bool:
+    """Keep reviewed bot/rate-limit responses visible without reopening the issue."""
+    return state in ACTIONABLE_STATES and http_status not in expected_access_statuses
+
+
 def check_card(path: Path, timeout: int = 15) -> dict[str, Any]:
     card = load_yaml(path)
     status = card.get("status") or {}
     source = status.get("official_source")
     last_checked = status.get("last_checked")
+    expected_access_statuses = known_access_http_statuses(status)
     result: dict[str, Any] = {
         "program_id": card.get("id"),
         "program": card.get("name"),
         "source": source,
         "card_path": str(path.relative_to(ROOT)),
         "card_last_checked": str(last_checked) if last_checked is not None else None,
+        "known_access_http_statuses": sorted(expected_access_statuses),
     }
     if not source:
         result.update({"state": "MISSING_SOURCE", "http_status": None, "final_url": None, "error": "status.official_source is missing"})
     else:
         result.update(probe(str(source), timeout))
-    result["needs_review"] = result["state"] in ACTIONABLE_STATES
+    result["known_access_constraint"] = result["http_status"] in expected_access_statuses
+    result["needs_review"] = needs_review(
+        result["state"], result["http_status"], expected_access_statuses
+    )
     return result
 
 
@@ -149,6 +168,21 @@ def self_test() -> int:
         if actual != expected:
             print(f"ERROR: HTTP {status} classified as {actual}, expected {expected}", file=sys.stderr)
             return 1
+    if known_access_http_statuses({"health_check": {"known_access_http_statuses": [403, 429]}}) != {403, 429}:
+        print("ERROR: health-check access-constraint metadata was not parsed", file=sys.stderr)
+        return 1
+    if known_access_http_statuses({"health_check": {"known_access_http_statuses": [404]}}):
+        print("ERROR: health-check accepted an unsupported access-constraint status", file=sys.stderr)
+        return 1
+    if needs_review("HTTP_ERROR", 403, {403}):
+        print("ERROR: reviewed HTTP 403 access restriction remained actionable", file=sys.stderr)
+        return 1
+    if needs_review("HTTP_ERROR", 429, {429}):
+        print("ERROR: reviewed HTTP 429 rate limit remained actionable", file=sys.stderr)
+        return 1
+    if not needs_review("NOT_FOUND", 404, {403, 429}):
+        print("ERROR: HTTP 404 stopped being actionable", file=sys.stderr)
+        return 1
     report = build_report(checked_at="2026-07-23T00:00:00+00:00")
     if report["health_check_version"] != 1 or not report["checks"]:
         print("ERROR: health-check report self-test produced no card records", file=sys.stderr)

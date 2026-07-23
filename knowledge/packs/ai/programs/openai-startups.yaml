@@ -6,15 +6,18 @@ resource_type: [startup_program, cloud_credits, technical_support, community]
 status:
   state: ACTIVE
   source_label: "Founder resources, Build Hours and startup community; API credits and enhanced benefits may require VC referral"
-  last_checked: 2026-07-22
+  last_checked: 2026-07-23
   needs_verification: true
   official_source: https://openai.com/startups
+  health_check:
+    known_access_http_statuses: [403]
+    note: "The official route is manually verified; GitHub-hosted transport is blocked by access controls."
 verification:
   actual_endpoint: https://openai.com/business/why-openai/startups/
   endpoint_kind: gated_partner_route
   status_check: "Confirm the founder route and whether the requested benefit requires a VC referral"
   source_verified: true
-  verified_at: 2026-07-22
+  verified_at: 2026-07-23
   verified_via: official_web_source
 decision_policy:
   access_unknown: VERIFY_ACCESS_PATH

@@ -12,6 +12,8 @@ It checks:
 
 `UNREACHABLE` is never interpreted as `CLOSED`. The script does not edit YAML cards, change `status.state`, or rewrite `last_checked`.
 
+Some official sites deliberately rate-limit or block GitHub-hosted traffic. After a human verifies that an official route is still valid, a card may record `status.health_check.known_access_http_statuses` with only `403` or `429`. The report preserves the raw HTTP result and records the known access constraint, but does not reopen the `stale-data` issue for that already-reviewed condition. A `404`, `5xx`, missing source, or unreviewed `4xx` remains actionable.
+
 Run locally without changing repository files:
 
 ```bash

@@ -4,10 +4,10 @@ ecosystem: Stable / StableChain
 mechanism: [bd, incentive]
 status:
   state: BD-ONLY
-  source_label: "Ecosystem allocation is not evidence of an open grant form"
-  last_checked: 2026-07-20
+  source_label: "Official ecosystem route is available; it is not evidence of an open grant form"
+  last_checked: 2026-07-23
   needs_verification: true
-  official_source: https://docs.stable.xyz/en/developers/mainnet/mainnet-information
+  official_source: https://www.stable.xyz/ecosystem
 best_fit:
   - USDT0-native settlement or payment flow
   - product with measurable volume and a clear ecosystem owner
