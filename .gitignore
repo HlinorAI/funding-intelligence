@@ -24,3 +24,5 @@ tests/expected/hlinor.yaml
 
 # Local-only external pilot cases; never commit real project evidence
 tests/external-local/
+PROJECT_STATUS_AND_ROADMAP.md
+PROJECT_STATUS_AND_ROADMAP.md
