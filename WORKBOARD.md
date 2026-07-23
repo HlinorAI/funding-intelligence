@@ -37,6 +37,7 @@ Last updated: 2026-07-23
 - Added the Decision Quality benchmark contract, one completed public-only Orvixo case, immutable runner/verifier expectations, and benchmark methodology.
 - Added read-only program-card health checking with deterministic HTTP classification, self-test coverage, and a scheduled GitHub workflow that never mutates knowledge cards.
 - Resolved the health-check workflow's embedded JavaScript syntax defect and added regression validation for `actions/github-script` blocks.
+- Resolved health-check JSON artifact serialization for YAML date metadata, found by the first manual workflow dispatch.
 - Removed remaining non-English characters from tracked repository artifacts; public repository text is now English-only.
 
 ## In progress

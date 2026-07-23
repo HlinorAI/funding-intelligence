@@ -78,12 +78,13 @@ def check_card(path: Path, timeout: int = 15) -> dict[str, Any]:
     card = load_yaml(path)
     status = card.get("status") or {}
     source = status.get("official_source")
+    last_checked = status.get("last_checked")
     result: dict[str, Any] = {
         "program_id": card.get("id"),
         "program": card.get("name"),
         "source": source,
         "card_path": str(path.relative_to(ROOT)),
-        "card_last_checked": status.get("last_checked"),
+        "card_last_checked": str(last_checked) if last_checked is not None else None,
     }
     if not source:
         result.update({"state": "MISSING_SOURCE", "http_status": None, "final_url": None, "error": "status.official_source is missing"})
@@ -151,6 +152,11 @@ def self_test() -> int:
     report = build_report(checked_at="2026-07-23T00:00:00+00:00")
     if report["health_check_version"] != 1 or not report["checks"]:
         print("ERROR: health-check report self-test produced no card records", file=sys.stderr)
+        return 1
+    try:
+        json.dumps(report)
+    except TypeError as error:
+        print(f"ERROR: health-check report is not JSON serializable: {error}", file=sys.stderr)
         return 1
     print("OK: health-check self-test")
     return 0

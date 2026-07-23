@@ -21,6 +21,7 @@ The project uses semantic version tags for public releases. Program status chang
 - Affiliation precedence now distinguishes current/previous successful, rejected, and unknown program relationships before opportunity fit becomes an application recommendation.
 - The project schema now accepts a single `unknown` value for fields that may be boolean or numeric without treating the value as ambiguous.
 - Corrected invalid embedded JavaScript in the health-check workflow.
+- Normalized YAML date metadata in health-check reports so JSON artifact output remains serializable.
 - Aligned repository version metadata with the latest published release.
 - Removed the obsolete README language self-link.
 
