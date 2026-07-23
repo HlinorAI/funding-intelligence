@@ -159,6 +159,6 @@ $defs:
       - type: string
         enum: [unknown, UNKNOWN, TODO, not_provided, NOT_PROVIDED]
   knownBooleanOrNumber:
-    oneOf:
+    anyOf:
       - {$ref: '#/$defs/knownBoolean'}
       - {$ref: '#/$defs/knownNumber'}

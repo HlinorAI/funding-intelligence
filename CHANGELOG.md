@@ -11,11 +11,14 @@ The project uses semantic version tags for public releases. Program status chang
 - Markdown report renderer combining runner and route-verification outputs for human review.
 - Public external-project intake and feedback templates, with a Git-ignored local workspace for real pilot cases.
 - Public affiliation metadata in the project schema, with regression fixtures for current, previous successful, and rejected program relationships.
+- Read-only program-card health check with weekly/manual GitHub Actions workflow, artifact output, and a human-reviewed `stale-data` issue lifecycle.
+- Removed the legacy language mirror and translated the remaining tracked Hlinor report so public repository content is English-only.
 
 ### Fixed
 
 - Current program affiliations now hard-gate duplicate accelerator/program applications and remain visible in the rejected-route shortlist.
 - Affiliation precedence now distinguishes current/previous successful, rejected, and unknown program relationships before opportunity fit becomes an application recommendation.
+- The project schema now accepts a single `unknown` value for fields that may be boolean or numeric without treating the value as ambiguous.
 
 ### Planned
 
@@ -45,7 +48,7 @@ The project uses semantic version tags for public releases. Program status chang
 - Local knowledge cards for Web3/ecosystem routes and an AI opportunity pack.
 - Independent route verification states for program status, endpoint status, transport, project fit, and project readiness.
 - Public synthetic fixtures and regression checks for AI, hardware, SME, and Web3 project shapes.
-- English-first public documentation with a maintained Russian README mirror.
+- English-first public documentation with a maintained documentation mirror.
 - Apache License 2.0, contribution guidance, and release-facing project memory.
 
 ### Changed

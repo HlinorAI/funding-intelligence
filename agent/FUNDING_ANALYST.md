@@ -152,6 +152,9 @@ Need:
 - For accelerator goals, output cohort/status, selection proof, and investment terms.
 - Do not promise an acceptance probability unless evidence is explicit; use qualitative labels: `high`, `medium`, `low`, `unknown`.
 - If the user provides URLs or asks for current status, status verification is mandatory.
+- Benchmark expectations are immutable test contracts: never rewrite an expected decision to match a changed engine output without recording the factual or policy reason.
+- For public-only benchmark cases, preserve source URLs and keep unproven legal, traction, revenue, deployment, and access facts as `unknown`.
+- Treat health-check `UNREACHABLE` as a transport observation only; never convert it into `CLOSED` or silently edit a program card.
 
 ## Update path (not implemented in v1)
 

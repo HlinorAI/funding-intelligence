@@ -1,0 +1,95 @@
+benchmark_version: 1
+case_id: orvixo-001
+status: complete
+source_type: public_only
+sources:
+  - id: yc-profile
+    url: https://www.ycombinator.com/companies/orvixo
+    supports: [current_yc_affiliation, public_company_description, geography_claim]
+  - id: official-site
+    url: https://www.orvixo.ai/
+    supports: [product_description, manufacturing_operations_context]
+project:
+  schema_version: 1
+  source_type: public_only
+  name: Orvixo
+  description: AI planning and optimisation software for complex manufacturing operations.
+  sector: [artificial_intelligence, manufacturing, operations, robotics]
+  stage: unknown
+  stage_claims: [YC Summer 2026 batch, public directory status active]
+  program_affiliations:
+    - program_id: y-combinator
+      status: current
+      source: https://www.ycombinator.com/companies/orvixo
+      verified_at: 2026-07-22
+  geography: [UK]
+  product:
+    description: AI system that models factory constraints and builds adaptive production schedules.
+    customers: [manufacturers, factory planners]
+    technology: [artificial_intelligence, optimisation, production_planning]
+    ecosystems: []
+  evidence:
+    site: true
+    github: unknown
+    live_demo: unknown
+    live_deployment: unknown
+    users: unknown
+    revenue: unknown
+    pilots: unknown
+    partners: unknown
+    metrics: unknown
+    audit: unknown
+  needs:
+    goals: []
+    funding: unknown
+    runway_months: unknown
+  constraints:
+    no_token: unknown
+    no_dilution: unknown
+    generic_multichain: false
+    native_ecosystems: []
+    target_ecosystems: []
+  readiness:
+    budget: unknown
+    milestones: unknown
+  access:
+    champions: unknown
+    warm_intros: unknown
+expected:
+  classification:
+    stage: unknown
+    sectors: [artificial_intelligence, manufacturing, operations, robotics]
+  runner:
+    gate_passed: false
+    routes:
+      aws-activate:
+        decision: VERIFY_FIRST
+      microsoft-for-startups:
+        decision: VERIFY_FIRST
+      nvidia-inception:
+        decision: VERIFY_FIRST
+      openai-for-startups:
+        decision: VERIFY_FIRST
+      y-combinator:
+        decision: DO_NOT_APPLY
+        reason_contains: [current Y Combinator affiliation]
+  verifier:
+    routes:
+      aws-activate:
+        decision: COMPLETE_ELIGIBILITY_DATA
+        readiness: INCOMPLETE
+      microsoft-for-startups:
+        decision: COMPLETE_ELIGIBILITY_DATA
+        readiness: INCOMPLETE
+      nvidia-inception:
+        decision: BUILD_NVIDIA_USE_CASE
+        readiness: BUILD_FIRST
+      openai-for-startups:
+        decision: VERIFY_ACCESS_PATH
+        readiness: UNKNOWN
+      y-combinator:
+        decision: DO_NOT_APPLY
+        readiness: INELIGIBLE
+        reason_contains: ["Affiliation state: current"]
+  forbidden:
+    y-combinator: [NOW, BUILD_FIRST, VERIFY_FIRST]

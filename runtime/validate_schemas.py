@@ -20,6 +20,7 @@ PROGRAM_CARD_PATHS = sorted((ROOT / "knowledge" / "programs").glob("*.yaml"))
 PROGRAM_CARD_PATHS += sorted((ROOT / "knowledge" / "packs").glob("*/programs/*.yaml"))
 AI_PROGRAM_CARD_PATHS = sorted((ROOT / "knowledge" / "packs" / "ai" / "programs").glob("*.yaml"))
 PROJECT_PATHS = sorted((ROOT / "tests" / "cases").glob("*.yaml"))
+BENCHMARK_CASE_PATHS = sorted((ROOT / "benchmarks" / "cases").glob("*.yaml"))
 EXAMPLE_DIR = ROOT / "examples" / "example-ai-startup"
 EXAMPLE_PROJECT_PATH = EXAMPLE_DIR / "project.yaml"
 EXAMPLE_EXPECTED_PATH = EXAMPLE_DIR / "expected-report.yaml"
@@ -173,6 +174,23 @@ def validate_expected_fixtures(errors: list[str]) -> None:
             errors.append(f"{path.relative_to(ROOT)}: must_not_be_now must be boolean")
         if not isinstance(value.get("gate_passed"), bool):
             errors.append(f"{path.relative_to(ROOT)}: gate_passed must be boolean")
+
+
+def validate_benchmark_cases(benchmark_schema: dict[str, Any], project_schema: dict[str, Any], errors: list[str]) -> None:
+    for path in BENCHMARK_CASE_PATHS:
+        case = normalize_dates(load_yaml(path))
+        validate_document(case, benchmark_schema, path, errors)
+        if not isinstance(case, dict):
+            continue
+        project = case.get("project")
+        if not isinstance(project, dict):
+            errors.append(f"{path.relative_to(ROOT)}: project must be a mapping")
+        else:
+            validate_document(project, project_schema, path, errors)
+            if case.get("source_type") == "public_only" and project.get("source_type") != "public_only":
+                errors.append(f"{path.relative_to(ROOT)}: public_only benchmark project must declare source_type: public_only")
+        if case.get("status") == "complete" and not case.get("sources"):
+            errors.append(f"{path.relative_to(ROOT)}: complete benchmark case requires sources")
 
 
 def validate_issue_forms(errors: list[str]) -> None:
@@ -367,6 +385,7 @@ def validate_public_example(
 
 def main() -> int:
     errors: list[str] = []
+    benchmark_schema = schema("benchmark-case.schema.yaml")
     project_schema = schema("project.schema.yaml")
     program_schema = schema("program-card.schema.yaml")
     route_schema = schema("route-verification.schema.yaml")
@@ -377,6 +396,7 @@ def main() -> int:
     for path in PROJECT_PATHS:
         validate_document(normalize_dates(load_yaml(path)), project_schema, path, errors)
     validate_expected_fixtures(errors)
+    validate_benchmark_cases(benchmark_schema, project_schema, errors)
     validate_issue_forms(errors)
     validate_yaml_syntax(errors)
     validate_credential_scanner(errors)
@@ -388,7 +408,7 @@ def main() -> int:
         for error in errors:
             print(f"ERROR: {error}", file=sys.stderr)
         return 1
-    print(f"OK: schemas validated {len(PROGRAM_CARD_PATHS)} program cards, {len(PROJECT_PATHS)} projects, public reports, route verification, issue forms, and tracked-file privacy")
+    print(f"OK: schemas validated {len(PROGRAM_CARD_PATHS)} program cards, {len(PROJECT_PATHS)} projects, {len(BENCHMARK_CASE_PATHS)} benchmark cases, public reports, route verification, issue forms, and tracked-file privacy")
     return 0
 
 

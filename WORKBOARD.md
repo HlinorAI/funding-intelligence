@@ -2,7 +2,7 @@
 
 This file is the project's persistent operating memory. Keep it factual, short, and current. Update it when work is completed, a decision changes, or the next action changes.
 
-Last updated: 2026-07-22
+Last updated: 2026-07-23
 
 ## Current status
 
@@ -16,7 +16,7 @@ Last updated: 2026-07-22
 - Added deterministic project classification, scoring, hard gates, routing, and decision traces.
 - Added route verification with independent program, endpoint, transport, fit, readiness, and final-decision states.
 - Added public synthetic fixtures and regression checks for five project shapes.
-- Made English the primary public documentation language and preserved a complete Russian README.
+- Made English the sole public documentation language.
 - Added Apache-2.0 licensing and contribution/release documentation.
 - Published GitHub Releases `v0.1.0` and `v0.1.1`; configured repository description, topics, and Issues.
 - Added public Bug Report and Feature Request issue forms to `main`.
@@ -32,6 +32,9 @@ Last updated: 2026-07-22
 - Prepared local-only public-data benchmark v1 for Orvixo with source list, evidence pack, runner output, verifier output, and Markdown report; no founder feedback has been collected yet.
 - Fixed the first benchmark logic bug: current program affiliations now produce `DO_NOT_APPLY` and cannot be hidden by the rejected-route shortlist cap; added a synthetic regression case.
 - Expanded the affiliation model to current, previous successful, rejected, and unknown relationship states with three regression cases.
+- Added the Decision Quality benchmark contract, one completed public-only Orvixo case, immutable runner/verifier expectations, and benchmark methodology.
+- Added read-only program-card health checking with deterministic HTTP classification, self-test coverage, and a scheduled GitHub workflow that never mutates knowledge cards.
+- Removed remaining non-English characters from tracked repository artifacts; public repository text is now English-only.
 
 ## In progress
 
@@ -42,15 +45,17 @@ Last updated: 2026-07-22
 - Review Orvixo benchmark v1 for factual accuracy, then request owner correction/feedback if contact is appropriate.
 - Review Orvixo report v2 against the benchmark review before contacting the owner.
 - Reserve a local-only workspace for the second public benchmark; do not commit external project evidence.
+- Build the remaining nine benchmark cases only after public sources and expected decisions are reviewed.
+- Review the first health-check artifact and tune source-specific handling only from observed false positives.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
 ## Next actions
 
-1. Review the corrected Orvixo report v2 for factual accuracy.
-2. Send report v2 to the project owner only if a suitable public contact path is available.
+1. Review the tracked Orvixo benchmark expectations against the existing public-data review.
+2. Select and source the second benchmark with a different affiliation state or sector.
 3. Record factual corrections and feedback using `docs/external-test-feedback.md`.
-4. Select a second benchmark with a different affiliation state or sector after the first case is reviewed.
+4. Add eight more completed public benchmark cases without inventing unknown facts.
 5. Recruit projects two and three only after the first case is reviewed.
 6. Add live web verification only after the decision logic has been validated externally.
 
@@ -61,9 +66,11 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - `unknown` is not evidence.
 - Cloud credits, incentives, BD, accelerator access, and investment must not be presented as the same resource type or as cash grants.
 - A transport failure must not be interpreted as a closed program.
-- Public fixtures must be synthetic; private project evidence stays outside Git.
+- Public regression fixtures remain synthetic; public-only benchmark cases may be tracked with source URLs, while private project evidence stays outside Git.
 - Changes to `runtime/runner.py` and `runtime/verify_route.py` require explicit contract tests and changelog entries.
 - Existing program affiliation precedence is a core policy: current/previous successful relationships override fit; rejected relationships require a material change before reapplication; unknown relationships require verification.
+- Public benchmark expectations are source-bound and must fail closed when the engine changes; benchmark cases are not evidence of funding outcomes.
+- Health checks may create or update a `stale-data` issue, but only a human may change a card's program status or verification date.
 
 ## Intentionally deferred
 
@@ -72,7 +79,8 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - Broad expansion to hundreds of additional programs.
 - Automatic web-driven knowledge updates.
 - Public release of real project evidence, application history, feedback records, or generated private reports.
-- A second public benchmark remains intentionally uncommitted until its facts and source policy are reviewed.
+- Additional public benchmarks remain intentionally uncommitted until their facts, source coverage, and expected decisions are reviewed.
+- Automatic mutation of knowledge cards from HTTP results remains intentionally deferred.
 
 ## Recently completed
 

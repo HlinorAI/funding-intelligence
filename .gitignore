@@ -10,9 +10,12 @@ history/applications.yaml
 history/feedback.yaml
 
 # Generated reports
-reports/
+reports/*
+!reports/report-template.md
 hlinor-report.yaml
 hlinor-route-verification.yaml
+health-check-report.*
+health-check-summary.md
 *.local.yaml
 
 # Private project test fixtures

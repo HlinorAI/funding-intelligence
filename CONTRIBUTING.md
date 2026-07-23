@@ -50,7 +50,7 @@ Keep unknown facts as `unknown`/`UNKNOWN`; never fill a gap from assumption or p
 
 ## Documentation and operational memory
 
-Documentation changes should keep English as the primary public language. Update `README.ru.md` when the public README contract changes materially.
+Documentation changes should keep English as the public language. Keep the primary `README.md` aligned with the current project contract.
 
 Maintain both operational files:
 

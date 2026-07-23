@@ -1,0 +1,32 @@
+benchmark_version: 1
+target_case_count: 10
+completed:
+  - orvixo-001
+planned:
+  - case_id: ai-yc-alumnus-001
+    type: ai_startup
+    profile: YC alumnus with a prior successful affiliation
+  - case_id: ai-open-source-001
+    type: ai_startup
+    profile: open-source AI infrastructure project
+  - case_id: ai-enterprise-001
+    type: ai_startup
+    profile: enterprise AI with a public customer or pilot signal
+  - case_id: hardware-prototype-001
+    type: hardware
+    profile: hardware prototype without production evidence
+  - case_id: hardware-production-001
+    type: hardware
+    profile: production-ready hardware with manufacturing evidence
+  - case_id: local-smb-001
+    type: sme
+    profile: local business seeking digital transformation support
+  - case_id: deeptech-university-001
+    type: deeptech
+    profile: university-linked research team with public IP evidence
+  - case_id: web3-grant-recipient-001
+    type: web3
+    profile: Web3 project with a verified previous grant or ecosystem affiliation
+  - case_id: web3-infrastructure-001
+    type: web3
+    profile: public Web3 infrastructure project with deployment evidence

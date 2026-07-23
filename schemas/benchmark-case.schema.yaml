@@ -1,0 +1,92 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/HlinorAI/funding-intelligence/blob/main/schemas/benchmark-case.schema.yaml
+title: Funding Intelligence public benchmark case
+type: object
+additionalProperties: false
+required: [benchmark_version, case_id, status, source_type, sources, project, expected]
+properties:
+  benchmark_version:
+    type: integer
+    const: 1
+  case_id:
+    type: string
+    pattern: '^[a-z0-9][a-z0-9-]*$'
+  status:
+    type: string
+    enum: [complete]
+  source_type:
+    type: string
+    enum: [public_only, synthetic]
+  sources:
+    type: array
+    minItems: 1
+    items:
+      type: object
+      additionalProperties: false
+      required: [id, url, supports]
+      properties:
+        id:
+          type: string
+          pattern: '^[a-z0-9][a-z0-9-]*$'
+        url:
+          type: string
+          pattern: '^https?://[^\s]+$'
+        supports:
+          type: array
+          minItems: 1
+          items: {type: string}
+  project:
+    type: object
+  expected:
+    type: object
+    additionalProperties: false
+    required: [classification, runner, verifier]
+    properties:
+      classification:
+        type: object
+        required: [stage, sectors]
+        additionalProperties: false
+        properties:
+          stage: {type: string}
+          sectors:
+            type: array
+            items: {type: string}
+      runner:
+        type: object
+        required: [gate_passed, routes]
+        additionalProperties: false
+        properties:
+          gate_passed: {type: boolean}
+          routes:
+            type: object
+            additionalProperties:
+              type: object
+              required: [decision]
+              additionalProperties: false
+              properties:
+                decision: {type: string}
+                reason_contains:
+                  type: array
+                  items: {type: string}
+      verifier:
+        type: object
+        required: [routes]
+        additionalProperties: false
+        properties:
+          routes:
+            type: object
+            additionalProperties:
+              type: object
+              required: [decision]
+              additionalProperties: false
+              properties:
+                decision: {type: string}
+                readiness: {type: string}
+                reason_contains:
+                  type: array
+                  items: {type: string}
+      forbidden:
+        type: object
+        additionalProperties:
+          type: array
+          items: {type: string}

@@ -1,6 +1,6 @@
 # Funding Intelligence
 
-[Русский](README.ru.md)
+[English documentation](README.md)
 
 An evidence-gated, deterministic engine for routing startups and technical projects to funding, accelerator, cloud-credit, investment, incentive, and business-development opportunities.
 
@@ -78,9 +78,10 @@ program_affiliations:
 ```text
 agent/       operator policy for the Funding Intelligence Agent
 knowledge/   program cards, vertical packs, rules, and templates
-runtime/     deterministic runner, route verifier, and schema validator
+runtime/     deterministic runner, route verifier, health check, and schema validator
 schemas/     formal project, program-card, route, and report schemas
 tests/       public synthetic cases and expected decisions
+benchmarks/  public decision-quality cases, expectations, and benchmark plan
 examples/    public sample report artifacts
 history/     documentation for human-maintained application history
 ```
@@ -134,6 +135,24 @@ See [examples/example-ai-startup/README.md](examples/example-ai-startup/README.m
 
 For the first real external pilot, use the short [external project intake](docs/external-test-intake.md) and then collect responses with the [external test feedback form](docs/external-test-feedback.md). Local project cases belong under `tests/external-local/`, which is ignored by Git.
 
+Run the completed public decision-quality benchmarks:
+
+```bash
+python3 runtime/run_benchmarks.py
+```
+
+See [benchmark methodology](docs/benchmark-methodology.md) and [`benchmarks/`](benchmarks/) for the source-bound expectations. The current suite contains one completed public-only case; planned cases are not counted as evidence.
+
+Run a read-only health check of official program-card sources:
+
+```bash
+python3 runtime/health_check.py \
+  --output /tmp/health-check-report.json \
+  --summary /tmp/health-check-summary.md
+```
+
+See [program-card health check](docs/program-card-health-check.md). A transport failure is reported as `UNREACHABLE`, never as `CLOSED`, and the check does not mutate knowledge cards.
+
 ## Example output
 
 The public fixture `tests/cases/ai_startup.yaml` represents an `Example AI Infrastructure Startup`. Its current expected contract is:
@@ -176,7 +195,8 @@ Run the public regression suite:
 
 ```bash
 python3 runtime/runner.py --check-all
-python3 -m py_compile runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py
+python3 runtime/run_benchmarks.py
+python3 -m py_compile runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py runtime/run_benchmarks.py
 ```
 
 Run the full public contract validator locally:
