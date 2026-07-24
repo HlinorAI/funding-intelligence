@@ -1,0 +1,68 @@
+id: base-funding-ladder
+program: Base Funding Ladder
+official_source: https://base.org/ecosystem
+last_updated: "2026-07-24"
+status:
+  state: open
+  application_deadline: null
+  cohort_start: null
+  source_verified: false
+  needs_verification: true
+gates:
+  stage:
+    - pre_seed
+    - seed
+    - series_a
+  geography:
+    - worldwide
+  sectors:
+    - web3
+    - defi
+    - nft
+    - infrastructure
+    - consumer
+  team_size:
+    min: 1
+    max: 50
+  funding_stage:
+    - pre_seed
+    - seed
+    - series_a
+scoring_weights:
+  strategic_fit: 25
+  technical_fit: 20
+  evidence: 20
+  mechanism_fit: 15
+  readiness: 10
+  access: 10
+mechanisms:
+  - type: grant
+    amount:
+      min: 5000
+      max: 500000
+    currency: USD
+    description: "Ecosystem grants for Base builders"
+  - type: technical_support
+    description: "Engineering support and code reviews"
+  - type: marketing
+    description: "Promotion through Base channels"
+evidence_requirements:
+  - working_product: "MVP or prototype required"
+  - traction: "Early users or TVL preferred"
+  - team: "Experienced Web3 developers"
+application_process:
+  steps:
+    - "Join Base Discord"
+    - "Submit grant application"
+    - "Community review"
+    - "Technical evaluation"
+    - "Grant approval and disbursement"
+  estimated_time_days: 45
+tags:
+  - web3
+  - blockchain
+  - base
+  - coinbase
+  - defi
+  - grants
+notes: "Part of Coinbase's Layer 2 ecosystem. Focus on decentralized applications"
