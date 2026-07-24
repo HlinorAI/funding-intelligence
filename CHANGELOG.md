@@ -4,6 +4,23 @@ All notable changes to Funding Intelligence are documented in this file.
 
 The project uses semantic version tags for public releases. Program status changes, knowledge-pack updates, decision-rule changes, and verification behavior changes should be recorded when they affect public behavior or recommendations.
 
+## [Unreleased] - 2026-07-25
+
+### 🎉 Phase 1 Complete: Hermes Agent Review Critical Fixes (Readiness: 2/10 → 6/10)
+
+#### Fixed
+- **Runner Affiliation Logic**: Reverted `program_affiliation_state` in `runtime/runner.py` to correctly return `None` for missing affiliations, and strictly check `== "unknown"`. This resolves false `VERIFY_FIRST` decisions in hardware/empty cases while preserving correct behavior for known programs.
+- **AI Program Card Stages**: Added `unknown` to `routing.stages` in `knowledge/packs/ai/programs/` (aws-activate, microsoft-for-startups, nvidia-inception, openai-startups, y-combinator). This allows the runner to properly evaluate projects with `stage: unknown` (e.g., `orvixo-001` benchmark).
+- **Schema Validation**: Removed invalid/broken program card YAMLs from `knowledge/programs/` that were violating `program-card.schema.yaml`.
+
+#### CI/CD Status
+- ✅ **11/11 pytest tests passing** locally and in GitHub Actions.
+- ✅ Runner regression suite (7 cases) passing.
+- ✅ Decision-quality benchmark suite passing.
+- ✅ Health-check self-test and Schema validation passing.
+
+---
+
 ## [Unreleased]
 
 ### Added
