@@ -283,7 +283,7 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
         decision = "DO_NOT_APPLY"
     elif affiliation_state == "rejected":
         decision = "APPLY_AGAIN_AFTER_CHANGE"
-    elif affiliation_state == "unknown":
+    elif affiliation_state in {"unknown", None}:
         decision = "VERIFY_FIRST"
     elif state in BLOCKED_STATES:
         decision = "DO_NOT_APPLY"
