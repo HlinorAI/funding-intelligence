@@ -20,7 +20,7 @@ decision_policy:
   weak_fit: BUILD_NVIDIA_USE_CASE
 routing:
   verticals: [ai, artificial_intelligence, agents, agent_infrastructure, robotics, deeptech, hardware]
-  stages: [prototype, early_product, seed, revenue]
+  stages: [prototype, early_product, seed, revenue, unknown]
   goals: [partnerships, technical_support, funding]
   native_signals: [nvidia, gpu, cuda, tensorrt, triton, nim, gpu_acceleration, accelerated_computing]
 best_fit:

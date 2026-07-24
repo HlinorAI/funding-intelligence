@@ -24,7 +24,7 @@ decision_policy:
   readiness_mode: access
 routing:
   verticals: [ai, artificial_intelligence, agents, agent_infrastructure]
-  stages: [prototype, early_product, seed, revenue]
+  stages: [prototype, early_product, seed, revenue, unknown]
   goals: [technical_support, partnerships]
 best_fit:
   - AI product with a concrete OpenAI API use case

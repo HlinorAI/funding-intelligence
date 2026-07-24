@@ -21,7 +21,7 @@ decision_policy:
   readiness_mode: eligibility
 routing:
   verticals: [ai, artificial_intelligence, agents, agent_infrastructure, b2b, software]
-  stages: [prototype, early_product, pre_seed, seed, series_a, series_b, series_c]
+  stages: [prototype, early_product, pre_seed, seed, series_a, series_b, series_c, unknown]
   goals: [funding, partnerships, technical_support]
 best_fit:
   - privately held B2B software or AI startup

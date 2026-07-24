@@ -21,7 +21,7 @@ decision_policy:
   readiness_mode: build_proof
 routing:
   verticals: [ai, artificial_intelligence, agents, agent_infrastructure, software, b2b]
-  stages: [idea, prototype, early_product, seed, revenue]
+  stages: [idea, prototype, early_product, seed, revenue, unknown]
   goals: [funding, accelerator, partnerships]
 best_fit:
   - venture-scale startup with clear problem and team

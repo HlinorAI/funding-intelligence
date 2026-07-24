@@ -21,7 +21,7 @@ decision_policy:
   readiness_mode: eligibility
 routing:
   verticals: [ai, artificial_intelligence, agents, agent_infrastructure, software, b2b]
-  stages: [idea, prototype, early_product, pre_seed, seed, series_a, series_b]
+  stages: [idea, prototype, early_product, pre_seed, seed, series_a, series_b, unknown]
   goals: [funding, technical_support]
 best_fit:
   - startup reducing cloud/API burn during build or scale
