@@ -57,6 +57,7 @@ Last updated: 2026-07-26
 - Four completed public-only benchmarks; six planned benchmark cases remain uncounted until their facts and expectations are reviewed.
 - Promotion and product claims remain blocked until additional cases and human feedback demonstrate practical decision quality.
 - Collect factual corrections and owner feedback for Orvixo before treating the benchmark as external validation.
+- External validation is intentionally awaiting a consented inbound project or voluntary owner contact; no outbound founder outreach is planned.
 - Prepare a public benchmark for a distinct project shape without committing private project evidence.
 - Perform new technical work only when a benchmark or external test identifies a confirmed defect.
 
@@ -68,7 +69,7 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 2. Record factual corrections and feedback using `docs/external-test-feedback.md`.
 3. Select and source the next benchmark from the AI alumnus or hardware-production profiles.
 4. Complete the remaining six cases only after public sources and expected decisions are reviewed.
-5. Recruit external projects only after the first owner-reviewed case is assessed.
+5. Accept one consented inbound project when available, then run the documented intake-to-feedback cycle without publishing private evidence.
 6. Review or split a source-only card only when an external project or benchmark selects a specific mechanism.
 
 ## Decisions already made
