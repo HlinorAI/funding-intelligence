@@ -7,7 +7,7 @@
 
 - The latest public release is `v0.1.2`.
 - The repository contains a deterministic, evidence-gated runner and an independent route verifier.
-- Three completed public-only benchmarks are tracked: AI/manufacturing, hardware/physical AI, and Web3 with a verified previous funding relationship. Planned cases are not evidence until their sources and expected decisions are reviewed.
+- Four completed public-only benchmarks are tracked: AI/manufacturing, hardware/physical AI, Web3 with a verified previous funding relationship, and Web3 infrastructure with a Base deployment. Planned cases are not evidence until their sources and expected decisions are reviewed.
 - GitHub Actions validates runner fixtures, benchmarks, pytest regression tests, schemas, embedded workflow JavaScript, report rendering, and public-safety rules.
 
 ## Operating principles
@@ -21,7 +21,7 @@
 ## Current priorities
 
 1. Review the Orvixo public-only benchmark against factual corrections from the project owner when available.
-2. Add one reviewed public Web3 infrastructure benchmark without an existing affiliation to test native-fit handling.
+2. Add a reviewed public benchmark for a distinct project shape, starting with an AI alumnus or hardware production case.
 3. Record false positives, false negatives, useful routes, and human feedback for every completed case.
 4. Revisit health-check access exceptions only after external cases show that their review cadence is insufficient.
 

@@ -1,0 +1,86 @@
+benchmark_version: 1
+case_id: web3-infrastructure-001
+status: complete
+source_type: public_only
+sources:
+  - id: base-mainnet-explorer
+    url: https://base.blockscout.com/
+    supports: [base_mainnet_deployment, public_product_availability]
+  - id: public-repository
+    url: https://github.com/blockscout/blockscout
+    supports: [public_repository, open_source_infrastructure_description]
+  - id: optimism-retro-funding-record
+    url: https://gov.optimism.io/t/rpgf3-deep-dive/7577
+    supports: [previous_successful_optimism_funding]
+project:
+  schema_version: 1
+  source_type: public_only
+  name: Blockscout
+  description: Open-source EVM blockchain explorer with a public Base Mainnet deployment.
+  sector: [web3, developer_tools, infrastructure]
+  stage: unknown
+  stage_claims: [public Base Mainnet explorer, public open-source repository]
+  program_affiliations:
+    - program_id: optimism-superchain
+      status: previous
+      outcome: successful
+      source: https://gov.optimism.io/t/rpgf3-deep-dive/7577
+      verified_at: 2026-07-26
+  geography: [unknown]
+  product:
+    description: Blockchain explorer infrastructure for inspecting transactions, accounts, balances, and smart contracts on EVM networks.
+    customers: [developers, blockchain_users]
+    technology: [web3, evm, blockchain_explorer, open_source]
+    ecosystems: [Base]
+  evidence:
+    site: true
+    github: true
+    live_demo: true
+    live_deployment: true
+    users: unknown
+    revenue: unknown
+    pilots: unknown
+    partners: unknown
+    metrics: unknown
+    audit: unknown
+  needs:
+    goals: []
+    funding: unknown
+    runway_months: unknown
+  constraints:
+    no_token: unknown
+    no_dilution: unknown
+    generic_multichain: true
+    native_ecosystems: [Base]
+    target_ecosystems: [Base]
+  readiness:
+    budget: unknown
+    milestones: unknown
+  access:
+    champions: unknown
+    warm_intros: unknown
+expected:
+  classification:
+    stage: unknown
+    sectors: [web3, developer_tools, infrastructure]
+  runner:
+    gate_passed: false
+    routes:
+      base-funding-ladder:
+        decision: VERIFY_FIRST
+        reason_contains: [ecosystem matches project routing]
+      optimism-superchain:
+        decision: DO_NOT_APPLY
+        reason_contains: [previous successful Optimism / Superchain Funding affiliation]
+  verifier:
+    routes:
+      base-funding-ladder:
+        decision: VERIFY_FIRST
+        readiness: INCOMPLETE
+      optimism-superchain:
+        decision: DO_NOT_APPLY
+        readiness: INELIGIBLE
+        reason_contains: ["Affiliation state: previous_successful"]
+  forbidden:
+    base-funding-ladder: [NOW, DO_NOT_APPLY]
+    optimism-superchain: [NOW, NEXT, BUILD_FIRST, VERIFY_FIRST, APPLY_AGAIN_AFTER_CHANGE]

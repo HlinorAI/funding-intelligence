@@ -46,23 +46,24 @@ Last updated: 2026-07-26
 - Removed remaining non-English characters from tracked repository artifacts; public repository text is now English-only.
 - Added a second source-bound public benchmark for Almond, covering hardware/physical AI, provider-eligibility evidence boundaries, and current-affiliation precedence.
 - Added a third source-bound public benchmark for rotki, covering a verified previous successful Optimism funding relationship and affiliation precedence over ecosystem fit.
+- Added a fourth source-bound public benchmark for Blockscout, covering Base deployment fit and program-scoped affiliation precedence.
 
 ## In progress
 
-- Three completed public-only benchmarks; seven planned benchmark cases remain uncounted until their facts and expectations are reviewed.
+- Four completed public-only benchmarks; six planned benchmark cases remain uncounted until their facts and expectations are reviewed.
 - Promotion and product claims remain blocked until additional cases and human feedback demonstrate practical decision quality.
 - Collect factual corrections and owner feedback for Orvixo before treating the benchmark as external validation.
-- Prepare a public Web3 infrastructure benchmark without an existing affiliation, without committing private project evidence.
+- Prepare a public benchmark for a distinct project shape without committing private project evidence.
 - Perform new technical work only when a benchmark or external test identifies a confirmed defect.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
 ## Next actions
 
-1. Review the tracked Orvixo, Almond, and rotki benchmark expectations against owner corrections when available.
+1. Review the tracked Orvixo, Almond, rotki, and Blockscout benchmark expectations against owner corrections when available.
 2. Record factual corrections and feedback using `docs/external-test-feedback.md`.
-3. Select and source the next Web3 infrastructure benchmark without an existing affiliation.
-4. Complete the remaining seven cases only after public sources and expected decisions are reviewed.
+3. Select and source the next benchmark from the AI alumnus or hardware-production profiles.
+4. Complete the remaining six cases only after public sources and expected decisions are reviewed.
 5. Recruit external projects only after the first owner-reviewed case is assessed.
 
 ## Decisions already made

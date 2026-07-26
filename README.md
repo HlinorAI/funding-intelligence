@@ -141,7 +141,7 @@ Run the completed public decision-quality benchmarks:
 python3 runtime/run_benchmarks.py
 ```
 
-See [benchmark methodology](docs/benchmark-methodology.md) and [`benchmarks/`](benchmarks/) for the source-bound expectations. The current suite contains three completed public-only cases; planned cases are not counted as evidence.
+See [benchmark methodology](docs/benchmark-methodology.md) and [`benchmarks/`](benchmarks/) for the source-bound expectations. The current suite contains four completed public-only cases; planned cases are not counted as evidence.
 
 Run a read-only health check of official program-card sources:
 

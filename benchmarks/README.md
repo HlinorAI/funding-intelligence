@@ -17,6 +17,6 @@ Run the completed benchmark cases from the repository root:
 python3 runtime/run_benchmarks.py
 ```
 
-Current status: three completed public-only cases (`orvixo-001`, `hardware-public-product-001`, and `web3-grant-recipient-001`). The remaining target cases are tracked in [`plan.yaml`](plan.yaml) and are not represented as facts until public sources are reviewed.
+Current status: four completed public-only cases (`orvixo-001`, `hardware-public-product-001`, `web3-grant-recipient-001`, and `web3-infrastructure-001`). The remaining target cases are tracked in [`plan.yaml`](plan.yaml) and are not represented as facts until public sources are reviewed.
 
 Public benchmark results are decision-quality evidence, not evidence of funding acceptance, revenue, traction, or founder satisfaction. Unknown facts remain `unknown`.
