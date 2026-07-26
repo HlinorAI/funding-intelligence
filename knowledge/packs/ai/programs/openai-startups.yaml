@@ -13,8 +13,9 @@ status:
     known_access_http_statuses: [403]
     note: "The official route is manually verified; GitHub-hosted transport is blocked by access controls."
 verification:
-  actual_endpoint: https://openai.com/business/why-openai/startups/
-  endpoint_kind: gated_partner_route
+  application_url: https://openai.com/business/why-openai/startups/
+  application_url_state: gated
+  application_kind: gated_partner_route
   status_check: "Confirm the founder route and whether the requested benefit requires a VC referral"
   source_verified: true
   verified_at: 2026-07-23

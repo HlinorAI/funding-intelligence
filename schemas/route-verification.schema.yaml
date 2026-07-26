@@ -7,7 +7,7 @@ required: [verification_version, project, mode, routes]
 properties:
   verification_version:
     type: integer
-    const: 2
+    const: 3
   project:
     type: string
     minLength: 1
@@ -25,7 +25,7 @@ $defs:
   route:
     type: object
     additionalProperties: true
-    required: [program, program_id, program_status, endpoint_status, project_fit, project_readiness, actual_endpoint, eligibility, resource_type, required_proof, evidence_policy, next_action, stop_condition, verified_at, decision]
+    required: [program, program_id, program_status, endpoint_status, application_endpoint, project_fit, project_readiness, eligibility, resource_type, required_proof, evidence_policy, next_action, stop_condition, verified_at, decision]
     properties:
       program: {type: string, minLength: 1}
       program_id: {type: string, pattern: '^[a-z0-9][a-z0-9-]*$'}
@@ -64,7 +64,15 @@ $defs:
       project_readiness:
         type: string
         enum: [READY, BUILD_FIRST, INCOMPLETE, UNKNOWN, INELIGIBLE, REAPPLY_AFTER_CHANGE]
-      actual_endpoint: {$ref: '#/$defs/nullableString'}
+      application_endpoint:
+        type: object
+        additionalProperties: false
+        required: [url, state, kind, verified_at]
+        properties:
+          url: {$ref: '#/$defs/nullableString'}
+          state: {type: string, enum: [confirmed, gated, unknown, missing]}
+          kind: {$ref: '#/$defs/nullableString'}
+          verified_at: {$ref: '#/$defs/nullableString'}
       eligibility:
         type: object
         required: [state, passed, missing, notes]

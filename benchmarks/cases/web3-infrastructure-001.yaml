@@ -75,7 +75,7 @@ expected:
   verifier:
     routes:
       base-funding-ladder:
-        decision: VERIFY_FIRST
+        decision: NO_ACTIONABLE_ENDPOINT
         readiness: INCOMPLETE
       optimism-superchain:
         decision: DO_NOT_APPLY

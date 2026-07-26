@@ -14,6 +14,7 @@ DECISION_GROUPS = {
     "NOW": {"NOW"},
     "BUILD_FIRST": {"BUILD_FIRST", "BUILD_NVIDIA_USE_CASE"},
     "VERIFY_ACCESS_PATH": {"VERIFY_ACCESS_PATH", "COMPLETE_ELIGIBILITY_DATA", "VERIFY_FIRST"},
+    "NO_ACTIONABLE_ENDPOINT": {"NO_ACTIONABLE_ENDPOINT"},
     "APPLY_AGAIN_AFTER_CHANGE": {"APPLY_AGAIN_AFTER_CHANGE"},
     "DO_NOT_APPLY": {"DO_NOT_APPLY"},
 }
@@ -129,9 +130,15 @@ def render_route(route: dict[str, Any]) -> list[str]:
         lines.append(f"- Program status: `{text(status.get('value'))}`; checked {text(status.get('verified_at'))}")
     elif route.get("status"):
         lines.append(f"- Program status: `{text(route.get('status'))}`; checked {text(route.get('last_checked'))}")
+    application_endpoint = route.get("application_endpoint") or {}
+    if application_endpoint:
+        lines.append(
+            f"- Application endpoint: {text(application_endpoint.get('url'))}; "
+            f"state `{text(application_endpoint.get('state'))}`; kind `{text(application_endpoint.get('kind'))}`"
+        )
     if route.get("endpoint_status"):
         endpoint = route["endpoint_status"]
-        lines.append(f"- Endpoint: `{text(endpoint.get('value'))}`; transport `{text(endpoint.get('transport'))}`")
+        lines.append(f"- Endpoint availability: `{text(endpoint.get('value'))}`; transport `{text(endpoint.get('transport'))}`")
     reasons = route_reason(route)
     lines.extend(["", "Why it is here:"] + bullets(reasons[:5]))
     missing = route_missing(route)
@@ -198,6 +205,7 @@ def render(report: dict[str, Any], verification: dict[str, Any]) -> str:
         "NOW": "NOW",
         "BUILD_FIRST": "BUILD_FIRST",
         "VERIFY_ACCESS_PATH": "VERIFY_ACCESS_PATH",
+        "NO_ACTIONABLE_ENDPOINT": "NO_ACTIONABLE_ENDPOINT",
         "APPLY_AGAIN_AFTER_CHANGE": "APPLY_AGAIN_AFTER_CHANGE",
         "DO_NOT_APPLY": "DO_NOT_APPLY",
     }

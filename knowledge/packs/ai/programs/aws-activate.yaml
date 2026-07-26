@@ -10,8 +10,9 @@ status:
   needs_verification: true
   official_source: https://aws.amazon.com/startups/credits/
 verification:
-  actual_endpoint: https://aws.amazon.com/startups/credits/
-  endpoint_kind: application_page
+  application_url: https://aws.amazon.com/startups/credits/
+  application_url_state: confirmed
+  application_kind: application_page
   status_check: "Confirm Founders vs Portfolio tier, AWS account and provider requirements"
   source_verified: true
   verified_at: 2026-07-22

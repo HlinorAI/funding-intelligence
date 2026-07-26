@@ -1,4 +1,4 @@
-verification_version: 2
+verification_version: 3
 project: Example AI Infrastructure Startup
 mode: source_snapshot
 routes:
@@ -20,7 +20,11 @@ routes:
       basis: [vertical fit, goal/mechanism fit]
       score: 62
     project_readiness: INCOMPLETE
-    actual_endpoint: https://startups.microsoft.com/
+    application_endpoint:
+      url: https://startups.microsoft.com/
+      state: confirmed
+      kind: application_portal
+      verified_at: null
     eligibility:
       state: INCOMPLETE
       passed: [company-owned software product]
@@ -64,7 +68,11 @@ routes:
       basis: [vertical fit, goal/mechanism fit]
       score: 54
     project_readiness: BUILD_FIRST
-    actual_endpoint: https://www.ycombinator.com/apply
+    application_endpoint:
+      url: https://www.ycombinator.com/apply
+      state: confirmed
+      kind: cohort_application
+      verified_at: null
     eligibility:
       state: INCOMPLETE
       passed: []

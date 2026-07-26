@@ -30,4 +30,4 @@ next_action:
   action: APPLY_AFTER_VERIFY
   deliverable: "Eligibility/track check, integration memo and tranche-based application"
   horizon_days: 7
-stop_condition: "Current round or actual endpoint is not confirmed"
+stop_condition: "Current round or application route is not confirmed"

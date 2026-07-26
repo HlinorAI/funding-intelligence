@@ -60,12 +60,15 @@ properties:
   verification:
     type: object
     additionalProperties: true
-    required: [actual_endpoint, endpoint_kind, status_check, source_verified, verified_at, verified_via]
+    required: [application_url, application_url_state, application_kind, status_check, source_verified, verified_at, verified_via]
     properties:
-      actual_endpoint:
+      application_url:
         type: string
         pattern: '^https?://[^\s]+$'
-      endpoint_kind: {type: string, minLength: 1}
+      application_url_state:
+        type: string
+        enum: [confirmed, gated, unknown]
+      application_kind: {type: string, minLength: 1}
       status_check: {type: string, minLength: 1}
       source_verified: {type: boolean}
       verified_at:

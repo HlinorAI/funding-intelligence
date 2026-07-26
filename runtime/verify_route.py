@@ -259,21 +259,31 @@ def get_program_status(card: dict[str, Any], verified_at_override: str | None = 
     }
 
 
-def get_endpoint_status(card: dict[str, Any], live: bool, verified_at_override: str | None = None) -> tuple[dict[str, Any], str | None]:
-    status = card.get("status") or {}
+def get_application_endpoint_status(
+    card: dict[str, Any], live: bool, verified_at_override: str | None = None
+) -> tuple[dict[str, Any], dict[str, Any]]:
     verification = card.get("verification") or {}
-    endpoint = verification.get("actual_endpoint") or status.get("official_source")
-    source_verified = verification.get("source_verified") is True
-    source_verified_at = verified_at_override or (str(verification.get("verified_at")) if source_verified and verification.get("verified_at") else None)
+    endpoint = verification.get("application_url")
+    endpoint_state = str(verification.get("application_url_state", "unknown"))
+    endpoint_kind = verification.get("application_kind")
+    verified_at = verified_at_override or (str(verification.get("verified_at")) if verification.get("verified_at") else None)
+    application_endpoint = {
+        "url": endpoint,
+        "state": endpoint_state if endpoint else "missing",
+        "kind": endpoint_kind,
+        "verified_at": verified_at,
+    }
     if not endpoint:
-        return {"value": "MISSING", "transport": "NOT_RUN", "transport_error": None, "verified_at": None}, None
+        return {"value": "MISSING", "transport": "NOT_RUN", "transport_error": None, "verified_at": None}, application_endpoint
+    if endpoint_state not in {"confirmed", "gated"}:
+        return {"value": "UNKNOWN", "transport": "NOT_RUN", "transport_error": None, "verified_at": verified_at}, application_endpoint
     if not live:
         return {
-            "value": "AVAILABLE" if source_verified else "UNKNOWN",
+            "value": "AVAILABLE",
             "transport": "NOT_RUN",
             "transport_error": None,
-            "verified_at": source_verified_at,
-        }, endpoint
+            "verified_at": verified_at,
+        }, application_endpoint
     probe = live_check(endpoint)
     if probe.get("state") == "PASS":
         return {
@@ -283,20 +293,20 @@ def get_endpoint_status(card: dict[str, Any], live: bool, verified_at_override: 
             "final_url": probe.get("final_url"),
             "transport_error": None,
             "verified_at": dt.date.today().isoformat(),
-        }, endpoint
-    if source_verified:
+        }, {**application_endpoint, "verified_at": dt.date.today().isoformat()}
+    if endpoint_state in {"confirmed", "gated"}:
         return {
             "value": "AVAILABLE",
             "transport": "UNREACHABLE",
             "transport_error": probe.get("error", f"HTTP {probe.get('http_status')}"),
-            "verified_at": source_verified_at,
-        }, endpoint
+            "verified_at": verified_at,
+        }, application_endpoint
     return {
         "value": "UNREACHABLE",
         "transport": "UNREACHABLE",
         "transport_error": probe.get("error", f"HTTP {probe.get('http_status')}"),
         "verified_at": None,
-    }, endpoint
+    }, application_endpoint
 
 
 def project_fit_state(project: dict[str, Any], card: dict[str, Any], evaluation: dict[str, Any]) -> dict[str, Any]:
@@ -386,7 +396,7 @@ def decision_for(project: dict[str, Any], card: dict[str, Any], program_status: 
 def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, Any], live: bool, verified_at_override: str | None = None) -> dict[str, Any]:
     evaluation = evaluate(project, card)
     program_status = get_program_status(card, verified_at_override)
-    endpoint_status, endpoint = get_endpoint_status(card, live, verified_at_override)
+    endpoint_status, application_endpoint = get_application_endpoint_status(card, live, verified_at_override)
     proofs, evidence_policy = route_proofs(project, card, pack)
     missing = [item["requirement"] for item in proofs if item["status"] != "PASS"]
     fit = project_fit_state(project, card, evaluation)
@@ -402,10 +412,10 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
         "program_id": card.get("id"),
         "program_status": program_status,
         "endpoint_status": endpoint_status,
+        "application_endpoint": application_endpoint,
         "project_fit": dict(fit),
         "project_readiness": readiness,
         "status": program_status["value"],
-        "actual_endpoint": endpoint,
         "eligibility": {
             "state": eligibility,
             "passed": [item["requirement"] for item in proofs if item["status"] == "PASS"],
@@ -422,7 +432,7 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
         "hlinor_fit": {**fit, "basis": list(fit.get("basis", []))},
         "next_action": next_action,
         "stop_condition": card.get("stop_condition", "Not specified"),
-        "verified_at": endpoint_status.get("verified_at") or program_status.get("verified_at"),
+        "verified_at": application_endpoint.get("verified_at") or program_status.get("verified_at"),
         "decision": decision,
     }
 
@@ -433,7 +443,7 @@ def main() -> int:
     parser.add_argument("--route", action="append", help="route id; repeatable")
     parser.add_argument("--all-ai", action="store_true", help="verify all AI-routed cards")
     parser.add_argument("--evidence-dir", type=Path)
-    parser.add_argument("--live", action="store_true", help="perform HTTP checks of actual endpoints")
+    parser.add_argument("--live", action="store_true", help="perform HTTP checks of recorded application endpoints")
     parser.add_argument("--verified-at", help="override source snapshot date")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--check", action="store_true", help="assert the expected five-route Hlinor shape")
@@ -451,7 +461,7 @@ def main() -> int:
         raise SystemExit("No matching routes")
     pack = load_pack(args.evidence_dir)
     report = {
-        "verification_version": 2,
+        "verification_version": 3,
         "project": project.get("name", "UNKNOWN"),
         "mode": "live" if args.live else "source_snapshot",
         "routes": [verify_route(project, card, pack, args.live, args.verified_at) for card in selected],
@@ -464,7 +474,7 @@ def main() -> int:
         decisions = {item["decision"] for item in report["routes"]}
         if decisions != {"COMPLETE_ELIGIBILITY_DATA", "BUILD_NVIDIA_USE_CASE", "VERIFY_ACCESS_PATH", "BUILD_FIRST"}:
             raise AssertionError(f"unexpected route decisions: {sorted(decisions)}")
-        if any(not item["actual_endpoint"] or not item["resource_type"] for item in report["routes"]):
+        if any(not item["application_endpoint"].get("url") or not item["resource_type"] for item in report["routes"]):
             raise AssertionError("route contract is incomplete")
         print(f"OK: checked {len(report['routes'])} route records with independent states")
         return 0

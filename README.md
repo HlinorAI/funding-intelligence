@@ -181,14 +181,15 @@ This is a deliberately bounded knowledge snapshot. It is not a comprehensive glo
 Route verification keeps these states separate:
 
 - `program_status` — the status recorded for the program, with source and verification date;
-- `endpoint_status` — whether an actionable endpoint is known;
-- endpoint transport — whether the runtime could reach that URL in a live probe;
+- `application_endpoint` — the distinct application or access URL, its access state, kind, and verification date; an official information source alone is not an application endpoint;
+- `endpoint_status` — whether that application endpoint is available, missing, unreachable, or unknown;
+- endpoint transport — whether the runtime could reach the application URL in a live probe;
 - `project_fit` — how the structured project facts match the route;
 - `project_readiness` — whether the project has the proof and change conditions needed for the route;
 - `eligibility.state` — the separate route eligibility result: `ELIGIBLE`, `INELIGIBLE`, `INCOMPLETE`, or `UNKNOWN`;
 - final `decision` — the route-specific action produced by the policy.
 
-If an official source was checked but a later HTTP probe cannot reach it, the verifier preserves the source-backed status and records transport as `UNREACHABLE`. It does not silently convert a network problem into `CLOSED`.
+If an application endpoint was confirmed but a later HTTP probe cannot reach it, the verifier preserves the source-backed program status and records endpoint transport as `UNREACHABLE`. It does not silently convert a network problem into `CLOSED`.
 
 ## Tests
 

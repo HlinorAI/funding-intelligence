@@ -125,9 +125,13 @@ def validate_program_card(path: Path, card_schema: dict[str, Any], errors: list[
         errors.append(f"{path.relative_to(ROOT)}: status.last_checked is required")
     if "verification" in card:
         verification = card.get("verification") or {}
-        for field in ("verified_at", "source_verified", "actual_endpoint"):
+        for field in ("verified_at", "source_verified", "application_url", "application_url_state"):
             if field not in verification:
                 errors.append(f"{path.relative_to(ROOT)}: verification.{field} is required when verification is present")
+        if verification.get("application_url_state") in {"confirmed", "gated"} and verification.get("source_verified") is not True:
+            errors.append(
+                f"{path.relative_to(ROOT)}: a confirmed or gated application URL requires verification.source_verified: true"
+            )
 
     route_requirements = card.get("evidence_requirements")
     evidence_policy = card.get("evidence_policy")

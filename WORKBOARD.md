@@ -49,6 +49,7 @@ Last updated: 2026-07-26
 - Added a fourth source-bound public benchmark for Blockscout, covering Base deployment fit and program-scoped affiliation precedence.
 - Resolved the verifier eligibility/readiness contract mismatch identified by the technical audit and added rejected-affiliation schema coverage.
 - Added executable structured evidence policies for AI cards so route-specific requirements are evaluated as fields and operators rather than free-text heuristics.
+- Separated official program sources from verified application endpoints; routes without an explicit application or access URL now return `NO_ACTIONABLE_ENDPOINT` instead of inheriting a program information page.
 
 ## In progress
 
@@ -82,6 +83,7 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - Health checks may create or update a `stale-data` issue, but only a human may change a card's program status or verification date.
 - Benchmark and external-test findings are the only authorized triggers for new technical work during the current phase.
 - A card's `routing.stages` is a hard boundary only when the project stage is known; `unknown` is not positive stage-fit evidence.
+- An official program source is evidence for program status only. `current affiliation > opportunity fit`, and a verified application endpoint is required before a route can be considered actionable.
 
 ## Intentionally deferred
 

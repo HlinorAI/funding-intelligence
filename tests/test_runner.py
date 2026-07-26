@@ -14,7 +14,8 @@ import jsonschema
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "runtime"))
 
-from runner import evaluate, load_yaml as load_card_yaml
+from runner import build_report, evaluate, load_yaml as load_card_yaml
+from render_report import render
 from verify_route import verify_route
 
 
@@ -275,6 +276,36 @@ class TestRunnerDecisions:
         assert proofs["funding_stage"]["status"] == "PASS"
         assert proofs["headquarters_country"]["status"] == "MISSING"
         assert route["eligibility"]["state"] == "INCOMPLETE"
+
+    def test_official_source_is_not_an_application_endpoint(self):
+        """A program page cannot be promoted to an application route without explicit verification."""
+        card = load_card_yaml(REPO_ROOT / "knowledge" / "programs" / "base.yaml")
+        project = load_yaml(REPO_ROOT / "tests" / "cases" / "web3.yaml")
+        runner_result = evaluate(project, card)
+        route = verify_route(project, card, {}, False)
+
+        assert runner_result["gate"]["application_endpoint_exists"] is False
+        assert route["application_endpoint"] == {
+            "url": None,
+            "state": "missing",
+            "kind": None,
+            "verified_at": None,
+        }
+        assert route["endpoint_status"]["value"] == "MISSING"
+        assert route["decision"] == "NO_ACTIONABLE_ENDPOINT"
+
+    def test_renderer_lists_routes_without_application_endpoints(self):
+        """The human report must not hide a route blocked by a missing application URL."""
+        project = load_yaml(REPO_ROOT / "tests" / "cases" / "web3.yaml")
+        card = load_card_yaml(REPO_ROOT / "knowledge" / "programs" / "base.yaml")
+        rendered = render(
+            build_report(project),
+            {"project": project["name"], "routes": [verify_route(project, card, {}, False)]},
+        )
+
+        assert "## NO_ACTIONABLE_ENDPOINT" in rendered
+        assert "### Base Funding Ladder" in rendered
+        assert "Application endpoint: unknown; state `missing`; kind `unknown`" in rendered
 
     def test_benchmark_smoke(self):
         """Smoke test: run_benchmarks exits cleanly."""

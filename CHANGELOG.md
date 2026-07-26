@@ -8,6 +8,8 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Added
 
+- A distinct `application_endpoint` route contract, separating a program's official information source from a verified application or access path.
+- A dedicated human-report section for routes blocked by a missing application endpoint.
 - Executable mechanism-specific evidence policies for the AI opportunity pack, with structured field operators and a legacy fallback for cards not yet migrated.
 - A source-bound public Web3 infrastructure benchmark for Blockscout, verifying that a prior Optimism funding relationship does not suppress a separate Base route.
 - A source-bound public Web3 benchmark for rotki, verifying that a recorded previous successful Optimism funding relationship overrides active ecosystem fit.
@@ -24,6 +26,8 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Fixed
 
+- Prevented official program pages from being treated as actionable application endpoints when no verified application or access route exists.
+- Required a confirmed source verification before a card can mark an application endpoint as confirmed or gated.
 - Prevented Microsoft for Startups from reaching `NOW` when route-specific eligibility data such as prior-credit history is absent.
 - Separated verifier eligibility from project readiness so rejected applications can return `REAPPLY_AFTER_CHANGE` without producing a schema-invalid eligibility state.
 - Current program affiliations now hard-gate duplicate accelerator/program applications and remain visible in the rejected-route shortlist.

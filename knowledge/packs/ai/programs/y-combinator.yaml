@@ -10,8 +10,9 @@ status:
   needs_verification: true
   official_source: https://www.ycombinator.com/apply
 verification:
-  actual_endpoint: https://www.ycombinator.com/apply
-  endpoint_kind: cohort_application
+  application_url: https://www.ycombinator.com/apply
+  application_url_state: confirmed
+  application_kind: cohort_application
   status_check: "Confirm current batch, deadline/late-application policy and application availability"
   source_verified: true
   verified_at: 2026-07-22

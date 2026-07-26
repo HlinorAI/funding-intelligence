@@ -211,6 +211,7 @@ def mechanism_score(project: dict[str, Any], card: dict[str, Any]) -> tuple[int,
 
 def gates(project: dict[str, Any], card: dict[str, Any]) -> dict[str, bool]:
     status = card.get("status") or {}
+    verification = card.get("verification") or {}
     next_action = card.get("next_action") or {}
     affiliation_state = program_affiliation_state(project, str(card.get("id")))
     card_stage_fit = stage_fit(project, card)
@@ -218,7 +219,8 @@ def gates(project: dict[str, Any], card: dict[str, Any]) -> dict[str, bool]:
         "project_fit": project_fit(project, card)[0],
         "stage_compatible": card_stage_fit in {"match", "not_applicable"},
         "status_verified": status.get("needs_verification") is False and status.get("state") in ACTIVE_STATES,
-        "application_endpoint_exists": bool(status.get("official_source")),
+        "application_endpoint_exists": verification.get("application_url_state") in {"confirmed", "gated"}
+        and bool(verification.get("application_url")),
         "mechanism_identified": bool(as_list(card.get("mechanism"))),
         "evidence_requirements_known": bool(as_list(card.get("required_evidence"))),
         "next_action_exists": bool(next_action.get("action") and next_action.get("deliverable")),
