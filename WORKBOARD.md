@@ -51,6 +51,7 @@ Last updated: 2026-07-26
 - Added executable structured evidence policies for AI cards so route-specific requirements are evaluated as fields and operators rather than free-text heuristics.
 - Separated official program sources from verified application endpoints; routes without an explicit application or access URL now return `NO_ACTIONABLE_ENDPOINT` instead of inheriting a program information page.
 - Completed an all-card application-endpoint coverage audit: five cards have recorded endpoints, while 36 source-only cards remain intentionally non-actionable until a route-specific intake is verified.
+- Added a copy-and-run README workflow for self-service local analysis and corrected the Base route-verification example.
 
 ## In progress
 

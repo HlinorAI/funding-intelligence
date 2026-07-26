@@ -100,13 +100,44 @@ No web service or database is required for the local runner.
 
 ## Usage
 
+## Analyze your own project
+
+Start from the complete public example instead of inventing the input structure:
+
+```bash
+cp -R examples/example-ai-startup my-project
+```
+
+Edit `my-project/project.yaml` and the files under `my-project/evidence/` with facts you can support. Keep unavailable facts as `unknown`; do not use private credentials, customer lists, or confidential documents.
+
+Run the full local workflow:
+
+```bash
+python3 runtime/runner.py \
+  my-project/project.yaml \
+  --output /tmp/my-project-runner.yaml
+
+python3 runtime/verify_route.py \
+  my-project/project.yaml \
+  --all-ai \
+  --evidence-dir my-project/evidence \
+  --output /tmp/my-project-routes.yaml
+
+python3 runtime/render_report.py \
+  /tmp/my-project-runner.yaml \
+  /tmp/my-project-routes.yaml \
+  --output /tmp/my-project-report.md
+```
+
+Open `/tmp/my-project-report.md` to review the human-readable result. It separates routes that are actionable now from routes that need eligibility data, evidence, a verified access path, or no action at all. Review all time-sensitive conditions against the cited official source before applying.
+
 Run the deterministic evaluator on a public synthetic AI fixture:
 
 ```bash
 python3 runtime/runner.py tests/cases/ai_startup.yaml --output /tmp/example-ai-report.yaml
 ```
 
-Run route verification on a public synthetic Web3 fixture. This deliberately uses a card without a verified source snapshot, so it demonstrates the `VERIFY_FIRST` path:
+Run route verification on a public synthetic Web3 fixture. This deliberately uses a card without a separately verified application endpoint, so it demonstrates the `NO_ACTIONABLE_ENDPOINT` path:
 
 ```bash
 python3 runtime/verify_route.py \
