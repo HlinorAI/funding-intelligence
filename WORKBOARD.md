@@ -44,23 +44,24 @@ Last updated: 2026-07-26
 - Corrected the portable pytest runner harness exposed when the suite was added to CI.
 - Removed the unsupported Phase 1 readiness claim and aligned the public roadmap to the current external-validation phase.
 - Removed remaining non-English characters from tracked repository artifacts; public repository text is now English-only.
+- Added a second source-bound public benchmark for Almond, covering hardware/physical AI, provider-eligibility evidence boundaries, and current-affiliation precedence.
 
 ## In progress
 
-- One completed public-only benchmark; nine planned benchmark cases remain uncounted until their facts and expectations are reviewed.
+- Two completed public-only benchmarks; eight planned benchmark cases remain uncounted until their facts and expectations are reviewed.
 - Promotion and product claims remain blocked until additional cases and human feedback demonstrate practical decision quality.
 - Collect factual corrections and owner feedback for Orvixo before treating the benchmark as external validation.
-- Prepare the next benchmark in a different sector or affiliation state without committing private project evidence.
+- Prepare the next benchmark in the Web3 sector with a different affiliation state without committing private project evidence.
 - Perform new technical work only when a benchmark or external test identifies a confirmed defect.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
 ## Next actions
 
-1. Review the tracked Orvixo benchmark expectations against the existing public-data review.
+1. Review the tracked Orvixo and Almond benchmark expectations against owner corrections when available.
 2. Record factual corrections and feedback using `docs/external-test-feedback.md`.
-3. Select and source the second benchmark with a different affiliation state or sector.
-4. Complete the remaining nine cases only after public sources and expected decisions are reviewed.
+3. Select and source the next Web3 benchmark with a different affiliation state or ecosystem profile.
+4. Complete the remaining eight cases only after public sources and expected decisions are reviewed.
 5. Recruit external projects only after the first owner-reviewed case is assessed.
 
 ## Decisions already made

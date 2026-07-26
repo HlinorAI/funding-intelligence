@@ -2,6 +2,7 @@ benchmark_version: 1
 target_case_count: 10
 completed:
   - orvixo-001
+  - hardware-public-product-001
 planned:
   - case_id: ai-yc-alumnus-001
     type: ai_startup
@@ -12,9 +13,6 @@ planned:
   - case_id: ai-enterprise-001
     type: ai_startup
     profile: enterprise AI with a public customer or pilot signal
-  - case_id: hardware-prototype-001
-    type: hardware
-    profile: hardware prototype without production evidence
   - case_id: hardware-production-001
     type: hardware
     profile: production-ready hardware with manufacturing evidence
