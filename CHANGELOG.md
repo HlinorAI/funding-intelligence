@@ -4,23 +4,6 @@ All notable changes to Funding Intelligence are documented in this file.
 
 The project uses semantic version tags for public releases. Program status changes, knowledge-pack updates, decision-rule changes, and verification behavior changes should be recorded when they affect public behavior or recommendations.
 
-## [Unreleased] - 2026-07-25
-
-### 🎉 Phase 1 Complete: Hermes Agent Review Critical Fixes (Readiness: 2/10 → 6/10)
-
-#### Fixed
-- **Runner Affiliation Logic**: Reverted `program_affiliation_state` in `runtime/runner.py` to correctly return `None` for missing affiliations, and strictly check `== "unknown"`. This resolves false `VERIFY_FIRST` decisions in hardware/empty cases while preserving correct behavior for known programs.
-- **AI Program Card Stages**: Added `unknown` to `routing.stages` in `knowledge/packs/ai/programs/` (aws-activate, microsoft-for-startups, nvidia-inception, openai-startups, y-combinator). This allows the runner to properly evaluate projects with `stage: unknown` (e.g., `orvixo-001` benchmark).
-- **Schema Validation**: Removed invalid/broken program card YAMLs from `knowledge/programs/` that were violating `program-card.schema.yaml`.
-
-#### CI/CD Status
-- ✅ **11/11 pytest tests passing** locally and in GitHub Actions.
-- ✅ Runner regression suite (7 cases) passing.
-- ✅ Decision-quality benchmark suite passing.
-- ✅ Health-check self-test and Schema validation passing.
-
----
-
 ## [Unreleased]
 
 ### Added
@@ -31,6 +14,8 @@ The project uses semantic version tags for public releases. Program status chang
 - Read-only program-card health check with weekly/manual GitHub Actions workflow, artifact output, and a human-reviewed `stale-data` issue lifecycle.
 - Validation of embedded `actions/github-script` JavaScript in workflow YAML.
 - Explicit per-card handling for manually verified GitHub transport restrictions (`403` and `429`) in the health check.
+- Pytest execution in the GitHub Actions validation workflow.
+- Explicit regression fixtures for an unknown project stage and a known stage mismatch.
 - Removed the legacy language mirror and translated the remaining tracked Hlinor report so public repository content is English-only.
 
 ### Fixed
@@ -42,6 +27,10 @@ The project uses semantic version tags for public releases. Program status chang
 - Normalized YAML date metadata in health-check reports so JSON artifact output remains serializable.
 - Updated verified Aptos and Stable official source routes after the first program-card health review.
 - Prevented known, manually reviewed GitHub `403` and `429` access restrictions from reopening the stale-data issue while retaining their raw report state.
+- Restored absent program affiliations to a distinct `None` state so only recorded unknown affiliations produce `VERIFY_FIRST`.
+- Made `routing.stages` an enforced decision boundary: unknown stages require verification and known incompatible stages are rejected.
+- Removed invalid program-card YAML files that violated the public schema.
+- Made the pytest runner harness portable by reading the process stdout instead of writing to `/dev/stdout`.
 - Aligned repository version metadata with the latest published release.
 - Removed the obsolete README language self-link.
 

@@ -6,6 +6,9 @@ project.yaml
 normalize facts (unknown stays unknown)
     ↓
 classify stage / sector / goals / mechanism fit
+    ├── known incompatible stage → DO_NOT_APPLY
+    ├── unknown stage → VERIFY_FIRST
+    └── matching or unrestricted stage → continue
     ↓
 load knowledge/programs/*.yaml + matching knowledge/packs/<vertical>/programs/*.yaml
     ↓

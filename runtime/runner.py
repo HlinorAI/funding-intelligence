@@ -131,7 +131,21 @@ def project_ecosystems(project: dict[str, Any]) -> set[str]:
     return {str(value).lower() for value in values}
 
 
+def stage_fit(project: dict[str, Any], card: dict[str, Any]) -> str:
+    """Classify a project's stage against an optional card stage boundary."""
+    routing = card.get("routing") or {}
+    supported = {str(value).strip().lower() for value in as_list(routing.get("stages"))}
+    if not supported:
+        return "not_applicable"
+    project_stage = normalize_stage(project).strip().lower()
+    if project_stage in {"", "unknown"}:
+        return "unknown"
+    return "match" if project_stage in supported else "mismatch"
+
+
 def project_fit(project: dict[str, Any], card: dict[str, Any]) -> tuple[bool, str]:
+    if stage_fit(project, card) == "mismatch":
+        return False, "stage"
     if ecosystem_match(project, card):
         return True, "ecosystem"
     routing = card.get("routing") or {}
@@ -199,8 +213,10 @@ def gates(project: dict[str, Any], card: dict[str, Any]) -> dict[str, bool]:
     status = card.get("status") or {}
     next_action = card.get("next_action") or {}
     affiliation_state = program_affiliation_state(project, str(card.get("id")))
+    card_stage_fit = stage_fit(project, card)
     return {
         "project_fit": project_fit(project, card)[0],
+        "stage_compatible": card_stage_fit in {"match", "not_applicable"},
         "status_verified": status.get("needs_verification") is False and status.get("state") in ACTIVE_STATES,
         "application_endpoint_exists": bool(status.get("official_source")),
         "mechanism_identified": bool(as_list(card.get("mechanism"))),
@@ -216,6 +232,7 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
     state = str(status.get("state", "VERIFY"))
     project_tokens = text_tokens(project)
     route_fit, fit_kind = project_fit(project, card)
+    card_stage_fit = stage_fit(project, card)
     evidence = project.get("evidence") or {}
     constraints = project.get("constraints") or {}
     mechanisms = {str(value).lower() for value in as_list(card.get("mechanism"))}
@@ -244,10 +261,17 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
     if state in BLOCKED_STATES:
         penalties["closed_program"] = -25
         reasons.append(f"status is {state}")
-    if not route_fit:
+    if not route_fit and card_stage_fit != "mismatch":
         penalty_name = "no_native_fit" if card.get("ecosystem") else "no_vertical_fit"
         penalties[penalty_name] = -20
         missing.append("target/native ecosystem or vertical fit")
+    if card_stage_fit == "mismatch":
+        penalties["stage_mismatch"] = -20
+        reasons.append("project stage does not match this route")
+        missing.append("matching project stage")
+    elif card_stage_fit == "unknown":
+        reasons.append("project stage is unknown")
+        missing.append("verified project stage")
     if not route_fit and as_list(constraints.get("target_ecosystems")):
         penalties["wrong_stage"] = -20
         reasons.append("target ecosystem does not match this card")
@@ -289,6 +313,8 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
         decision = "DO_NOT_APPLY"
     elif not gate["project_fit"]:
         decision = "DO_NOT_APPLY"
+    elif card_stage_fit == "unknown":
+        decision = "VERIFY_FIRST"
     elif not gate["status_verified"]:
         decision = "VERIFY_FIRST"
     elif not truthy(evidence, "live_demo") and not truthy(evidence, "live_deployment"):
@@ -372,6 +398,7 @@ def build_report(project: dict[str, Any]) -> dict[str, Any]:
     readiness = project.get("readiness") or {}
     all_gates = {
         "project_fit": False,
+        "stage_compatible": False,
         "status_verified": False,
         "application_endpoint_exists": True,
         "mechanism_identified": True,
@@ -418,7 +445,7 @@ def build_report(project: dict[str, Any]) -> dict[str, Any]:
             "stage_claims": as_list(project.get("stage_claims")) or as_list(project.get("stage")),
             "sectors": as_list(project.get("sector")),
             "goals": goals,
-            "confidence": "high" if stage != "UNKNOWN" and goals else "low",
+            "confidence": "high" if str(stage).lower() != "unknown" and goals else "low",
         },
         "gate": all_gates,
         "opportunities": opportunities,

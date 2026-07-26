@@ -41,9 +41,10 @@ properties:
 $defs:
   gate:
     type: object
-    required: [project_fit, status_verified, application_endpoint_exists, mechanism_identified, evidence_requirements_known, next_action_exists, passed]
+    required: [project_fit, stage_compatible, status_verified, application_endpoint_exists, mechanism_identified, evidence_requirements_known, next_action_exists, passed]
     properties:
       project_fit: {type: boolean}
+      stage_compatible: {type: boolean}
       status_verified: {type: boolean}
       application_endpoint_exists: {type: boolean}
       mechanism_identified: {type: boolean}

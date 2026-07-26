@@ -1,0 +1,38 @@
+schema_version: 1
+name: Synthetic Late-Stage AI Startup
+description: Public-safe AI software project at a known Series C stage.
+sector: [artificial_intelligence, software]
+stage: series_c
+geography: [US]
+product:
+  description: AI workflow software for enterprise teams.
+  customers: [enterprise teams]
+  technology: [machine_learning, api]
+  ecosystems: []
+evidence:
+  site: true
+  github: true
+  live_demo: true
+  live_deployment: true
+  users: 100
+  revenue: true
+  pilots: 5
+  partners: 1
+  metrics: true
+  audit: false
+needs:
+  goals: [funding, technical_support]
+  funding: 1000000
+  runway_months: 12
+constraints:
+  no_token: true
+  no_dilution: false
+  generic_multichain: false
+  native_ecosystems: []
+  target_ecosystems: []
+readiness:
+  budget: true
+  milestones: true
+access:
+  champions: 1
+  warm_intros: 1

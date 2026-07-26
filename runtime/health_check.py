@@ -113,8 +113,8 @@ def check_card(path: Path, timeout: int = 15) -> dict[str, Any]:
     return result
 
 
-def build_report(timeout: int = 15, checked_at: str | None = None) -> dict[str, Any]:
-    checks = [check_card(path, timeout) for path in card_paths()]
+def report_from_checks(checks: list[dict[str, Any]], checked_at: str | None = None) -> dict[str, Any]:
+    """Build a serializable report from already collected card checks."""
     checks.sort(key=lambda item: str(item.get("program_id")))
     actionable = [item for item in checks if item["needs_review"]]
     return {
@@ -129,6 +129,10 @@ def build_report(timeout: int = 15, checked_at: str | None = None) -> dict[str, 
         },
         "checks": checks,
     }
+
+
+def build_report(timeout: int = 15, checked_at: str | None = None) -> dict[str, Any]:
+    return report_from_checks([check_card(path, timeout) for path in card_paths()], checked_at)
 
 
 def render_summary(report: dict[str, Any]) -> str:
@@ -183,8 +187,19 @@ def self_test() -> int:
     if not needs_review("NOT_FOUND", 404, {403, 429}):
         print("ERROR: HTTP 404 stopped being actionable", file=sys.stderr)
         return 1
-    report = build_report(checked_at="2026-07-23T00:00:00+00:00")
-    if report["health_check_version"] != 1 or not report["checks"]:
+    report = report_from_checks(
+        [
+            {
+                "program_id": "synthetic-card",
+                "state": "HEALTHY",
+                "http_status": 200,
+                "needs_review": False,
+                "known_access_constraint": False,
+            }
+        ],
+        checked_at="2026-07-23T00:00:00+00:00",
+    )
+    if report["health_check_version"] != 1 or len(report["checks"]) != 1:
         print("ERROR: health-check report self-test produced no card records", file=sys.stderr)
         return 1
     try:

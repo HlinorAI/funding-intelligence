@@ -11,12 +11,15 @@ import sys
 import subprocess
 import yaml
 REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO_ROOT / "runtime"))
+
+from runner import evaluate, load_yaml as load_card_yaml
 
 
 def run_runner(case_path: Path, timeout: int = 60) -> dict:
     """Run the Funding Intelligence runner on a test case and return the report."""
     result = subprocess.run(
-        [sys.executable, "runtime/runner.py", str(case_path), "--output", "/dev/stdout"],
+        [sys.executable, "runtime/runner.py", str(case_path)],
         capture_output=True,
         text=True,
         timeout=timeout,
@@ -282,7 +285,7 @@ class TestRunnerDecisions:
         # Gate fields
         gate = report.get("gate", {})
         gate_fields = {
-            "project_fit", "status_verified", "application_endpoint_exists",
+            "project_fit", "stage_compatible", "status_verified", "application_endpoint_exists",
             "mechanism_identified", "evidence_requirements_known",
             "next_action_exists", "passed",
         }
@@ -320,3 +323,24 @@ class TestRunnerDecisions:
         plan = report.get("execution_plan", {})
         for bucket in ("days_7", "days_30", "days_90"):
             assert bucket in plan, f"Execution plan missing {bucket}"
+
+    def test_unknown_stage_requires_verification(self):
+        case = Path(__file__).resolve().parent / "cases" / "ai_stage_unknown.yaml"
+        report = run_runner(case)
+        routes = {item["program_id"]: item for item in report.get("opportunities", [])}
+        aws = routes["aws-activate"]
+        assert aws["decision"] == "VERIFY_FIRST"
+        assert aws["gate"]["project_fit"] is True
+        assert aws["gate"]["stage_compatible"] is False
+        assert "verified project stage" in aws["missing"]
+
+    def test_known_stage_mismatch_is_rejected(self):
+        case = Path(__file__).resolve().parent / "cases" / "ai_stage_mismatch.yaml"
+        project = load_yaml(case)
+        card = load_card_yaml(REPO_ROOT / "knowledge" / "packs" / "ai" / "programs" / "aws-activate.yaml")
+        aws = evaluate(project, card)
+        assert aws["decision"] == "DO_NOT_APPLY"
+        assert aws["gate"]["project_fit"] is False
+        assert aws["gate"]["stage_compatible"] is False
+        assert "stage_mismatch (-20)" in aws["decision_trace"]["negative"]
+        assert not any(item.startswith("no_native_fit") for item in aws["decision_trace"]["negative"])

@@ -197,6 +197,8 @@ Run the public regression suite:
 python3 runtime/runner.py --check-all
 python3 runtime/run_benchmarks.py
 python3 -m py_compile runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py runtime/run_benchmarks.py
+python3 -m pip install -r tests/requirements-test.txt
+python3 -m pytest -q
 ```
 
 Run the full public contract validator locally:

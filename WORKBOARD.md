@@ -2,7 +2,7 @@
 
 This file is the project's persistent operating memory. Keep it factual, short, and current. Update it when work is completed, a decision changes, or the next action changes.
 
-Last updated: 2026-07-23
+Last updated: 2026-07-26
 
 ## Current status
 
@@ -39,6 +39,10 @@ Last updated: 2026-07-23
 - Resolved the health-check workflow's embedded JavaScript syntax defect and added regression validation for `actions/github-script` blocks.
 - Resolved health-check JSON artifact serialization for YAML date metadata, found by the first manual workflow dispatch.
 - Triaged the first health-check issue: updated verified Aptos and Stable sources, retained OpenAI's verified access path, and made manually reviewed `403`/`429` transport restrictions visible but non-actionable.
+- Added pytest execution to CI so the public test-suite claim is checked on every push and pull request.
+- Made project-stage policy explicit: unknown stages require verification, while a known stage outside a card's declared range produces `DO_NOT_APPLY`.
+- Corrected the portable pytest runner harness exposed when the suite was added to CI.
+- Removed the unsupported Phase 1 readiness claim and aligned the public roadmap to the current external-validation phase.
 - Removed remaining non-English characters from tracked repository artifacts; public repository text is now English-only.
 
 ## In progress
@@ -72,6 +76,7 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - Public benchmark expectations are source-bound and must fail closed when the engine changes; benchmark cases are not evidence of funding outcomes.
 - Health checks may create or update a `stale-data` issue, but only a human may change a card's program status or verification date.
 - Benchmark and external-test findings are the only authorized triggers for new technical work during the current phase.
+- A card's `routing.stages` is a hard boundary only when the project stage is known; `unknown` is not positive stage-fit evidence.
 
 ## Intentionally deferred
 

@@ -1,50 +1,37 @@
-# 🗺️ Project Roadmap & Status
+# Project roadmap
 
-**Last updated:** July 24, 2026  
-**Current Phase:** V1 Stabilization & Core Feature Expansion
+**Last updated:** July 26, 2026
+**Current phase:** External decision-quality validation
 
-##  Architectural Philosophy
-This project deliberately moves away from typical "RAG-chats" that suffer from hallucinations. 
-**Core Principles:**
-- **Deterministic & Evidence-Gated:** The core engine (`runtime`) does not use LLMs for decision-making. Matching works strictly via YAML cards and JSON Schema.
-- **Zero Hallucination Policy:** Every claim must have a `decision_trace` and a link to a primary source (`official_source`).
-- **Immutable Knowledge:** Automation (scripts, CI) **never** overwrites knowledge YAML cards. It only signals issues.
-- **Local-First Core:** Minimizing external LLM API calls. The core runs locally on Python; heavy models are used only on the periphery (drafting).
+## Current position
 
-## ✅ Recent Achievements (v0.1.3)
+- The latest public release is `v0.1.2`.
+- The repository contains a deterministic, evidence-gated runner and an independent route verifier.
+- One completed public-only benchmark is tracked. Planned cases are not evidence until their sources and expected decisions are reviewed.
+- GitHub Actions validates runner fixtures, benchmarks, pytest regression tests, schemas, embedded workflow JavaScript, report rendering, and public-safety rules.
 
-### Localization & Audit
-- Migrated all documentation to English; removed legacy Russian localization.
-- Full audit of both repositories for Cyrillic characters. Result: **0 matches**.
+## Operating principles
 
-### Automated Health-Check Layer
-- Created `runtime/health_check.py`: deterministic URL status checking (`HEALTHY`, `NOT_FOUND`, `SERVER_ERROR`, `HTTP_ERROR`, `UNREACHABLE`).
-- Created `.github/workflows/health-check.yml`: weekly runs, aggregating issues into a single `stale-data` GitHub Issue, saving reports as artifacts.
-- Created `runtime/health_report.py`: CLI utility for beautiful, color-coded terminal output (requires `rich`).
+- The deterministic core does not use an LLM to make routing decisions.
+- Unknown facts remain unknown and cannot become positive evidence.
+- Health checks are read-only. They can create a review issue but cannot change knowledge cards.
+- A current or previous successful program affiliation overrides opportunity fit.
+- A known stage mismatch rejects a route. An unknown stage requires verification and is not positive stage-fit evidence.
 
-### CI/CD Stabilization
-- Fixed `validate_schemas.py` private path tracking errors.
-- Moved public templates to `docs/` to respect the privacy of the `reports/` directory.
-- All checks passing: health-check self-test, benchmarks, regression cases, program cards, project fixtures, Python compilation, YAML parsing.
+## Current priorities
 
-##  Next Steps (V1 Priorities)
+1. Review the Orvixo public-only benchmark against factual corrections from the project owner when available.
+2. Add one reviewed public hardware/deeptech benchmark and one reviewed public Web3 benchmark.
+3. Record false positives, false negatives, useful routes, and human feedback for every completed case.
+4. Revisit health-check access exceptions only after external cases show that their review cadence is insufficient.
 
-### Priority 1: Ingestion Layer (Reducing User Friction)
-- **Task:** Create `runtime/ingest.py`.
-- **Logic:** Accepts raw JSON (from external LLM/parsers) → strictly validates against `schemas/project_schema.json` → outputs a safe `project_draft.yaml`.
-- **Value:** Founders don't need to write YAML manually. They paste pitch text and get a valid draft for manual review.
+## Release boundary
 
-### Priority 2: Human-Readable Reporting & Export
-- **Task:** Enhance matching result output.
-- **Logic:** Implement `runtime/health_report.py` (CLI with `rich`) and add generation of clean Markdown/PDF match reports (Match Score + Decision Trace).
-- **Value:** Analysts get a ready-made artifact to attach to investment memos or send to clients.
+`v0.2.0` is not justified until benchmark breadth and external human feedback demonstrate that the recommendations are useful and safe. No `v0.1.3` release is planned.
 
-### Priority 3: Integration Layer (MCP / API)
-- **Task:** Wrap the engine in a Model Context Protocol (MCP) server or simple REST API.
-- **Logic:** Allow users to invoke matching and validation functions directly from Cursor, Claude Desktop, or their internal CRM.
-- **Value:** Seamless integration into existing workflows without learning a new UI.
+## Intentionally deferred
 
-## 📌 Technical Notes for Contributors
-- **Dependencies:** Ensure `rich`, `jsonschema`, and `pyyaml` are added to `requirements.txt` / `pyproject.toml`.
-- **Git Workflow:** Always use `git pull --rebase origin main` to avoid messy merge commits.
-- **Private Paths:** The `reports/` folder is blocked in `runtime/validate_schemas.py`. All public templates must live in `docs/`.
+- User interface, SaaS packaging, payments, and marketing.
+- Automatic application submission.
+- Ingestion from raw pitch text, an MCP/API layer, and automatic web-driven knowledge updates.
+- Broad knowledge-pack expansion before external cases identify a coverage gap.

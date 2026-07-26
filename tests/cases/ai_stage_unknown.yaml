@@ -1,0 +1,38 @@
+schema_version: 1
+name: Synthetic AI Startup With Unknown Stage
+description: Public-safe AI software project with no verified lifecycle stage.
+sector: [artificial_intelligence, software]
+stage: unknown
+geography: [US]
+product:
+  description: AI workflow software for business teams.
+  customers: [business teams]
+  technology: [machine_learning, api]
+  ecosystems: []
+evidence:
+  site: true
+  github: unknown
+  live_demo: unknown
+  live_deployment: unknown
+  users: unknown
+  revenue: unknown
+  pilots: unknown
+  partners: unknown
+  metrics: unknown
+  audit: unknown
+needs:
+  goals: [funding, technical_support]
+  funding: unknown
+  runway_months: unknown
+constraints:
+  no_token: unknown
+  no_dilution: unknown
+  generic_multichain: false
+  native_ecosystems: []
+  target_ecosystems: []
+readiness:
+  budget: unknown
+  milestones: unknown
+access:
+  champions: unknown
+  warm_intros: unknown
