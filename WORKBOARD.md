@@ -47,6 +47,7 @@ Last updated: 2026-07-26
 - Added a second source-bound public benchmark for Almond, covering hardware/physical AI, provider-eligibility evidence boundaries, and current-affiliation precedence.
 - Added a third source-bound public benchmark for rotki, covering a verified previous successful Optimism funding relationship and affiliation precedence over ecosystem fit.
 - Added a fourth source-bound public benchmark for Blockscout, covering Base deployment fit and program-scoped affiliation precedence.
+- Resolved the verifier eligibility/readiness contract mismatch identified by the technical audit and added rejected-affiliation schema coverage.
 
 ## In progress
 

@@ -238,6 +238,26 @@ def readiness_state(card: dict[str, Any], fit: dict[str, Any], missing: list[str
     return "READY"
 
 
+def eligibility_state(
+    affiliation_state: str | None,
+    program_status: dict[str, Any],
+    endpoint_status: dict[str, Any],
+    fit: dict[str, Any],
+    missing: list[str],
+) -> str:
+    """Report program eligibility separately from proof/readiness workflow state."""
+
+    if affiliation_state in {"current", "previous_successful"}:
+        return "INELIGIBLE"
+    if program_status.get("value") in {"CLOSED", "HOLD"} or fit.get("value") == "NONE":
+        return "INELIGIBLE"
+    if affiliation_state == "unknown" or endpoint_status.get("value") in {"MISSING", "UNKNOWN", "UNREACHABLE"}:
+        return "UNKNOWN"
+    if missing:
+        return "INCOMPLETE"
+    return "ELIGIBLE"
+
+
 def decision_for(project: dict[str, Any], card: dict[str, Any], program_status: dict[str, Any], endpoint_status: dict[str, Any], fit: dict[str, Any], readiness: str) -> str:
     affiliation_state = program_affiliation_state(project, str(card.get("id")))
     if affiliation_state in {"current", "previous_successful"}:
@@ -275,6 +295,7 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
     fit = project_fit_state(project, card, evaluation)
     affiliation_state = program_affiliation_state(project, str(card.get("id")))
     readiness = readiness_state(card, fit, missing, affiliation_state)
+    eligibility = eligibility_state(affiliation_state, program_status, endpoint_status, fit, missing)
     decision = decision_for(project, card, program_status, endpoint_status, fit, readiness)
     policy = card.get("decision_policy") or {}
     next_action = dict(card.get("next_action") or {})
@@ -289,7 +310,7 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
         "status": program_status["value"],
         "actual_endpoint": endpoint,
         "eligibility": {
-            "state": readiness,
+            "state": eligibility,
             "passed": [item["requirement"] for item in proofs if item["status"] == "PASS"],
             "missing": missing,
             "notes": [

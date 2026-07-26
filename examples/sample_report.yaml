@@ -63,7 +63,7 @@ routes:
     project_readiness: BUILD_FIRST
     actual_endpoint: https://www.ycombinator.com/apply
     eligibility:
-      state: BUILD_FIRST
+      state: INCOMPLETE
       passed: []
       missing: [demo, customer thesis, application narrative]
       notes: [Build proof before applying]

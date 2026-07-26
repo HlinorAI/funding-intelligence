@@ -10,6 +10,7 @@ from pathlib import Path
 import sys
 import subprocess
 import yaml
+import jsonschema
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "runtime"))
 
@@ -223,6 +224,30 @@ class TestRunnerDecisions:
             f"program_rejected: expected aws-activate as viable opportunity, "
             f"got: {opp_ids}"
         )
+
+    def test_rejected_affiliation_verifier_contract(self):
+        """A rejected affiliation may require reapplication work without invalidating eligibility state."""
+        result = subprocess.run(
+            [
+                sys.executable,
+                "runtime/verify_route.py",
+                "tests/cases/program_rejected.yaml",
+                "--route",
+                "y-combinator",
+            ],
+            capture_output=True,
+            text=True,
+            timeout=60,
+            cwd=REPO_ROOT,
+        )
+        assert result.returncode == 0, result.stderr
+        document = yaml.safe_load(result.stdout)
+        route = document["routes"][0]
+        assert route["decision"] == "APPLY_AGAIN_AFTER_CHANGE"
+        assert route["project_readiness"] == "REAPPLY_AFTER_CHANGE"
+        assert route["eligibility"]["state"] == "INCOMPLETE"
+        schema = load_yaml(REPO_ROOT / "schemas" / "route-verification.schema.yaml")
+        jsonschema.validate(document, schema)
 
     def test_benchmark_smoke(self):
         """Smoke test: run_benchmarks exits cleanly."""

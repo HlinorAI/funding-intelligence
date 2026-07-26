@@ -69,7 +69,7 @@ $defs:
         type: object
         required: [state, passed, missing, notes]
         properties:
-          state: {type: string, enum: [READY, BUILD_FIRST, INCOMPLETE, UNKNOWN, INELIGIBLE]}
+          state: {type: string, enum: [ELIGIBLE, INELIGIBLE, INCOMPLETE, UNKNOWN]}
           passed: {type: array, items: {type: string}}
           missing: {type: array, items: {type: string}}
           notes: {type: array, items: {type: string}}

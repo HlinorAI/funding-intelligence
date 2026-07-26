@@ -23,6 +23,7 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Fixed
 
+- Separated verifier eligibility from project readiness so rejected applications can return `REAPPLY_AFTER_CHANGE` without producing a schema-invalid eligibility state.
 - Current program affiliations now hard-gate duplicate accelerator/program applications and remain visible in the rejected-route shortlist.
 - Affiliation precedence now distinguishes current/previous successful, rejected, and unknown program relationships before opportunity fit becomes an application recommendation.
 - The project schema now accepts a single `unknown` value for fields that may be boolean or numeric without treating the value as ambiguous.

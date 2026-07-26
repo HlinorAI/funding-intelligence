@@ -303,15 +303,25 @@ def validate_generated_reports(report_schema: dict[str, Any], route_schema: dict
         report = normalize_dates(build_report(runner_load_yaml(project_path)))
         validate_document(report, report_schema, project_path.with_name(f"{project_path.stem}.generated-report.yaml"), errors)
 
-    command = [
-        sys.executable,
-        str(ROOT / "runtime" / "verify_route.py"),
-        str(ROOT / "tests" / "cases" / "web3.yaml"),
-        "--route",
-        "base-funding-ladder",
+    route_contract_cases = [
+        (ROOT / "tests" / "cases" / "web3.yaml", "base-funding-ladder"),
+        (ROOT / "tests" / "cases" / "program_rejected.yaml", "y-combinator"),
     ]
-    process = subprocess.run(command, cwd=ROOT, check=True, capture_output=True, text=True)
-    validate_document(normalize_dates(yaml.safe_load(process.stdout)), route_schema, ROOT / "tests" / "cases" / "web3.route-verification.yaml", errors)
+    for project_path, route_id in route_contract_cases:
+        command = [
+            sys.executable,
+            str(ROOT / "runtime" / "verify_route.py"),
+            str(project_path),
+            "--route",
+            route_id,
+        ]
+        process = subprocess.run(command, cwd=ROOT, check=True, capture_output=True, text=True)
+        validate_document(
+            normalize_dates(yaml.safe_load(process.stdout)),
+            route_schema,
+            project_path.with_name(f"{project_path.stem}.{route_id}.route-verification.yaml"),
+            errors,
+        )
 
     sample_path = ROOT / "examples" / "sample_report.yaml"
     if sample_path.exists():

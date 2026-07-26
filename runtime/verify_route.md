@@ -25,7 +25,8 @@ The command does not mutate knowledge cards. It emits one route record with inde
 - `endpoint_status`: `AVAILABLE`, `MISSING`, `UNREACHABLE`, or `UNKNOWN`;
 - endpoint transport: `NOT_RUN`, `PASS`, or `UNREACHABLE` for a live probe;
 - `project_fit`: `STRONG`, `POSSIBLE`, `WEAK`, or `NONE`;
-- `project_readiness`: `READY`, `BUILD_FIRST`, `INCOMPLETE`, `UNKNOWN`, or `INELIGIBLE`.
+- `project_readiness`: `READY`, `BUILD_FIRST`, `INCOMPLETE`, `UNKNOWN`, `INELIGIBLE`, or `REAPPLY_AFTER_CHANGE`.
+- `eligibility.state`: `ELIGIBLE`, `INELIGIBLE`, `INCOMPLETE`, or `UNKNOWN`; it is independent from project readiness.
 
 Program affiliation is a separate precedence gate. A current or previously successful relationship produces `INELIGIBLE` and `DO_NOT_APPLY`; a previous rejection produces `REAPPLY_AFTER_CHANGE` and `APPLY_AGAIN_AFTER_CHANGE`; an unverified relationship produces `UNKNOWN` and `VERIFY_FIRST`.
 
