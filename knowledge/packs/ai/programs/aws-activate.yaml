@@ -42,6 +42,32 @@ evidence_requirements:
     - legal entity, headquarters and current funding stage
     - AWS account and current Activate access path
     - monthly AWS/Bedrock workload estimate tied to the requested credits
+evidence_policy:
+  subsidy:
+    - id: legal_entity
+      field: pack.company.legal_entity
+      operator: known
+      description: Legal entity type
+    - id: headquarters_country
+      field: pack.company.country
+      operator: known
+      description: Headquarters country
+    - id: funding_stage
+      field: pack.company.current_funding
+      operator: known
+      description: Current funding stage
+    - id: company_website
+      field: project.evidence.site
+      operator: truthy
+      description: Functioning company website
+    - id: aws_account
+      field: pack.funding-needs.aws_account
+      operator: truthy
+      description: AWS account and business profile
+    - id: cloud_workload
+      field: pack.product.api_use_case
+      operator: known
+      description: AWS or Bedrock workload estimate
 score: {strategic_fit: 20, evidence: 20, mechanism_fit: 15}
 failure_modes:
   - applying for the wrong package

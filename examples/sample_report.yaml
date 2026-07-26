@@ -36,6 +36,9 @@ routes:
         field: verification
         status: MISSING
         value: UNKNOWN
+    evidence_policy:
+      mode: legacy
+      mechanisms: []
     next_action:
       action: VERIFY_FIRST
       deliverable: Verify the current official eligibility and intake endpoint
@@ -73,6 +76,9 @@ routes:
         field: live_demo
         status: MISSING
         value: UNKNOWN
+    evidence_policy:
+      mode: legacy
+      mechanisms: []
     next_action:
       action: BUILD_FIRST
       deliverable: Strengthen the demo, customer thesis, and application narrative

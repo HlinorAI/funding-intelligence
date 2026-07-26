@@ -8,6 +8,7 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Added
 
+- Executable mechanism-specific evidence policies for the AI opportunity pack, with structured field operators and a legacy fallback for cards not yet migrated.
 - A source-bound public Web3 infrastructure benchmark for Blockscout, verifying that a prior Optimism funding relationship does not suppress a separate Base route.
 - A source-bound public Web3 benchmark for rotki, verifying that a recorded previous successful Optimism funding relationship overrides active ecosystem fit.
 - A source-bound public hardware and physical-AI benchmark for Almond, including a human review of unknown-fact boundaries and affiliation precedence.
@@ -23,6 +24,7 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Fixed
 
+- Prevented Microsoft for Startups from reaching `NOW` when route-specific eligibility data such as prior-credit history is absent.
 - Separated verifier eligibility from project readiness so rejected applications can return `REAPPLY_AFTER_CHANGE` without producing a schema-invalid eligibility state.
 - Current program affiliations now hard-gate duplicate accelerator/program applications and remain visible in the rejected-route shortlist.
 - Affiliation precedence now distinguishes current/previous successful, rejected, and unknown program relationships before opportunity fit becomes an application recommendation.

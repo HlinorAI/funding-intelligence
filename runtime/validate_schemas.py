@@ -130,6 +130,7 @@ def validate_program_card(path: Path, card_schema: dict[str, Any], errors: list[
                 errors.append(f"{path.relative_to(ROOT)}: verification.{field} is required when verification is present")
 
     route_requirements = card.get("evidence_requirements")
+    evidence_policy = card.get("evidence_policy")
     if path in AI_PROGRAM_CARD_PATHS:
         if not isinstance(route_requirements, dict):
             errors.append(f"{path.relative_to(ROOT)}: evidence_requirements is required for AI pack cards")
@@ -138,6 +139,13 @@ def validate_program_card(path: Path, card_schema: dict[str, Any], errors: list[
             missing_routes = sorted(mechanisms - set(route_requirements))
             if missing_routes:
                 errors.append(f"{path.relative_to(ROOT)}: missing evidence_requirements for mechanisms {missing_routes}")
+        if not isinstance(evidence_policy, dict):
+            errors.append(f"{path.relative_to(ROOT)}: evidence_policy is required for AI pack cards")
+        else:
+            mechanisms = {str(value) for value in card.get("mechanism", [])}
+            missing_policies = sorted(mechanisms - set(evidence_policy))
+            if missing_policies:
+                errors.append(f"{path.relative_to(ROOT)}: missing evidence_policy for mechanisms {missing_policies}")
     if isinstance(route_requirements, dict):
         for route, requirements in route_requirements.items():
             if not isinstance(requirements, list) or not requirements or not all(isinstance(item, str) and item.strip() for item in requirements):

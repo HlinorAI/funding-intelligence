@@ -15,6 +15,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "runtime"))
 
 from runner import evaluate, load_yaml as load_card_yaml
+from verify_route import verify_route
 
 
 def run_runner(case_path: Path, timeout: int = 60) -> dict:
@@ -248,6 +249,32 @@ class TestRunnerDecisions:
         assert route["eligibility"]["state"] == "INCOMPLETE"
         schema = load_yaml(REPO_ROOT / "schemas" / "route-verification.schema.yaml")
         jsonschema.validate(document, schema)
+
+    def test_structured_evidence_policy_rejects_partial_aws_eligibility(self):
+        """Structured policies must not pass a compound requirement when one field is unknown."""
+        card = load_card_yaml(REPO_ROOT / "knowledge" / "packs" / "ai" / "programs" / "aws-activate.yaml")
+        project = {
+            "name": "Partial AWS Evidence",
+            "sector": ["artificial_intelligence"],
+            "stage": "seed",
+            "geography": ["US"],
+            "product": {"description": "AI infrastructure", "technology": ["api"]},
+            "evidence": {"site": True},
+            "needs": {"goals": ["funding"], "requested_mechanisms": ["subsidy"]},
+            "constraints": {"native_ecosystems": [], "target_ecosystems": []},
+        }
+        pack = {
+            "company": {"legal_entity": "private_for_profit", "country": "unknown", "current_funding": "seed"},
+            "funding-needs": {"aws_account": True},
+            "product": {"api_use_case": "managed inference workload"},
+        }
+        route = verify_route(project, card, pack, False)
+        proofs = {item["id"]: item for item in route["required_proof"]}
+        assert route["evidence_policy"] == {"mode": "structured", "mechanisms": ["subsidy"]}
+        assert proofs["legal_entity"]["status"] == "PASS"
+        assert proofs["funding_stage"]["status"] == "PASS"
+        assert proofs["headquarters_country"]["status"] == "MISSING"
+        assert route["eligibility"]["state"] == "INCOMPLETE"
 
     def test_benchmark_smoke(self):
         """Smoke test: run_benchmarks exits cleanly."""

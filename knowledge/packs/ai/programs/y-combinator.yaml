@@ -45,6 +45,42 @@ evidence_requirements:
     - market size, growth thesis and customer evidence
     - fundraising status, cap table and use of funds
     - product velocity, retention or revenue evidence
+evidence_policy:
+  accelerator:
+    - id: founder_team
+      field: pack.company.founders
+      operator: known
+      description: Founder team, roles, and founder-market fit
+    - id: product_demo
+      field: project.evidence.live_demo
+      operator: truthy
+      description: Product demo or clear build proof
+    - id: customer_problem
+      field: pack.product.problem
+      operator: known
+      description: Customer problem and learning velocity
+    - id: application_narrative
+      field: pack.application.narrative
+      operator: known
+      description: Concise application narrative and batch fit
+  investment:
+    - id: funding_need
+      field: project.needs.funding
+      operator: known
+      description: Fundraising status and use of funds
+    - id: customer_evidence
+      field: pack.product.customer
+      operator: known
+      description: Customer and market evidence
+    - id: usage_metrics
+      field: project.evidence.users
+      operator: min
+      values: [1]
+      description: Product velocity or usage evidence
+    - id: revenue_or_retention
+      field: pack.traction.revenue
+      operator: truthy
+      description: Revenue or retention evidence
 score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
 failure_modes:
   - confusing accelerator selection with grant

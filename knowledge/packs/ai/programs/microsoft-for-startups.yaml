@@ -47,6 +47,46 @@ evidence_requirements:
     - named enterprise buyer or design partner
     - Azure architecture and integration boundary
     - pilot thesis with measurable enterprise outcome
+evidence_policy:
+  subsidy:
+    - id: legal_entity
+      field: pack.company.legal_entity
+      operator: known
+      description: Private for-profit legal entity
+    - id: headquarters_country
+      field: pack.company.country
+      operator: known
+      description: Eligible headquarters country
+    - id: working_mvp
+      field: project.evidence.live_demo
+      operator: truthy
+      description: Working MVP or credible build proof
+    - id: azure_workload
+      field: pack.product.technology
+      operator: known
+      description: Azure workload and expected consumption
+    - id: prior_credit_history
+      field: pack.funding-needs.prior_credit_history
+      operator: known
+      description: Prior-credit history
+  bd:
+    - id: enterprise_buyer
+      field: pack.product.customer
+      operator: known
+      description: Named enterprise buyer or design partner
+    - id: azure_architecture
+      field: pack.product.technology
+      operator: known
+      description: Azure architecture and integration boundary
+    - id: pilot_signal
+      field: project.evidence.pilots
+      operator: min
+      values: [1]
+      description: Pilot with a measurable enterprise outcome
+    - id: milestones
+      field: pack.milestones.status
+      operator: known
+      description: Measurable pilot milestones
 score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
 failure_modes:
   - credits mistaken for cash funding

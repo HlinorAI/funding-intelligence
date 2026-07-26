@@ -18,7 +18,7 @@ verifier:
   route_count: 5
   decisions:
     aws-activate: COMPLETE_ELIGIBILITY_DATA
-    microsoft-for-startups: NOW
+    microsoft-for-startups: COMPLETE_ELIGIBILITY_DATA
     nvidia-inception: BUILD_NVIDIA_USE_CASE
     openai-for-startups: VERIFY_ACCESS_PATH
     y-combinator: BUILD_FIRST

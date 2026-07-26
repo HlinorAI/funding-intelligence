@@ -48,6 +48,7 @@ Last updated: 2026-07-26
 - Added a third source-bound public benchmark for rotki, covering a verified previous successful Optimism funding relationship and affiliation precedence over ecosystem fit.
 - Added a fourth source-bound public benchmark for Blockscout, covering Base deployment fit and program-scoped affiliation precedence.
 - Resolved the verifier eligibility/readiness contract mismatch identified by the technical audit and added rejected-affiliation schema coverage.
+- Added executable structured evidence policies for AI cards so route-specific requirements are evaluated as fields and operators rather than free-text heuristics.
 
 ## In progress
 

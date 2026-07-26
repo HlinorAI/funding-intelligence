@@ -48,6 +48,41 @@ evidence_requirements:
     - company identity and valid business contact
     - API usage estimate and model dependency
     - VC referral or other eligibility path for any gated credit benefit
+evidence_policy:
+  bd:
+    - id: api_use_case
+      field: pack.product.api_use_case
+      operator: known
+      description: Concrete OpenAI API use case
+    - id: product_demo
+      field: project.evidence.live_demo
+      operator: truthy
+      description: Product demo
+    - id: customer_workflow
+      field: pack.product.customer
+      operator: known
+      description: Target customer workflow
+    - id: integration_outcome
+      field: pack.milestones.status
+      operator: known
+      description: Measurable adoption or integration outcome
+  subsidy:
+    - id: legal_entity
+      field: pack.company.legal_entity
+      operator: known
+      description: Company identity
+    - id: business_contact
+      field: pack.company.company_email
+      operator: known
+      description: Valid business contact
+    - id: api_use_case
+      field: pack.product.api_use_case
+      operator: known
+      description: API usage estimate and model dependency
+    - id: eligibility_path
+      field: pack.funding-needs.provider_referral
+      operator: known
+      description: VC referral or other eligibility path
 score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
 failure_modes:
   - no referral path for credit benefits

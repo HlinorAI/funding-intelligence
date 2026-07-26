@@ -13,10 +13,24 @@ from urllib.request import Request, urlopen
 
 import yaml
 
-from runner import ROOT, evaluate, load_yaml, program_affiliation_state, project_fit, text_tokens
+from runner import ROOT, evaluate, load_yaml, program_affiliation_state, project_fit, project_goals, text_tokens, truthy
 
 
 UNKNOWN = {None, "", "UNKNOWN", "unknown", "TODO", "NOT_PROVIDED", "not_provided"}
+GOAL_MECHANISMS = {
+    "funding": {"proposal_grant", "retro", "investment", "incentive", "subsidy"},
+    "partnerships": {"bd"},
+    "partner": {"bd"},
+    "accelerator": {"accelerator", "investment"},
+    "distribution": {"bd", "incentive", "accelerator"},
+    "technical_support": {"bd", "subsidy", "accelerator"},
+}
+
+
+def as_list(value: Any) -> list[Any]:
+    if value is None:
+        return []
+    return value if isinstance(value, list) else [value]
 
 
 def known(value: Any) -> bool:
@@ -52,6 +66,7 @@ def pack_value(project: dict[str, Any], pack: dict[str, Any], section: str, key:
 
 
 def evidence_value(project: dict[str, Any], pack: dict[str, Any], key: str) -> Any:
+    """Resolve legacy string requirements for cards that have no structured policy."""
     evidence = project.get("evidence") or {}
     if key in evidence:
         return evidence[key]
@@ -136,6 +151,88 @@ def proof_status(project: dict[str, Any], pack: dict[str, Any], requirement: str
         "status": "PASS" if known(value) else "MISSING",
         "value": value if known(value) else "UNKNOWN",
     }
+
+
+def nested_value(value: Any, path: str) -> Any:
+    current = value
+    for part in path.split("."):
+        if not isinstance(current, dict):
+            return None
+        current = current.get(part)
+    return current
+
+
+def structured_evidence_value(project: dict[str, Any], pack: dict[str, Any], field: str) -> Any:
+    if field.startswith("project."):
+        return nested_value(project, field.removeprefix("project."))
+    if field.startswith("pack."):
+        return nested_value(pack, field.removeprefix("pack."))
+    raise ValueError(f"Structured evidence field must start with project. or pack.: {field}")
+
+
+def normalized_tokens(value: Any) -> set[str]:
+    if isinstance(value, list):
+        return set().union(*(normalized_tokens(item) for item in value)) if value else set()
+    text = str(value or "").lower().replace("-", "_")
+    return {token for token in text.replace(",", " ").replace("/", " ").split() if token}
+
+
+def structured_proof_status(project: dict[str, Any], pack: dict[str, Any], requirement: dict[str, Any]) -> dict[str, Any]:
+    field = str(requirement["field"])
+    operator = str(requirement["operator"])
+    value = structured_evidence_value(project, pack, field)
+    values = requirement.get("values") or []
+    if operator == "known":
+        passed = known(value)
+    elif operator == "truthy":
+        passed = truthy({"value": value}, "value")
+    elif operator == "min":
+        try:
+            passed = float(value) >= float(values[0])
+        except (IndexError, TypeError, ValueError):
+            passed = False
+    elif operator == "contains_any":
+        passed = bool(normalized_tokens(value) & {str(item).lower().replace("-", "_") for item in values})
+    elif operator == "in":
+        passed = str(value).lower() in {str(item).lower() for item in values}
+    else:
+        raise ValueError(f"Unsupported structured evidence operator: {operator}")
+    return {
+        "id": requirement["id"],
+        "requirement": requirement.get("description", requirement["id"]),
+        "field": field,
+        "operator": operator,
+        "status": "PASS" if passed else "MISSING",
+        "value": value if known(value) else "UNKNOWN",
+    }
+
+
+def selected_evidence_mechanisms(project: dict[str, Any], card: dict[str, Any]) -> list[str]:
+    policy = card.get("evidence_policy") or {}
+    if not policy:
+        return []
+    card_mechanisms = [str(item) for item in card.get("mechanism", [])]
+    requested = {str(item) for item in as_list((project.get("needs") or {}).get("requested_mechanisms"))}
+    if requested:
+        return [mechanism for mechanism in card_mechanisms if mechanism in requested and mechanism in policy]
+    desired = set().union(*(GOAL_MECHANISMS.get(goal, set()) for goal in project_goals(project)))
+    selected = [mechanism for mechanism in card_mechanisms if mechanism in desired and mechanism in policy]
+    return selected or [mechanism for mechanism in card_mechanisms if mechanism in policy]
+
+
+def route_proofs(project: dict[str, Any], card: dict[str, Any], pack: dict[str, Any]) -> tuple[list[dict[str, Any]], dict[str, Any]]:
+    selected = selected_evidence_mechanisms(project, card)
+    policy = card.get("evidence_policy") or {}
+    structured = [requirement for mechanism in selected for requirement in policy.get(mechanism, [])]
+    if structured:
+        return (
+            [structured_proof_status(project, pack, requirement) for requirement in structured],
+            {"mode": "structured", "mechanisms": selected},
+        )
+    return (
+        [proof_status(project, pack, item) for item in card.get("required_evidence", [])],
+        {"mode": "legacy", "mechanisms": []},
+    )
 
 
 def live_check(url: str, timeout: int = 15) -> dict[str, Any]:
@@ -290,7 +387,7 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
     evaluation = evaluate(project, card)
     program_status = get_program_status(card, verified_at_override)
     endpoint_status, endpoint = get_endpoint_status(card, live, verified_at_override)
-    proofs = [proof_status(project, pack, item) for item in card.get("required_evidence", [])]
+    proofs, evidence_policy = route_proofs(project, card, pack)
     missing = [item["requirement"] for item in proofs if item["status"] != "PASS"]
     fit = project_fit_state(project, card, evaluation)
     affiliation_state = program_affiliation_state(project, str(card.get("id")))
@@ -321,6 +418,7 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
         },
         "resource_type": card.get("resource_type", card.get("mechanism", [])),
         "required_proof": proofs,
+        "evidence_policy": evidence_policy,
         "hlinor_fit": {**fit, "basis": list(fit.get("basis", []))},
         "next_action": next_action,
         "stop_condition": card.get("stop_condition", "Not specified"),

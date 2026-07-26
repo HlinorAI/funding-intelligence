@@ -35,6 +35,7 @@ It also emits:
 - snapshot status and actual endpoint;
 - endpoint check result;
 - eligibility state and missing proof;
+- `evidence_policy`, recording whether structured or legacy requirements were evaluated and which mechanisms were selected;
 - resource type;
 - project fit and score;
 - next action and stop condition;

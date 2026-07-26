@@ -25,7 +25,7 @@ $defs:
   route:
     type: object
     additionalProperties: true
-    required: [program, program_id, program_status, endpoint_status, project_fit, project_readiness, actual_endpoint, eligibility, resource_type, required_proof, next_action, stop_condition, verified_at, decision]
+    required: [program, program_id, program_status, endpoint_status, project_fit, project_readiness, actual_endpoint, eligibility, resource_type, required_proof, evidence_policy, next_action, stop_condition, verified_at, decision]
     properties:
       program: {type: string, minLength: 1}
       program_id: {type: string, pattern: '^[a-z0-9][a-z0-9-]*$'}
@@ -87,6 +87,16 @@ $defs:
             field: {type: string, minLength: 1}
             status: {type: string, enum: [PASS, MISSING]}
             value: {}
+      evidence_policy:
+        type: object
+        additionalProperties: false
+        required: [mode, mechanisms]
+        properties:
+          mode: {type: string, enum: [structured, legacy]}
+          mechanisms:
+            type: array
+            uniqueItems: true
+            items: {type: string, minLength: 1}
       next_action:
         type: object
         required: [action]

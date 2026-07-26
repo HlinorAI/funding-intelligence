@@ -112,6 +112,35 @@ properties:
       type: array
       minItems: 1
       items: {type: string, minLength: 1}
+  evidence_policy:
+    type: object
+    minProperties: 1
+    propertyNames:
+      enum: [proposal_grant, retro, incentive, accelerator, investment, subsidy, bd]
+    additionalProperties:
+      type: array
+      minItems: 1
+      items:
+        type: object
+        additionalProperties: false
+        required: [id, field, operator, description]
+        properties:
+          id:
+            type: string
+            pattern: '^[a-z0-9][a-z0-9-_]*$'
+          field:
+            type: string
+            pattern: '^(project|pack)\.[a-z0-9][a-z0-9_.-]*$'
+          operator:
+            type: string
+            enum: [known, truthy, min, contains_any, in]
+          values:
+            type: array
+            minItems: 1
+            items: {type: [string, number]}
+          description:
+            type: string
+            minLength: 1
   score:
     type: object
     additionalProperties: true

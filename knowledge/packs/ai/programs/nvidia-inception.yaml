@@ -45,6 +45,45 @@ evidence_requirements:
     - incorporated company and working technical product
     - CUDA, GPU, TensorRT, Triton, NIM or equivalent native dependency
     - concrete compute requirement and expected performance benefit
+evidence_policy:
+  bd:
+    - id: nvidia_workload
+      field: project.product.technology
+      operator: contains_any
+      values: [nvidia, gpu, cuda, tensorrt, triton, nim, gpu_acceleration, accelerated_computing]
+      description: Named GPU or NVIDIA workload
+    - id: technical_champion
+      field: project.access.champions
+      operator: min
+      values: [1]
+      description: Named technical champion
+    - id: partner_workload
+      field: project.evidence.partners
+      operator: min
+      values: [1]
+      description: Customer or partner workload
+    - id: integration_target
+      field: pack.milestones.status
+      operator: known
+      description: Measurable integration, deployment, or performance target
+  subsidy:
+    - id: legal_entity
+      field: pack.company.legal_entity
+      operator: known
+      description: Incorporated company
+    - id: company_website
+      field: project.evidence.site
+      operator: truthy
+      description: Working technical product website
+    - id: nvidia_dependency
+      field: project.product.technology
+      operator: contains_any
+      values: [nvidia, gpu, cuda, tensorrt, triton, nim, gpu_acceleration, accelerated_computing]
+      description: Native NVIDIA or GPU dependency
+    - id: compute_requirement
+      field: pack.product.api_use_case
+      operator: known
+      description: Concrete compute requirement and expected performance benefit
 score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
 failure_modes:
   - benefits treated as cash funding
