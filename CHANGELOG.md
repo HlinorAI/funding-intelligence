@@ -8,6 +8,7 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Added
 
+- A public application-endpoint coverage audit documenting why source-only cards remain non-actionable until a route-specific intake is verified.
 - A distinct `application_endpoint` route contract, separating a program's official information source from a verified application or access path.
 - A dedicated human-report section for routes blocked by a missing application endpoint.
 - Executable mechanism-specific evidence policies for the AI opportunity pack, with structured field operators and a legacy fallback for cards not yet migrated.

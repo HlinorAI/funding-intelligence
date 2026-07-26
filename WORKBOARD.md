@@ -50,6 +50,7 @@ Last updated: 2026-07-26
 - Resolved the verifier eligibility/readiness contract mismatch identified by the technical audit and added rejected-affiliation schema coverage.
 - Added executable structured evidence policies for AI cards so route-specific requirements are evaluated as fields and operators rather than free-text heuristics.
 - Separated official program sources from verified application endpoints; routes without an explicit application or access URL now return `NO_ACTIONABLE_ENDPOINT` instead of inheriting a program information page.
+- Completed an all-card application-endpoint coverage audit: five cards have recorded endpoints, while 36 source-only cards remain intentionally non-actionable until a route-specific intake is verified.
 
 ## In progress
 
@@ -68,6 +69,7 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 3. Select and source the next benchmark from the AI alumnus or hardware-production profiles.
 4. Complete the remaining six cases only after public sources and expected decisions are reviewed.
 5. Recruit external projects only after the first owner-reviewed case is assessed.
+6. Review or split a source-only card only when an external project or benchmark selects a specific mechanism.
 
 ## Decisions already made
 

@@ -9,6 +9,7 @@
 - The repository contains a deterministic, evidence-gated runner and an independent route verifier.
 - Four completed public-only benchmarks are tracked: AI/manufacturing, hardware/physical AI, Web3 with a verified previous funding relationship, and Web3 infrastructure with a Base deployment. Planned cases are not evidence until their sources and expected decisions are reviewed.
 - GitHub Actions validates runner fixtures, benchmarks, pytest regression tests, schemas, embedded workflow JavaScript, report rendering, and public-safety rules.
+- Application endpoints are intentionally sparse: an official information source is not promoted to an actionable route until a specific intake path is verified.
 
 ## Operating principles
 
