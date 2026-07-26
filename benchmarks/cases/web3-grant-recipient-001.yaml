@@ -1,0 +1,79 @@
+benchmark_version: 1
+case_id: web3-grant-recipient-001
+status: complete
+source_type: public_only
+sources:
+  - id: optimism-retro-funding-record
+    url: https://gov.optimism.io/t/rpgf3-deep-dive/7577
+    supports: [previous_successful_optimism_funding, retro_funding_amount]
+  - id: official-optimism-integration
+    url: https://rotki.com/integrations/optimism
+    supports: [product_description, optimism_support, public_product_availability]
+  - id: public-repository
+    url: https://github.com/rotki/rotki
+    supports: [public_repository]
+project:
+  schema_version: 1
+  source_type: public_only
+  name: rotki
+  description: Open-source portfolio tracking, analytics, accounting, and management software with Optimism support.
+  sector: [web3, developer_tools, portfolio_management]
+  stage: unknown
+  stage_claims: [public open-source product, prior Optimism Retro Funding recipient]
+  program_affiliations:
+    - program_id: optimism-superchain
+      status: previous
+      outcome: successful
+      source: https://gov.optimism.io/t/rpgf3-deep-dive/7577
+      verified_at: 2026-07-26
+  geography: [unknown]
+  product:
+    description: Local-first software for tracking digital-asset balances, transactions, and DeFi activity, including Optimism.
+    customers: [digital_asset_users]
+    technology: [web3, ethereum, optimism, evm, open_source]
+    ecosystems: [Optimism]
+  evidence:
+    site: true
+    github: true
+    live_demo: unknown
+    live_deployment: unknown
+    users: unknown
+    revenue: unknown
+    pilots: unknown
+    partners: unknown
+    metrics: unknown
+    audit: unknown
+  needs:
+    goals: []
+    funding: unknown
+    runway_months: unknown
+  constraints:
+    no_token: unknown
+    no_dilution: unknown
+    generic_multichain: true
+    native_ecosystems: [Optimism]
+    target_ecosystems: [Optimism]
+  readiness:
+    budget: unknown
+    milestones: unknown
+  access:
+    champions: unknown
+    warm_intros: unknown
+expected:
+  classification:
+    stage: unknown
+    sectors: [web3, developer_tools, portfolio_management]
+  runner:
+    gate_passed: false
+    routes:
+      optimism-superchain:
+        decision: DO_NOT_APPLY
+        reason_contains: [previous successful Optimism / Superchain Funding affiliation]
+  verifier:
+    routes:
+      optimism-superchain:
+        decision: DO_NOT_APPLY
+        readiness: INELIGIBLE
+        reason_contains: ["Affiliation state: previous_successful"]
+  forbidden:
+    optimism-superchain: [NOW, NEXT, BUILD_FIRST, VERIFY_FIRST, APPLY_AGAIN_AFTER_CHANGE]

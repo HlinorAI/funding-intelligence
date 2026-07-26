@@ -8,6 +8,7 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Added
 
+- A source-bound public Web3 benchmark for rotki, verifying that a recorded previous successful Optimism funding relationship overrides active ecosystem fit.
 - A source-bound public hardware and physical-AI benchmark for Almond, including a human review of unknown-fact boundaries and affiliation precedence.
 - Markdown report renderer combining runner and route-verification outputs for human review.
 - Public external-project intake and feedback templates, with a Git-ignored local workspace for real pilot cases.

@@ -3,6 +3,7 @@ target_case_count: 10
 completed:
   - orvixo-001
   - hardware-public-product-001
+  - web3-grant-recipient-001
 planned:
   - case_id: ai-yc-alumnus-001
     type: ai_startup
@@ -22,9 +23,6 @@ planned:
   - case_id: deeptech-university-001
     type: deeptech
     profile: university-linked research team with public IP evidence
-  - case_id: web3-grant-recipient-001
-    type: web3
-    profile: Web3 project with a verified previous grant or ecosystem affiliation
   - case_id: web3-infrastructure-001
     type: web3
     profile: public Web3 infrastructure project with deployment evidence
