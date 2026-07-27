@@ -137,3 +137,14 @@ The project uses semantic version tags for public releases. Program status chang
 ### Planned
 - Phase 2.2: Implement real LLM extraction in `extract_with_llm()` (OpenAI/Anthropic integration).
 - Phase 2.3: Human-readable reporting with `rich` library and Markdown/PDF export.
+
+## [0.1.4] - 2026-07-28
+
+### Added
+- **Human-Readable Reporting (Phase 2.2):** Created `runtime/report.py` for beautiful CLI output and Markdown export.
+- **Tests:** Added `tests/test_report.py` covering decision icons, markdown generation, and CLI rendering.
+- **Dependencies:** Added `rich>=13.0,<14.0` to `requirements.txt`.
+
+### Changed
+- **Test Coverage:** Increased to 30 passing tests.
+- **Privacy:** Ensured `reports/` directory is explicitly ignored in `.gitignore`.
