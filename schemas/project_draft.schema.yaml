@@ -1,0 +1,55 @@
+$schema: "http://json-schema.org/draft-07/schema#"
+title: "Project Draft Schema"
+description: "Строгая схема для черновиков проектов. Missing fields go to needs_user_input."
+type: object
+required:
+  - project_name
+  - description
+  - stage
+  - geography
+  - domain
+  - needs_user_input
+properties:
+  project_name:
+    type: string
+    minLength: 2
+  description:
+    type: string
+    minLength: 10
+  stage:
+    type: string
+    enum: ["idea", "pre-seed", "seed", "series_a", "series_b", "growth", "unknown"]
+  geography:
+    type: object
+    required: ["country"]
+    properties:
+      country:
+        type: string
+      region:
+        type: string
+  domain:
+    type: string
+  funding_amount_usd:
+    type: ["integer", "string", "null"]
+  team_background:
+    type: string
+    default: "unknown"
+  official_source:
+    type: ["string", "null"]
+  needs_user_input:
+    type: array
+    items:
+      type: string
+  ingestion_metadata:
+    type: object
+    properties:
+      source_type:
+        type: string
+        enum: ["raw_text", "structured_json", "mixed"]
+      confidence_score:
+        type: number
+        minimum: 0.0
+        maximum: 1.0
+      timestamp:
+        type: string
+        format: date-time

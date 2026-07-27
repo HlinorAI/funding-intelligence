@@ -26,3 +26,6 @@ tests/expected/hlinor.yaml
 tests/external-local/
 PROJECT_STATUS_AND_ROADMAP.md
 PROJECT_STATUS_AND_ROADMAP.md
+
+# User-generated drafts (private)
+drafts/
