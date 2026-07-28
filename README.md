@@ -88,7 +88,7 @@ Private evidence, live project fixtures, operational history, and generated repo
 
 ## Installation
 
-Python 3 with PyYAML is required:
+Python 3 with PyYAML and jsonschema is required:
 
 ```bash
 python3 -m pip install -r requirements.txt
@@ -99,6 +99,21 @@ No web service or database is required for the local runner.
 `VERSION` records the latest published repository release and is release metadata only; it does not control runtime behavior.
 
 ## Usage
+
+All runtime components use `schemas/project.schema.yaml` as the canonical project contract. Invalid project files fail before routing; they are not interpreted as unknown projects.
+
+### Create a canonical project from structured JSON
+
+Use the synthetic intake as a copyable example:
+
+```bash
+python3 runtime/ingest.py \
+  examples/example-ai-startup/intake.json \
+  --type json \
+  --output /tmp/example-project.yaml
+```
+
+The output is a canonical `project.yaml` that can be passed directly to the runner and verifier. Raw text mode creates a conservative scaffold only: it preserves the supplied description, marks routing facts as `unknown`, and lists fields that require human input. It does not claim to extract facts with an LLM.
 
 ## Analyze your own project
 
@@ -164,7 +179,7 @@ python3 runtime/verify_route.py \
 
 See [examples/example-ai-startup/README.md](examples/example-ai-startup/README.md) for the complete copyable input and expected decision contract. The runner remains conservative when a card needs status verification; the independent verifier can reach a route-specific decision when the source snapshot and project evidence satisfy its gates.
 
-For the first real external pilot, use the short [external project intake](docs/external-test-intake.md) and then collect responses with the [external test feedback form](docs/external-test-feedback.md). Local project cases belong under `tests/external-local/`, which is ignored by Git.
+For the first real external pilot, follow the [external test runbook](docs/external-test-runbook.md), use the short [external project intake](docs/external-test-intake.md), and collect responses with the [external test feedback form](docs/external-test-feedback.md). Local project cases belong under `tests/external-local/`, which is ignored by Git.
 
 Run the completed public decision-quality benchmarks:
 
@@ -229,7 +244,7 @@ Run the public regression suite:
 ```bash
 python3 runtime/runner.py --check-all
 python3 runtime/run_benchmarks.py
-python3 -m py_compile runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py runtime/run_benchmarks.py
+python3 -m py_compile runtime/project_contract.py runtime/ingest.py runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py runtime/run_benchmarks.py
 python3 -m pip install -r tests/requirements-test.txt
 python3 -m pytest -q
 ```

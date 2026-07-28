@@ -1,41 +1,40 @@
-# Phase 2 Plan: Product Features & Bootstrap SaaS Preparation
+# Integration Coherence Plan
 
-**Target Version:** 0.2.0  
-**Focus:** Transform stable deterministic engine into a low-friction, user-facing product.  
-**Guiding Principle:** Maintain "Zero Hallucination" and "Evidence-Gated" policies while reducing user friction.
+This file records the narrow integration work required before another external evaluation. It does not authorize a new product layer, API, SaaS packaging, or automatic application workflow.
 
-## 🎯 Priority 1: Ingestion Layer (Снижение трения ввода)
-*Цель: Пользователь вставляет сырой текст питча или грязный JSON, а система возвращает валидный `project_draft.yaml`.*
-- [ ] **Schema Design:** Создать `schemas/project_draft.schema.yaml`. Разрешить значения `unknown` и явный статус `needs_user_input` для отсутствующих критических полей (stage, geography, amount).
-- [ ] **Core Logic:** Реализовать `runtime/ingest.py`.
-  - Поддержка режимов: `raw_text` (с LLM-экстракцией + confidence score), `structured_json` (прямой маппинг), `mixed`.
-  - Строгая пост-валидация результата через `jsonschema` перед сохранением.
-- [ ] **Testing:** Добавить 5 regression fixtures в `tests/cases/ingestion/` (чистый JSON, сырой текст, смесь, мусорный ввод, пустой ввод).
-- [ ] **Docs:** Обновить `README.md` секцией "Analyze from raw text".
+## Objective
 
-## 🎯 Priority 2: Human-Readable Reporting & Export (UX отчетов)
-*Цель: Аналитик получает готовый артефакт, который можно прикрепить к инвест-меморандуму.*
-- [ ] **CLI Enhancement:** Модернизировать `runtime/render_report.py` с использованием библиотеки `rich` для цветного, структурированного вывода в терминал (Match Score, Decision Trace, Stop Conditions).
-- [ ] **Export Formats:** Добавить флаг `--format pdf` (через легковесный рендеринг Markdown в PDF, например, `markdown2` + `pdfkit` или аналог, либо строгий Markdown с шаблоном для экспорта).
-- [ ] **Trace Visibility:** Гарантировать, что `decision_trace` и ссылки на `official_source` визуально выделены в отчете как первичные артефакты доверия.
+Preserve the deterministic decision engine while making the public self-service path internally consistent:
 
-## 🎯 Priority 3: Integration Layer (MCP / API)
-*Цель: Бесшовный вызов движка из Cursor, Claude Desktop или внутренней CRM.*
-- [ ] **API Skeleton:** Создать `runtime/api_server.py` (FastAPI) или `runtime/mcp_server.py` (Model Context Protocol).
-- [ ] **Endpoints/Tools:** 
-  - `ingest_and_analyze(raw_input: str) -> dict`
-  - `verify_route(project: dict, route_id: str, live: bool) -> dict`
-- [ ] **Security Stub:** Добавить базовую проверку API-ключа (через ENV variable) для подготовки к B2B SaaS монетизации.
-- [ ] **Testing:** Интеграционные тесты для API endpoints.
+`structured intake → canonical project → runner → verifier → Markdown report`
 
-## 🎯 Priority 4: Automated Live-Verification (Опционально, но желательно)
-*Цель: Снижение ручного вмешательства при проверке статусов.*
-- [ ] **Runner Integration:** Добавить флаг `--auto-verify` в `runtime/runner.py`.
-- [ ] **Logic:** Если у карты `needs_verification: true`, раннер автоматически вызывает `health_check` для `application_endpoint`. Если статус `HEALTHY`, флаг снимается, и решение может быть повышено до `NOW` или `NEXT`.
-- [ ] **Safety:** Гарантировать, что `UNREACHABLE` или `403/429` (известные ограничения) не ломают процесс, а корректно логируются как `VERIFY_ACCESS_PATH`.
+## Completed integration work
 
-## 📋 Definition of Done for Phase 2
-1. Все 4 приоритета реализованы и покрыты тестами (pytest).
-2. CI/CD (GitHub Actions) полностью зеленый для новых модулей.
-3. Проведен пилотный прогон на 3 реальных внешних проектах (external-local), собран human feedback.
-4. Версия обновлена до `0.2.0`.
+- [x] Use `schemas/project.schema.yaml` as the only project contract.
+- [x] Make structured JSON and conservative raw-text ingestion produce canonical project documents.
+- [x] Validate project inputs in the runner and route verifier.
+- [x] Consolidate human reporting in `runtime/render_report.py`.
+- [x] Test reporting against real runner and verifier outputs.
+- [x] Add a public synthetic intake artifact and an end-to-end CI workflow.
+- [x] Keep unresolved facts explicit in `needs_user_input` and preserve `unknown` values.
+
+## External-validation boundary
+
+The next product-quality signal must come from one consented external project. Its private evidence, generated reports, and feedback stay in Git-ignored local paths.
+
+Success requires:
+
+1. correct project classification;
+2. at least one defensible route or a useful justified rejection;
+3. a clear next action;
+4. no invented evidence;
+5. owner feedback on usefulness and time saved.
+
+## Intentionally deferred
+
+- LLM-based fact extraction from unstructured pitch text.
+- MCP or HTTP APIs.
+- Web UI, accounts, billing, and SaaS packaging.
+- Automatic status mutation or automatic application submission.
+- Broad knowledge expansion without an observed external-case need.
+- A new public release before external decision quality justifies one.

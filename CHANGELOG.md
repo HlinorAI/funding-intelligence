@@ -5,23 +5,32 @@ All notable changes to Funding Intelligence are documented in this file.
 The project uses semantic version tags for public releases. Program status changes, knowledge-pack updates, decision-rule changes, and verification behavior changes should be recorded when they affect public behavior or recommendations.
 
 ## [Unreleased]
-## Unreleased
 
-### Added (Phase 2: Product Features Preparation)
-- **Ingestion Layer Foundation:** Planned `runtime/ingest.py` to accept raw text/JSON and output strictly validated `project_draft.yaml`, reducing user friction and eliminating manual YAML authoring.
-- **Reporting UX Enhancements:** Planned integration of `rich` library into `runtime/render_report.py` for structured, color-coded CLI output, plus Markdown/PDF export capabilities for investor-ready artifacts.
-- **Integration Layer Skeleton:** Planned lightweight FastAPI / MCP server wrapper to expose deterministic runner and verifier functions to external tools (Cursor, Claude Desktop, CRM).
-- **Automated Live-Verification:** Planned `--auto-verify` flag in `runtime/runner.py` to seamlessly trigger `health_check` on routes flagged with `needs_verification: true`, auto-clearing the flag upon `HEALTHY` HTTP response.
-- **External Pilot Framework:** Prepared structure for running evaluations on 3 external real-world projects and collecting structured human feedback (stored in git-ignored `tests/external-local/`).
+### Integration coherence
 
-### Changed
-- **Strategic Focus Shift:** Transitioned from Phase 1 (Engine Stabilization & Hermes Agent Fixes, readiness 6/10) to Phase 2 (User-facing Product Features & Bootstrap SaaS Preparation).
-- **Documentation:** Clarified self-service analysis workflow in `README.md`, emphasizing the copy-edit-run pattern from `examples/` rather than manual schema authoring.
+#### Added
 
-### Planned
-- Execute external pilot evaluations and iterate on ingestion error messages based on human feedback.
-- Implement mechanism-specific evidence policies for remaining non-AI knowledge packs (e.g., deeper Web3, Hardware, SME routes).
-- Finalize B2B SaaS API authentication stubs for future monetization tiers.
+- Shared runtime validation for the canonical `project.schema.yaml` contract.
+- Conservative raw-text scaffolding and structured JSON ingestion that produce runner-compatible project documents.
+- A public structured intake file for the synthetic AI example.
+- End-to-end CI coverage for ingestion, runner, verifier, and Markdown reporting.
+
+#### Changed
+
+- Runner and route verifier inputs now fail closed when they do not satisfy the canonical project schema.
+- Human-readable reporting is consolidated in `runtime/render_report.py` and tested against real runner and verifier output.
+- Project ingestion metadata and unresolved input fields are optional fields in the canonical project schema.
+
+#### Removed
+
+- The incompatible `project_draft.schema.yaml` contract.
+- The duplicate `runtime/report.py` implementation and its unused Rich dependency.
+
+#### Fixed
+
+- Prevented ingestion output from reaching the runner with an incompatible project shape.
+- Prevented malformed project documents from being interpreted as valid unknown projects.
+- Replaced isolated reporting fixtures with integration tests against actual engine contracts.
 
 ### Added
 
@@ -65,9 +74,9 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Planned
 
-- Run evaluations on three external projects and collect human feedback.
-- Add live web verification as a separate adapter after the decision logic is validated.
-- Improve knowledge coverage selectively, based on observed project needs.
+- Run one consented external project through the complete intake-to-feedback cycle.
+- Record human corrections, useful routes, false positives, false negatives, and time saved.
+- Make further technical or knowledge changes only when the external case identifies a reproducible need.
 
 ## [0.1.2] - 2026-07-22
 
@@ -119,32 +128,3 @@ The project uses semantic version tags for public releases. Program status chang
 [0.1.2]: https://github.com/HlinorAI/funding-intelligence/releases/tag/v0.1.2
 [0.1.1]: https://github.com/HlinorAI/funding-intelligence/releases/tag/v0.1.1
 [0.1.0]: https://github.com/HlinorAI/funding-intelligence/releases/tag/v0.1.0
-
-## [0.1.3] - 2026-07-28
-
-### Added
-- **Ingestion Layer (Phase 2.1):** Created `runtime/ingest.py` to accept raw text/JSON and output strictly validated `project_draft.yaml`.
-  - Supports graceful degradation: missing fields are marked in `needs_user_input` array.
-  - Optional LLM extraction stub (`--use-llm` flag) prepared for Phase 2.2 (requires API key).
-  - Strict schema validation via `schemas/project_draft.schema.yaml`.
-- **Schema:** Added `schemas/project_draft.schema.yaml` with support for `unknown` values and `needs_user_input` tracking.
-- **Tests:** Added `tests/test_ingest.py` with 10 test cases covering raw text, JSON, validation, and edge cases.
-
-### Changed
-- **Test Coverage:** Increased from 11 to 21 passing tests (pytest).
-- **CI/CD:** All GitHub Actions checks remain green.
-
-### Planned
-- Phase 2.2: Implement real LLM extraction in `extract_with_llm()` (OpenAI/Anthropic integration).
-- Phase 2.3: Human-readable reporting with `rich` library and Markdown/PDF export.
-
-## [0.1.4] - 2026-07-28
-
-### Added
-- **Human-Readable Reporting (Phase 2.2):** Created `runtime/report.py` for beautiful CLI output and Markdown export.
-- **Tests:** Added `tests/test_report.py` covering decision icons, markdown generation, and CLI rendering.
-- **Dependencies:** Added `rich>=13.0,<14.0` to `requirements.txt`.
-
-### Changed
-- **Test Coverage:** Increased to 30 passing tests.
-- **Privacy:** Ensured `reports/` directory is explicitly ignored in `.gitignore`.

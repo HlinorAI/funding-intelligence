@@ -1,143 +1,221 @@
 #!/usr/bin/env python3
-"""
-Ingestion Layer: Принимает сырой ввод, нормализует и валидирует по схеме.
-Поддерживает опциональную LLM-экстракцию (через ENV и флаг --use-llm).
-"""
-import json
-import yaml
+"""Create a canonical project document from raw text or structured JSON."""
+
+from __future__ import annotations
+
 import argparse
-import sys
-import os
-from pathlib import Path
-from jsonschema import validate, ValidationError
+from copy import deepcopy
 from datetime import datetime, timezone
+import json
+from pathlib import Path
+import re
+import sys
+from typing import Any
 
-SCHEMA_PATH = Path(__file__).parent.parent / "schemas" / "project_draft.schema.yaml"
-DRAFTS_DIR = Path(__file__).parent.parent / "drafts"
+import yaml
 
-def load_schema() -> dict:
-    with open(SCHEMA_PATH, 'r', encoding='utf-8') as f:
-        return yaml.safe_load(f)
+try:
+    from runtime.project_contract import ProjectValidationError, validate_project
+except ImportError:
+    from project_contract import ProjectValidationError, validate_project
 
-def extract_with_llm(raw_text: str) -> dict:
-    """
-    LLM-экстракция ключевых полей из сырого текста.
-    Опциональная фича: активируется только если:
-    1. Установлена переменная окружения OPENAI_API_KEY или ANTHROPIC_API_KEY
-    2. Передан флаг --use-llm в CLI
-    
-    Пока возвращает заглушку (Phase 2.1 - подготовка к интеграции).
-    """
-    # Проверка наличия API ключей
-    openai_key = os.environ.get("OPENAI_API_KEY")
-    anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
-    
-    if not (openai_key or anthropic_key):
-        print("⚠️  LLM extraction disabled: No API key found (OPENAI_API_KEY or ANTHROPIC_API_KEY)")
-        return ingest_raw_text(raw_text)  # Fallback to stub
-    
-    # TODO: Phase 2.2 - Реальная LLM интеграция
-    # Здесь будет вызов OpenAI/Anthropic API с structured output
-    # Пример промпта:
-    # """
-    # Extract the following fields from the text and return as JSON:
-    # - project_name (string)
-    # - stage (enum: idea, pre-seed, seed, series_a, series_b, growth, unknown)
-    # - geography.country (string, ISO 2 code or full name)
-    # - domain (string: AI, Web3, Hardware, SaaS, etc.)
-    # - funding_amount_usd (integer or null)
-    # 
-    # Text: {raw_text}
-    # """
-    
-    print("⚠️  LLM extraction not yet implemented (Phase 2.2)")
-    return ingest_raw_text(raw_text)  # Fallback to stub
 
-def ingest_raw_text(raw_text: str) -> dict:
-    """
-    Заглушка для LLM-экстракции (Phase 2.1). 
-    Пока возвращает безопасную структуру с пометкой needs_user_input.
-    """
+ROOT = Path(__file__).resolve().parents[1]
+DRAFTS_DIR = ROOT / "drafts"
+UNKNOWN = "unknown"
+STAGE_ALIASES = {
+    "pre-seed": "pre_seed",
+    "preseed": "pre_seed",
+    "early product": "early_product",
+    "growth": "revenue",
+}
+SECTOR_ALIASES = {
+    "ai": "artificial_intelligence",
+    "artificial intelligence": "artificial_intelligence",
+    "saas": "software",
+}
+
+
+def timestamp() -> str:
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+
+
+def as_text(value: Any, fallback: str = UNKNOWN) -> str:
+    text = str(value).strip() if value is not None else ""
+    return text or fallback
+
+
+def normalize_stage(value: Any) -> str:
+    stage = as_text(value).lower().replace(" ", "_")
+    return STAGE_ALIASES.get(stage.replace("_", "-"), stage)
+
+
+def normalize_sector(value: Any) -> list[str]:
+    values = value if isinstance(value, list) else [value]
+    sectors = []
+    for item in values:
+        token = re.sub(r"[^a-z0-9]+", "_", as_text(item).lower()).strip("_")
+        token = SECTOR_ALIASES.get(token.replace("_", " "), token)
+        if token and token not in sectors:
+            sectors.append(token)
+    return sectors or [UNKNOWN]
+
+
+def normalize_geography(value: Any) -> list[str]:
+    if isinstance(value, dict):
+        values = [value.get("country"), value.get("region")]
+    elif isinstance(value, list):
+        values = value
+    else:
+        values = [value]
+    result = [as_text(item) for item in values if item is not None and item != ""]
+    return list(dict.fromkeys(result)) or [UNKNOWN]
+
+
+def empty_project(description: str) -> dict[str, Any]:
+    project_description = as_text(description, "No description provided.")
     return {
-        "project_name": "Unknown Project",
-        "description": raw_text[:200] if raw_text else "No description provided",
-        "stage": "unknown",
-        "geography": {"country": "unknown"},
-        "domain": "unknown",
-        "funding_amount_usd": None,
-        "team_background": "unknown",
-        "official_source": None,
-        "needs_user_input": ["project_name", "stage", "geography.country", "domain"],
+        "schema_version": 1,
+        "name": "Unknown Project",
+        "description": project_description,
+        "sector": [UNKNOWN],
+        "stage": UNKNOWN,
+        "geography": [UNKNOWN],
+        "product": {"description": project_description},
+        "evidence": {
+            "site": UNKNOWN,
+            "github": UNKNOWN,
+            "live_demo": UNKNOWN,
+            "live_deployment": UNKNOWN,
+            "users": UNKNOWN,
+            "revenue": UNKNOWN,
+            "pilots": UNKNOWN,
+            "partners": UNKNOWN,
+            "metrics": UNKNOWN,
+        },
+        "needs": {"goals": []},
+        "constraints": {
+            "no_token": UNKNOWN,
+            "no_dilution": UNKNOWN,
+            "generic_multichain": UNKNOWN,
+            "native_ecosystems": [],
+            "target_ecosystems": [],
+        },
+        "readiness": {"budget": UNKNOWN, "milestones": UNKNOWN},
+        "access": {"champions": UNKNOWN, "warm_intros": UNKNOWN},
+        "needs_user_input": ["name", "sector", "stage", "geography", "needs.goals"],
         "ingestion_metadata": {
             "source_type": "raw_text",
-            "confidence_score": 0.5,
-            "timestamp": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
-        }
+            "confidence_score": 0.0,
+            "timestamp": timestamp(),
+        },
     }
 
-def ingest_json(json_data: dict) -> dict:
-    """Нормализует структурированный JSON под схему."""
-    if "needs_user_input" not in json_data:
-        json_data["needs_user_input"] = []
-    if "ingestion_metadata" not in json_data:
-        json_data["ingestion_metadata"] = {
+
+def ingest_raw_text(raw_text: str) -> dict[str, Any]:
+    """Return a safe canonical scaffold without inferring facts from prose."""
+
+    return validate_project(empty_project(raw_text), "raw-text ingestion")
+
+
+def is_canonical_project(value: dict[str, Any]) -> bool:
+    return value.get("schema_version") == 1 and all(
+        field in value for field in ("name", "sector", "product", "evidence", "needs", "constraints")
+    )
+
+
+def ingest_json(json_data: dict[str, Any]) -> dict[str, Any]:
+    """Normalize structured JSON into the canonical project contract."""
+
+    source = deepcopy(json_data)
+    if is_canonical_project(source):
+        project = source
+        project.setdefault("needs_user_input", [])
+        project["ingestion_metadata"] = {
             "source_type": "structured_json",
             "confidence_score": 1.0,
-            "timestamp": datetime.now(timezone.utc).isoformat().replace('+00:00', 'Z')
+            "timestamp": timestamp(),
         }
-    return json_data
+        return validate_project(project, "structured JSON ingestion")
 
-def validate_and_save(data: dict, output_filename: str = "project_draft.yaml") -> bool:
-    schema = load_schema()
+    description = as_text(source.get("description"), "No description provided.")
+    official_source = source.get("official_source")
+    funding = source.get("funding_amount_usd")
+    project = empty_project(description)
+    project.update(
+        {
+            "name": as_text(source.get("project_name")),
+            "sector": normalize_sector(source.get("domain")),
+            "stage": normalize_stage(source.get("stage")),
+            "geography": normalize_geography(source.get("geography")),
+            "product": {"description": description},
+            "team_background": as_text(source.get("team_background")),
+            "needs_user_input": list(source.get("needs_user_input") or []),
+            "ingestion_metadata": {
+                "source_type": "structured_json",
+                "confidence_score": 1.0,
+                "timestamp": timestamp(),
+            },
+        }
+    )
+    if official_source:
+        project["official_sources"] = [as_text(official_source)]
+        project["evidence"]["site"] = True
+    if isinstance(funding, (int, float)) and not isinstance(funding, bool) and funding >= 0:
+        project["needs"]["funding"] = funding
+        project["needs"]["goals"] = ["funding"]
+    elif funding not in {None, "", UNKNOWN}:
+        project["needs"]["funding"] = funding
+        project["needs"]["goals"] = ["funding"]
+    return validate_project(project, "structured JSON ingestion")
+
+
+def output_path(filename: str) -> Path:
+    path = Path(filename)
+    return path if path.is_absolute() else DRAFTS_DIR / path
+
+
+def validate_and_save(data: dict[str, Any], output_filename: str = "project.yaml") -> bool:
     try:
-        validate(instance=data, schema=schema)
-        DRAFTS_DIR.mkdir(parents=True, exist_ok=True)
-        output_path = DRAFTS_DIR / output_filename
-        
-        with open(output_path, 'w', encoding='utf-8') as f:
-            yaml.dump(data, f, allow_unicode=True, sort_keys=False, default_flow_style=False)
-        
-        print(f"✅ Success: Validated and saved to {output_path}")
+        validate_project(data, "ingestion output")
+        destination = output_path(output_filename)
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(yaml.safe_dump(data, allow_unicode=True, sort_keys=False), encoding="utf-8")
+        print(f"Success: validated canonical project saved to {destination}")
         if data.get("needs_user_input"):
-            print(f"⚠️  Warning: Missing or uncertain fields: {', '.join(data['needs_user_input'])}")
+            print(f"Needs user input: {', '.join(data['needs_user_input'])}")
         return True
-    except ValidationError as e:
-        print(f"❌ Validation Error: {e.message}")
-        print(f"   Path: {' -> '.join(map(str, e.path))}")
+    except (ProjectValidationError, OSError) as error:
+        print(f"Validation error: {error}", file=sys.stderr)
         return False
 
-def main():
-    parser = argparse.ArgumentParser(description="Ingest raw text or JSON into a validated project draft.")
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", help="Raw text string or path to a JSON file")
     parser.add_argument("--type", choices=["text", "json", "auto"], default="auto", help="Input type")
-    parser.add_argument("--output", default="project_draft.yaml", help="Output filename in drafts/")
-    parser.add_argument("--use-llm", action="store_true", help="Enable LLM extraction (requires API key)")
-    
+    parser.add_argument("--output", default="project.yaml", help="Output path; relative paths are stored in drafts/")
     args = parser.parse_args()
-    
+
     input_type = args.type
+    input_path = Path(args.input)
     if input_type == "auto":
-        if args.input.endswith(".json") and Path(args.input).exists():
-            input_type = "json"
-        else:
-            input_type = "text"
+        input_type = "json" if input_path.suffix.lower() == ".json" and input_path.exists() else "text"
 
-    if input_type == "json":
-        try:
-            with open(args.input, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-            processed_data = ingest_json(data)
-        except Exception as e:
-            print(f"❌ Failed to read JSON: {e}")
-            sys.exit(1)
-    else:
-        if args.use_llm:
-            processed_data = extract_with_llm(args.input)
+    try:
+        if input_type == "json":
+            data = json.loads(input_path.read_text(encoding="utf-8"))
+            if not isinstance(data, dict):
+                raise ValueError("JSON input must be an object")
+            project = ingest_json(data)
         else:
-            processed_data = ingest_raw_text(args.input)
+            project = ingest_raw_text(args.input)
+    except (OSError, ValueError, ProjectValidationError, json.JSONDecodeError) as error:
+        print(f"Ingestion failed: {error}", file=sys.stderr)
+        return 1
 
-    success = validate_and_save(processed_data, args.output)
-    sys.exit(0 if success else 1)
+    return 0 if validate_and_save(project, args.output) else 1
+
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

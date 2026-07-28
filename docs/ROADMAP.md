@@ -21,10 +21,10 @@
 
 ## Current priorities
 
-1. Review the Orvixo public-only benchmark against factual corrections from the project owner when available.
-2. Add a reviewed public benchmark for a distinct project shape, starting with an AI alumnus or hardware production case.
-3. Record false positives, false negatives, useful routes, and human feedback for every completed case.
-4. Revisit health-check access exceptions only after external cases show that their review cadence is insufficient.
+1. Accept one consented external project and keep its private evidence outside Git.
+2. Run the documented canonical intake-to-report workflow without changing decision rules mid-case.
+3. Record false positives, false negatives, useful routes, owner feedback, and time saved.
+4. Make additional technical changes only when the external case identifies a reproducible defect.
 
 ## Release boundary
 
@@ -34,5 +34,5 @@
 
 - User interface, SaaS packaging, payments, and marketing.
 - Automatic application submission.
-- Ingestion from raw pitch text, an MCP/API layer, and automatic web-driven knowledge updates.
+- LLM extraction from raw pitch text, an MCP/API layer, and automatic web-driven knowledge updates.
 - Broad knowledge-pack expansion before external cases identify a coverage gap.

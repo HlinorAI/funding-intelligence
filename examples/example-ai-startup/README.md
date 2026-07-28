@@ -2,12 +2,21 @@
 
 This is a fully synthetic, copyable end-to-end example. It shows how a seed-stage AI infrastructure project moves from structured facts to deterministic opportunity routing and independent route verification.
 
-From the repository root, install dependencies and run the runner:
+From the repository root, install dependencies and create a canonical project from the structured intake:
 
 ```bash
 python3 -m pip install -r requirements.txt
+python3 runtime/ingest.py \
+  examples/example-ai-startup/intake.json \
+  --type json \
+  --output /tmp/example-project.yaml
+```
+
+Run the runner on the ingested project:
+
+```bash
 python3 runtime/runner.py \
-  examples/example-ai-startup/project.yaml \
+  /tmp/example-project.yaml \
   --output /tmp/example-report.yaml
 ```
 
@@ -17,7 +26,7 @@ Run the independent verifier against the same evidence pack:
 
 ```bash
 python3 runtime/verify_route.py \
-  examples/example-ai-startup/project.yaml \
+  /tmp/example-project.yaml \
   --all-ai \
   --evidence-dir examples/example-ai-startup/evidence \
   --output /tmp/example-route-verification.yaml

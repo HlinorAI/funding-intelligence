@@ -281,6 +281,7 @@ def validate_credential_scanner(errors: list[str]) -> None:
 def validate_public_tracking(errors: list[str]) -> None:
     files = tracked_files()
     patterns = credential_patterns()
+    cyrillic = re.compile(r"[\u0400-\u04FF]")
     for path in files:
         if any(pattern.search(path) for pattern in PRIVATE_PATH_PATTERNS):
             errors.append(f"tracked private path: {path}")
@@ -291,6 +292,8 @@ def validate_public_tracking(errors: list[str]) -> None:
             text = absolute.read_text(encoding="utf-8")
         except UnicodeDecodeError:
             continue
+        if cyrillic.search(text):
+            errors.append(f"non-English Cyrillic text in tracked file {path}")
         for pattern in patterns:
             if pattern.search(text):
                 errors.append(f"credential or private-path pattern in tracked file {path}: {pattern.pattern}")
@@ -299,7 +302,11 @@ def validate_public_tracking(errors: list[str]) -> None:
 def validate_yaml_syntax(errors: list[str]) -> None:
     for relative in tracked_files():
         path = ROOT / relative
-        if path.suffix.lower() not in {".yaml", ".yml"} or any(pattern.search(relative) for pattern in PRIVATE_PATH_PATTERNS):
+        if (
+            not path.exists()
+            or path.suffix.lower() not in {".yaml", ".yml"}
+            or any(pattern.search(relative) for pattern in PRIVATE_PATH_PATTERNS)
+        ):
             continue
         try:
             load_yaml(path)

@@ -2,7 +2,7 @@
 
 This file is the project's persistent operating memory. Keep it factual, short, and current. Update it when work is completed, a decision changes, or the next action changes.
 
-Last updated: 2026-07-26
+Last updated: 2026-07-28
 
 ## Current status
 
@@ -52,6 +52,10 @@ Last updated: 2026-07-26
 - Separated official program sources from verified application endpoints; routes without an explicit application or access URL now return `NO_ACTIONABLE_ENDPOINT` instead of inheriting a program information page.
 - Completed an all-card application-endpoint coverage audit: five cards have recorded endpoints, while 36 source-only cards remain intentionally non-actionable until a route-specific intake is verified.
 - Added a copy-and-run README workflow for self-service local analysis and corrected the Base route-verification example.
+- Consolidated project ingestion, routing, verification, and reporting around the canonical `project.schema.yaml` contract.
+- Added fail-closed project validation to the runner and route verifier.
+- Removed the incompatible draft schema and duplicate reporting implementation.
+- Added a public structured intake example and end-to-end CI coverage for ingestion through Markdown reporting.
 
 ## In progress
 
@@ -61,17 +65,17 @@ Last updated: 2026-07-26
 - External validation is intentionally awaiting a consented inbound project or voluntary owner contact; no outbound founder outreach is planned.
 - Prepare a public benchmark for a distinct project shape without committing private project evidence.
 - Perform new technical work only when a benchmark or external test identifies a confirmed defect.
+- Await one consented external project for the next complete intake-to-feedback cycle.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
 ## Next actions
 
-1. Review the tracked Orvixo, Almond, rotki, and Blockscout benchmark expectations against owner corrections when available.
-2. Record factual corrections and feedback using `docs/external-test-feedback.md`.
-3. Select and source the next benchmark from the AI alumnus or hardware-production profiles.
-4. Complete the remaining six cases only after public sources and expected decisions are reviewed.
-5. Accept one consented inbound project when available, then run the documented intake-to-feedback cycle without publishing private evidence.
-6. Review or split a source-only card only when an external project or benchmark selects a specific mechanism.
+1. Accept one consented inbound project when available.
+2. Store its intake, evidence, generated YAML, report, and feedback only under ignored local paths.
+3. Run the canonical ingestion-to-report workflow without modifying expectations during the case.
+4. Record factual corrections and feedback using `docs/external-test-feedback.md`.
+5. Open technical work only for a reproducible defect or a demonstrated coverage gap.
 
 ## Decisions already made
 

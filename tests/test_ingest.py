@@ -1,19 +1,22 @@
-"""
-Tests for runtime/ingest.py - Ingestion Layer
-"""
-import pytest
-import json
-import yaml
-from pathlib import Path
-from runtime.ingest import (
-    ingest_raw_text,
-    ingest_json,
-    validate_and_save,
-    load_schema
-)
+"""Tests for canonical project ingestion."""
 
-# Test fixtures
-SAMPLE_RAW_TEXT = "We are building an AI-powered drone for pizza delivery in Estonia, seeking $100k seed funding."
+from __future__ import annotations
+
+import json
+from pathlib import Path
+import subprocess
+import sys
+
+import pytest
+import yaml
+
+from runtime import ingest
+from runtime.ingest import ingest_json, ingest_raw_text, validate_and_save
+from runtime.project_contract import ProjectValidationError, validate_project
+from runtime.runner import build_report
+
+
+SAMPLE_RAW_TEXT = "We are building an AI-powered drone for pizza delivery in Estonia, seeking seed funding."
 SAMPLE_JSON = {
     "project_name": "PizzaDrone AI",
     "description": "AI-powered drone for pizza delivery",
@@ -21,149 +24,125 @@ SAMPLE_JSON = {
     "geography": {"country": "Estonia", "region": "Tallinn"},
     "domain": "AI",
     "funding_amount_usd": 100000,
-    "team_background": "Ex-Bolt engineers",
-    "official_source": "https://pizzadrone.ai"
-}
-INVALID_JSON_MISSING_FIELDS = {
-    "project_name": "Test"
-    # Missing required fields: description, stage, geography, domain, needs_user_input
+    "team_background": "Former mobility engineers",
+    "official_source": "https://example.invalid",
 }
 
-class TestIngestRawText:
-    def test_basic_text_extraction(self):
-        """Test that raw text creates a valid draft with graceful degradation."""
-        result = ingest_raw_text(SAMPLE_RAW_TEXT)
-        
-        assert result["project_name"] == "Unknown Project"
-        assert SAMPLE_RAW_TEXT[:200] in result["description"]
-        assert result["stage"] == "unknown"
-        assert result["geography"]["country"] == "unknown"
-        assert result["domain"] == "unknown"
-        assert len(result["needs_user_input"]) > 0
-        assert result["ingestion_metadata"]["source_type"] == "raw_text"
-        assert 0.0 <= result["ingestion_metadata"]["confidence_score"] <= 1.0
-    
-    def test_empty_text(self):
-        """Test that empty text is handled gracefully."""
-        result = ingest_raw_text("")
-        assert result["description"] == "No description provided"
-        assert len(result["needs_user_input"]) > 0
-    
-    def test_very_long_text(self):
-        """Test that very long text is truncated."""
-        long_text = "A" * 1000
-        result = ingest_raw_text(long_text)
-        assert len(result["description"]) <= 200
 
-class TestIngestJSON:
-    def test_valid_json(self):
-        """Test that valid JSON is normalized correctly."""
-        result = ingest_json(SAMPLE_JSON.copy())
-        
-        assert result["project_name"] == "PizzaDrone AI"
-        assert result["stage"] == "seed"
-        assert result["geography"]["country"] == "Estonia"
-        assert "needs_user_input" in result
-        assert result["ingestion_metadata"]["source_type"] == "structured_json"
-        assert result["ingestion_metadata"]["confidence_score"] == 1.0
-    
-    def test_json_with_existing_needs_user_input(self):
-        """Test that existing needs_user_input is preserved."""
-        json_with_needs = SAMPLE_JSON.copy()
-        json_with_needs["needs_user_input"] = ["team_background"]
-        result = ingest_json(json_with_needs)
-        
-        assert result["needs_user_input"] == ["team_background"]
+def test_raw_text_creates_valid_conservative_project() -> None:
+    project = ingest_raw_text(SAMPLE_RAW_TEXT)
+    validate_project(project)
+    assert project["schema_version"] == 1
+    assert project["name"] == "Unknown Project"
+    assert project["description"] == SAMPLE_RAW_TEXT
+    assert project["sector"] == ["unknown"]
+    assert project["stage"] == "unknown"
+    assert project["geography"] == ["unknown"]
+    assert project["ingestion_metadata"]["confidence_score"] == 0.0
+    assert project["needs_user_input"]
 
-class TestValidateAndSave:
-    def test_valid_draft_passes_validation(self, tmp_path):
-        """Test that a valid draft passes schema validation."""
-        valid_draft = {
-            "project_name": "Test Project",
-            "description": "A test project description",
-            "stage": "seed",
-            "geography": {"country": "US"},
-            "domain": "SaaS",
-            "needs_user_input": []
-        }
-        
-        # Temporarily change DRAFTS_DIR for testing
-        from runtime import ingest
-        original_drafts_dir = ingest.DRAFTS_DIR
-        ingest.DRAFTS_DIR = tmp_path
-        
-        try:
-            success = validate_and_save(valid_draft, "test_draft.yaml")
-            assert success is True
-            
-            output_file = tmp_path / "test_draft.yaml"
-            assert output_file.exists()
-            
-            with open(output_file, 'r') as f:
-                saved_data = yaml.safe_load(f)
-            assert saved_data["project_name"] == "Test Project"
-        finally:
-            ingest.DRAFTS_DIR = original_drafts_dir
-    
-    def test_invalid_draft_fails_validation(self, tmp_path):
-        """Test that an invalid draft fails schema validation."""
-        invalid_draft = {
-            "project_name": "T",  # Too short (minLength: 2)
-            "description": "Short",  # Too short (minLength: 10)
-            "stage": "invalid_stage",  # Not in enum
-            "geography": {"country": "US"},
-            "domain": "SaaS",
-            "needs_user_input": []
-        }
-        
-        from runtime import ingest
-        original_drafts_dir = ingest.DRAFTS_DIR
-        ingest.DRAFTS_DIR = tmp_path
-        
-        try:
-            success = validate_and_save(invalid_draft, "invalid_draft.yaml")
-            assert success is False
-        finally:
-            ingest.DRAFTS_DIR = original_drafts_dir
 
-class TestSchemaLoading:
-    def test_schema_loads_successfully(self):
-        """Test that the schema file loads without errors."""
-        schema = load_schema()
-        assert schema is not None
-        assert "properties" in schema
-        assert "project_name" in schema["properties"]
-        assert "needs_user_input" in schema["properties"]
+def test_empty_text_is_valid_and_does_not_infer_facts() -> None:
+    project = ingest_raw_text("")
+    validate_project(project)
+    assert project["description"] == "No description provided."
+    assert project["evidence"]["users"] == "unknown"
+    assert project["needs"]["goals"] == []
 
-class TestEndToEnd:
-    def test_full_pipeline_raw_text(self, tmp_path):
-        """Test full pipeline: raw text -> ingest -> validate -> save."""
-        from runtime import ingest
-        original_drafts_dir = ingest.DRAFTS_DIR
-        ingest.DRAFTS_DIR = tmp_path
-        
-        try:
-            data = ingest_raw_text(SAMPLE_RAW_TEXT)
-            success = validate_and_save(data, "e2e_test.yaml")
-            
-            assert success is True
-            output_file = tmp_path / "e2e_test.yaml"
-            assert output_file.exists()
-        finally:
-            ingest.DRAFTS_DIR = original_drafts_dir
-    
-    def test_full_pipeline_json(self, tmp_path):
-        """Test full pipeline: JSON -> ingest -> validate -> save."""
-        from runtime import ingest
-        original_drafts_dir = ingest.DRAFTS_DIR
-        ingest.DRAFTS_DIR = tmp_path
-        
-        try:
-            data = ingest_json(SAMPLE_JSON.copy())
-            success = validate_and_save(data, "e2e_json_test.yaml")
-            
-            assert success is True
-            output_file = tmp_path / "e2e_json_test.yaml"
-            assert output_file.exists()
-        finally:
-            ingest.DRAFTS_DIR = original_drafts_dir
+
+def test_structured_json_maps_to_canonical_contract() -> None:
+    project = ingest_json(SAMPLE_JSON)
+    validate_project(project)
+    assert project["name"] == "PizzaDrone AI"
+    assert project["sector"] == ["artificial_intelligence"]
+    assert project["stage"] == "seed"
+    assert project["geography"] == ["Estonia", "Tallinn"]
+    assert project["needs"]["funding"] == 100000
+    assert project["needs"]["goals"] == ["funding"]
+    assert project["evidence"]["site"] is True
+
+
+def test_canonical_json_is_preserved_and_annotated(repo_root: Path) -> None:
+    project = yaml.safe_load((repo_root / "examples" / "example-ai-startup" / "project.yaml").read_text())
+    normalized = ingest_json(project)
+    validate_project(normalized)
+    assert normalized["name"] == project["name"]
+    assert normalized["product"] == project["product"]
+    assert normalized["ingestion_metadata"]["source_type"] == "structured_json"
+
+
+def test_ingestion_output_runs_through_engine() -> None:
+    report = build_report(ingest_json(SAMPLE_JSON))
+    assert report["project"] == "PizzaDrone AI"
+    assert report["classification"]["sectors"] == ["artificial_intelligence"]
+
+
+def test_invalid_canonical_project_fails_closed() -> None:
+    with pytest.raises(ProjectValidationError):
+        validate_project({"name": "Incomplete"}, "test input")
+
+
+def test_validate_and_save_uses_requested_absolute_path(tmp_path: Path) -> None:
+    destination = tmp_path / "project.yaml"
+    assert validate_and_save(ingest_json(SAMPLE_JSON), str(destination))
+    saved = yaml.safe_load(destination.read_text())
+    validate_project(saved)
+    assert saved["name"] == "PizzaDrone AI"
+
+
+def test_validate_and_save_rejects_invalid_project(tmp_path: Path) -> None:
+    destination = tmp_path / "invalid.yaml"
+    assert not validate_and_save({"name": "Incomplete"}, str(destination))
+    assert not destination.exists()
+
+
+def test_cli_json_ingestion_produces_runner_compatible_file(tmp_path: Path, repo_root: Path) -> None:
+    source = tmp_path / "intake.json"
+    destination = tmp_path / "project.yaml"
+    source.write_text(json.dumps(SAMPLE_JSON), encoding="utf-8")
+    ingest_process = subprocess.run(
+        [
+            sys.executable,
+            str(repo_root / "runtime" / "ingest.py"),
+            str(source),
+            "--type",
+            "json",
+            "--output",
+            str(destination),
+        ],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert ingest_process.returncode == 0, ingest_process.stderr
+    runner_process = subprocess.run(
+        [sys.executable, str(repo_root / "runtime" / "runner.py"), str(destination)],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert runner_process.returncode == 0, runner_process.stderr
+    assert yaml.safe_load(runner_process.stdout)["project"] == "PizzaDrone AI"
+
+
+def test_relative_output_remains_private(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setattr(ingest, "DRAFTS_DIR", tmp_path)
+    assert validate_and_save(ingest_raw_text(SAMPLE_RAW_TEXT), "private-project.yaml")
+    assert (tmp_path / "private-project.yaml").exists()
+
+
+def test_runner_cli_rejects_invalid_project_without_traceback(tmp_path: Path, repo_root: Path) -> None:
+    invalid = tmp_path / "invalid.yaml"
+    invalid.write_text("name: Incomplete\n", encoding="utf-8")
+    process = subprocess.run(
+        [sys.executable, str(repo_root / "runtime" / "runner.py"), str(invalid)],
+        cwd=repo_root,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert process.returncode == 2
+    assert "invalid project contract" in process.stderr
+    assert "Traceback" not in process.stderr

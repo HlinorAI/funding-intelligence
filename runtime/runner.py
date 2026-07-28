@@ -10,6 +10,11 @@ from typing import Any
 
 import yaml
 
+try:
+    from runtime.project_contract import ProjectValidationError, validate_project
+except ImportError:
+    from project_contract import ProjectValidationError, validate_project
+
 
 ROOT = Path(__file__).resolve().parents[1]
 PROGRAM_DIR = ROOT / "knowledge" / "programs"
@@ -385,6 +390,7 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_report(project: dict[str, Any]) -> dict[str, Any]:
+    validate_project(project, "runner input")
     program_paths = sorted(PROGRAM_DIR.glob("*.yaml"))
     project_tokens = text_tokens(project)
     if project_tokens & {"ai", "artificial_intelligence", "agents", "agent_infrastructure"}:
@@ -492,7 +498,10 @@ def main() -> int:
         return 0
     if not args.project:
         parser.error("project is required unless --check-all is used")
-    report = build_report(load_yaml(args.project))
+    try:
+        report = build_report(load_yaml(args.project))
+    except ProjectValidationError as error:
+        parser.error(str(error))
     rendered = json.dumps(report, indent=2, ensure_ascii=False) if args.format == "json" else yaml.safe_dump(report, allow_unicode=True, sort_keys=False)
     if args.output:
         args.output.write_text(rendered, encoding="utf-8")

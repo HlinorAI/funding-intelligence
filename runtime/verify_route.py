@@ -14,6 +14,7 @@ from urllib.request import Request, urlopen
 import yaml
 
 from runner import ROOT, evaluate, load_yaml, program_affiliation_state, project_fit, project_goals, text_tokens, truthy
+from project_contract import ProjectValidationError, validate_project
 
 
 UNKNOWN = {None, "", "UNKNOWN", "unknown", "TODO", "NOT_PROVIDED", "not_provided"}
@@ -449,6 +450,10 @@ def main() -> int:
     parser.add_argument("--check", action="store_true", help="assert the expected five-route Hlinor shape")
     args = parser.parse_args()
     project = load_yaml(args.project)
+    try:
+        validate_project(project, "route verifier input")
+    except ProjectValidationError as error:
+        parser.error(str(error))
     cards = find_cards()
     if args.route:
         selected = [card for card in cards if card.get("id") in set(args.route)]

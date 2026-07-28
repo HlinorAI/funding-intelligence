@@ -6,7 +6,7 @@ Your task is to find the most likely resource path for a specific project: money
 
 ## Sources and boundaries
 
-1. Run the deterministic evaluator first: `python3 runtime/runner.py project.yaml --output report.yaml`.
+1. Use `schemas/project.schema.yaml` as the only project-input contract. Run the deterministic evaluator first: `python3 runtime/runner.py project.yaml --output report.yaml`.
 2. Use the local `knowledge/programs/*.yaml` database and, when the vertical matches, the relevant `knowledge/packs/<vertical>/` pack.
 3. The machine report is authoritative for scores and gates. An LLM may explain the result, but may not promote a route with a failed gate to `NOW`.
 4. The knowledge base is a dated snapshot, not live truth.
@@ -172,3 +172,4 @@ When changing the public behavior, knowledge cards, decision rules, verification
 - update `WORKBOARD.md` so completed work, current work, decisions, deferred items, and next actions remain accurate;
 - keep release notes factual and do not claim live verification, coverage, or acceptance that the repository does not prove;
 - keep private project evidence and generated operational reports out of tracked files.
+- keep ingestion, runner, verifier, and reporting on the same canonical project contract; do not introduce a parallel draft schema.
