@@ -34,6 +34,7 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Added
 
+- A public two-minute Tally intake path and GitHub Discussion entry point for consented external pilot projects.
 - A public application-endpoint coverage audit documenting why source-only cards remain non-actionable until a route-specific intake is verified.
 - A distinct `application_endpoint` route contract, separating a program's official information source from a verified application or access path.
 - A dedicated human-report section for routes blocked by a missing application endpoint.

@@ -2,7 +2,7 @@
 
 This file is the project's persistent operating memory. Keep it factual, short, and current. Update it when work is completed, a decision changes, or the next action changes.
 
-Last updated: 2026-07-28
+Last updated: 2026-07-30
 
 ## Current status
 
@@ -56,13 +56,14 @@ Last updated: 2026-07-28
 - Added fail-closed project validation to the runner and route verifier.
 - Removed the incompatible draft schema and duplicate reporting implementation.
 - Added a public structured intake example and end-to-end CI coverage for ingestion through Markdown reporting.
+- Published a two-minute Tally intake form for consented pilot projects and linked it from GitHub Discussion #2.
 
 ## In progress
 
 - Four completed public-only benchmarks; six planned benchmark cases remain uncounted until their facts and expectations are reviewed.
 - Promotion and product claims remain blocked until additional cases and human feedback demonstrate practical decision quality.
 - Collect factual corrections and owner feedback for Orvixo before treating the benchmark as external validation.
-- External validation is intentionally awaiting a consented inbound project or voluntary owner contact; no outbound founder outreach is planned.
+- External validation is intentionally awaiting a consented inbound project through the published Tally intake or voluntary owner contact; no outbound founder outreach is planned.
 - Prepare a public benchmark for a distinct project shape without committing private project evidence.
 - Perform new technical work only when a benchmark or external test identifies a confirmed defect.
 - Await one consented external project for the next complete intake-to-feedback cycle.
@@ -71,7 +72,7 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 
 ## Next actions
 
-1. Accept one consented inbound project when available.
+1. Monitor the published Tally intake and GitHub Discussion #2 for one consented inbound project.
 2. Store its intake, evidence, generated YAML, report, and feedback only under ignored local paths.
 3. Run the canonical ingestion-to-report workflow without modifying expectations during the case.
 4. Record factual corrections and feedback using `docs/external-test-feedback.md`.

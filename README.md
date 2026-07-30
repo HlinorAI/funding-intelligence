@@ -181,6 +181,8 @@ See [examples/example-ai-startup/README.md](examples/example-ai-startup/README.m
 
 For the first real external pilot, follow the [external test runbook](docs/external-test-runbook.md), use the short [external project intake](docs/external-test-intake.md), and collect responses with the [external test feedback form](docs/external-test-feedback.md). Local project cases belong under `tests/external-local/`, which is ignored by Git.
 
+To volunteer a project without preparing YAML, submit the two-minute [pilot intake form](https://tally.so/r/lbX4NB). Questions and public coordination belong in [GitHub Discussion #2](https://github.com/HlinorAI/funding-intelligence/discussions/2). Submit public project information only; do not include credentials, tokens, private customer lists, confidential documents, or other secrets.
+
 Run the completed public decision-quality benchmarks:
 
 ```bash
