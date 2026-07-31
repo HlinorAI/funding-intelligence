@@ -51,6 +51,10 @@ def run_case(path: Path) -> list[str]:
         errors.append(f"{case_id}: classification sectors mismatch")
     if report["gate"]["passed"] != expected["runner"]["gate_passed"]:
         errors.append(f"{case_id}: runner gate mismatch")
+    coverage = "\n".join(str(item) for item in as_list(report.get("coverage_gaps")))
+    for fragment in expected["runner"].get("coverage_contains", []):
+        if fragment not in coverage:
+            errors.append(f"{case_id}: expected coverage-gap fragment not found: {fragment}")
     runner_routes = {
         item["program_id"]: item
         for item in as_list(report.get("opportunities")) + as_list(report.get("do_not_apply"))

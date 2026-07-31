@@ -84,3 +84,26 @@ Use `docs/external-test-feedback.md`. The first test is useful only if:
 - factual corrections are recorded separately from decision-quality feedback.
 
 One case does not justify market, acceptance-rate, or funding-outcome claims. It only identifies the next evidence-backed product decision.
+
+## Pre-pilot dry run
+
+Before accepting the first private case, run the canonical workflow against `examples/example-ai-startup/` from a clean checkout and read only the resulting Markdown report. Confirm:
+
+1. the documented commands work without undocumented setup;
+2. all generated artifacts stay outside tracked public paths;
+3. the report can be understood without inspecting runner YAML;
+4. the reviewer can identify the first action and stop condition;
+5. no maintainer-only knowledge is required to interpret a decision.
+
+Treat any failed command or missing explanation as a reproducible workflow defect. Treat preferences about formatting or new features as hypotheses until an external reviewer confirms them.
+
+## No-inbound review point
+
+If no consented project arrives within 21 days of publishing or refreshing the intake invitation, review the acquisition channel rather than adding engine features. Check:
+
+- whether the invitation reached relevant founder or maintainer communities;
+- whether the privacy boundary and expected time commitment are clear;
+- whether a public sample report makes the value concrete;
+- whether the intake link and Discussion entry point still work.
+
+Do not use the absence of inbound cases as evidence that the scoring engine, knowledge coverage, or report renderer needs expansion.

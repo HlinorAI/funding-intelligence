@@ -5,22 +5,16 @@ completed:
   - hardware-public-product-001
   - web3-grant-recipient-001
   - web3-infrastructure-001
+  - ai-open-source-001
+  - ai-enterprise-001
+  - deeptech-university-001
 planned:
   - case_id: ai-yc-alumnus-001
     type: ai_startup
     profile: YC alumnus with a prior successful affiliation
-  - case_id: ai-open-source-001
-    type: ai_startup
-    profile: open-source AI infrastructure project
-  - case_id: ai-enterprise-001
-    type: ai_startup
-    profile: enterprise AI with a public customer or pilot signal
   - case_id: hardware-production-001
     type: hardware
     profile: production-ready hardware with manufacturing evidence
   - case_id: local-smb-001
     type: sme
     profile: local business seeking digital transformation support
-  - case_id: deeptech-university-001
-    type: deeptech
-    profile: university-linked research team with public IP evidence

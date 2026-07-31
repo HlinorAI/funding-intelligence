@@ -1,0 +1,78 @@
+benchmark_version: 1
+case_id: deeptech-university-001
+status: complete
+source_type: public_only
+sources:
+  - id: ucl-spinout-profile
+    url: https://www.ucl.ac.uk/news/2026/may/quantum-computing-spinout-raises-ps120-million
+    supports: [university_spinout, quantum_computing_product, funding_round, commercial_deployment]
+  - id: ucl-quantum-spinouts
+    url: https://www.ucl.ac.uk/quantum/innovation/startups-and-spinouts
+    supports: [university_origin, quantum_hardware_category]
+project:
+  schema_version: 1
+  source_type: public_only
+  name: Quantum Motion
+  description: University-linked deeptech company developing full-stack quantum computers using silicon-chip technology.
+  sector: [deeptech, quantum_computing, hardware, semiconductors]
+  stage: unknown
+  stage_claims: [public funding round, university spinout, public commercial deployment claim]
+  geography: [UK]
+  product:
+    description: Full-stack silicon quantum-computing systems designed for standard data-centre deployment.
+    customers: [research_and_computing_organizations]
+    technology: [quantum_computing, silicon_chips, semiconductors, hardware]
+    ecosystems: []
+  evidence:
+    site: true
+    github: unknown
+    live_demo: unknown
+    live_deployment: true
+    users: unknown
+    revenue: unknown
+    pilots: unknown
+    partners: unknown
+    metrics: unknown
+    audit: unknown
+  needs:
+    goals: []
+    funding: unknown
+    runway_months: unknown
+  constraints:
+    no_token: unknown
+    no_dilution: unknown
+    generic_multichain: false
+    native_ecosystems: []
+    target_ecosystems: []
+  readiness:
+    budget: unknown
+    milestones: unknown
+  access:
+    champions: unknown
+    warm_intros: unknown
+expected:
+  classification:
+    stage: unknown
+    sectors: [deeptech, quantum_computing, hardware, semiconductors]
+  runner:
+    gate_passed: false
+    routes: {}
+    coverage_contains:
+      - No matching local program cards
+  verifier:
+    routes:
+      aws-activate:
+        decision: DO_NOT_APPLY
+        readiness: INELIGIBLE
+      microsoft-for-startups:
+        decision: DO_NOT_APPLY
+        readiness: INELIGIBLE
+      nvidia-inception:
+        decision: BUILD_NVIDIA_USE_CASE
+        readiness: BUILD_FIRST
+      y-combinator:
+        decision: DO_NOT_APPLY
+        readiness: INELIGIBLE
+  forbidden:
+    nvidia-inception: [NOW]
+    y-combinator: [NOW]

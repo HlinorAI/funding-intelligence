@@ -34,6 +34,9 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Added
 
+- Three source-bound public benchmarks covering open-source AI infrastructure, enterprise AI with a public deployment signal, and university-linked deeptech.
+- A pre-pilot readiness review of the canonical workflow, fixed feedback metrics, interview order, five recorded application endpoints, and the no-inbound decision point.
+- Benchmark assertions for an expected knowledge-coverage gap when no local program card matches a project shape.
 - A public two-minute Tally intake path and GitHub Discussion entry point for consented external pilot projects.
 - A public application-endpoint coverage audit documenting why source-only cards remain non-actionable until a route-specific intake is verified.
 - A distinct `application_endpoint` route contract, separating a program's official information source from a verified application or access path.

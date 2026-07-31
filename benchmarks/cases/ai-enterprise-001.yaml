@@ -1,0 +1,87 @@
+benchmark_version: 1
+case_id: ai-enterprise-001
+status: complete
+source_type: public_only
+sources:
+  - id: google-cloud-customer-story
+    url: https://cloud.google.com/customers/set-sail
+    supports: [company_description, enterprise_ai_product, public_customer_signal, google_cloud_deployment]
+project:
+  schema_version: 1
+  source_type: public_only
+  name: Set Sail
+  description: Enterprise SaaS provider using artificial intelligence and natural-language processing for customer-service and sales workflows.
+  sector: [artificial_intelligence, software, enterprise_saas, customer_service]
+  stage: unknown
+  stage_claims: [public enterprise deployment and customer signal]
+  geography: [Hong Kong]
+  product:
+    description: AI-powered omnichannel contact-center software for enterprise customer service and sales workflows.
+    customers: [enterprises, small_and_medium_businesses]
+    technology: [artificial_intelligence, natural_language_processing, google_cloud, kubernetes]
+    ecosystems: []
+  evidence:
+    site: true
+    github: unknown
+    live_demo: unknown
+    live_deployment: true
+    users: unknown
+    revenue: unknown
+    pilots: unknown
+    partners: unknown
+    metrics: unknown
+    audit: unknown
+  needs:
+    goals: []
+    funding: unknown
+    runway_months: unknown
+  constraints:
+    no_token: unknown
+    no_dilution: unknown
+    generic_multichain: false
+    native_ecosystems: []
+    target_ecosystems: []
+  readiness:
+    budget: unknown
+    milestones: unknown
+  access:
+    champions: unknown
+    warm_intros: unknown
+expected:
+  classification:
+    stage: unknown
+    sectors: [artificial_intelligence, software, enterprise_saas, customer_service]
+  runner:
+    gate_passed: false
+    routes:
+      aws-activate:
+        decision: VERIFY_FIRST
+      microsoft-for-startups:
+        decision: VERIFY_FIRST
+      nvidia-inception:
+        decision: VERIFY_FIRST
+      openai-for-startups:
+        decision: VERIFY_FIRST
+      y-combinator:
+        decision: VERIFY_FIRST
+  verifier:
+    routes:
+      aws-activate:
+        decision: COMPLETE_ELIGIBILITY_DATA
+        readiness: INCOMPLETE
+      microsoft-for-startups:
+        decision: COMPLETE_ELIGIBILITY_DATA
+        readiness: INCOMPLETE
+      nvidia-inception:
+        decision: BUILD_NVIDIA_USE_CASE
+        readiness: BUILD_FIRST
+      openai-for-startups:
+        decision: VERIFY_ACCESS_PATH
+        readiness: UNKNOWN
+      y-combinator:
+        decision: BUILD_FIRST
+        readiness: BUILD_FIRST
+  forbidden:
+    aws-activate: [NOW]
+    microsoft-for-startups: [NOW]
+    openai-for-startups: [NOW]

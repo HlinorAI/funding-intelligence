@@ -22,6 +22,15 @@ For every case, reviewers should score:
 - false positives and false negatives;
 - whether any unknown fact was incorrectly promoted to evidence.
 
+The suite also reports coverage breadth separately from decision correctness:
+
+- completed case shapes versus the ten-case target;
+- represented sectors and mechanism boundaries;
+- routes with confirmed application endpoints;
+- public-only cases versus consented owner-reviewed cases.
+
+Passing public-only benchmarks is regression evidence, not external validation.
+
 ## Anti-hallucination rules
 
 - Public marketing copy is not automatically customer traction.

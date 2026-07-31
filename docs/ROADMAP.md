@@ -1,13 +1,13 @@
 # Project roadmap
 
-**Last updated:** July 26, 2026
+**Last updated:** July 31, 2026
 **Current phase:** External decision-quality validation
 
 ## Current position
 
 - The latest public release is `v0.1.2`.
 - The repository contains a deterministic, evidence-gated runner and an independent route verifier.
-- Four completed public-only benchmarks are tracked: AI/manufacturing, hardware/physical AI, Web3 with a verified previous funding relationship, and Web3 infrastructure with a Base deployment. Planned cases are not evidence until their sources and expected decisions are reviewed.
+- Seven completed public-only benchmarks are tracked: AI/manufacturing, hardware/physical AI, open-source AI infrastructure, enterprise AI, university deeptech, Web3 with a verified previous funding relationship, and Web3 infrastructure with a Base deployment. Planned cases are not evidence until their sources and expected decisions are reviewed.
 - GitHub Actions validates runner fixtures, benchmarks, pytest regression tests, schemas, embedded workflow JavaScript, report rendering, and public-safety rules.
 - Application endpoints are intentionally sparse: an official information source is not promoted to an actionable route until a specific intake path is verified.
 
@@ -25,6 +25,14 @@
 2. Run the documented canonical intake-to-report workflow without changing decision rules mid-case.
 3. Record false positives, false negatives, useful routes, owner feedback, and time saved.
 4. Make additional technical changes only when the external case identifies a reproducible defect.
+
+## Pre-pilot backlog
+
+1. Keep the seven completed public-only benchmarks green and complete the remaining three only when their source boundaries are reviewable.
+2. Re-run the canonical workflow as a new user before the first private case.
+3. Check the five recorded actionable endpoints before delivering a pilot report.
+4. Use the fixed feedback metrics and interview order in `docs/external-test-feedback.md`.
+5. If no consented inbound case arrives within 21 days of an intake refresh, review distribution and invitation clarity rather than adding engine features.
 
 ## Release boundary
 

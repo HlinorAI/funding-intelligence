@@ -57,6 +57,9 @@ properties:
         additionalProperties: false
         properties:
           gate_passed: {type: boolean}
+          coverage_contains:
+            type: array
+            items: {type: string}
           routes:
             type: object
             additionalProperties:

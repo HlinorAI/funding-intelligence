@@ -1,0 +1,89 @@
+benchmark_version: 1
+case_id: ai-open-source-001
+status: complete
+source_type: public_only
+sources:
+  - id: official-repository
+    url: https://github.com/skypilot-org/skypilot
+    supports: [open_source_repository, product_description, multi_cloud_ai_workloads, gpu_workload_support]
+  - id: official-documentation
+    url: https://docs.skypilot.co/
+    supports: [public_documentation, deployment_workflow, supported_infrastructure]
+project:
+  schema_version: 1
+  source_type: public_only
+  name: SkyPilot
+  description: Open-source system for running, managing, and scaling AI workloads across clouds, Kubernetes, and on-premise infrastructure.
+  sector: [artificial_intelligence, developer_tools, cloud_infrastructure, open_source]
+  stage: unknown
+  stage_claims: [public open-source project with documented installation and deployment workflows]
+  geography: [unknown]
+  product:
+    description: Infrastructure control plane for AI compute across multiple cloud and cluster environments.
+    customers: [ai_teams, infrastructure_teams]
+    technology: [artificial_intelligence, cloud_infrastructure, kubernetes, gpu, open_source]
+    ecosystems: []
+  evidence:
+    site: true
+    github: true
+    live_demo: unknown
+    live_deployment: unknown
+    users: unknown
+    revenue: unknown
+    pilots: unknown
+    partners: unknown
+    metrics: unknown
+    audit: unknown
+  needs:
+    goals: []
+    funding: unknown
+    runway_months: unknown
+  constraints:
+    no_token: unknown
+    no_dilution: unknown
+    generic_multichain: false
+    native_ecosystems: []
+    target_ecosystems: []
+  readiness:
+    budget: unknown
+    milestones: unknown
+  access:
+    champions: unknown
+    warm_intros: unknown
+expected:
+  classification:
+    stage: unknown
+    sectors: [artificial_intelligence, developer_tools, cloud_infrastructure, open_source]
+  runner:
+    gate_passed: false
+    routes:
+      aws-activate:
+        decision: VERIFY_FIRST
+      microsoft-for-startups:
+        decision: VERIFY_FIRST
+      nvidia-inception:
+        decision: VERIFY_FIRST
+      openai-for-startups:
+        decision: VERIFY_FIRST
+      y-combinator:
+        decision: VERIFY_FIRST
+  verifier:
+    routes:
+      aws-activate:
+        decision: COMPLETE_ELIGIBILITY_DATA
+        readiness: INCOMPLETE
+      microsoft-for-startups:
+        decision: COMPLETE_ELIGIBILITY_DATA
+        readiness: INCOMPLETE
+      nvidia-inception:
+        decision: VERIFY_FIRST
+        readiness: INCOMPLETE
+      openai-for-startups:
+        decision: VERIFY_ACCESS_PATH
+        readiness: UNKNOWN
+      y-combinator:
+        decision: BUILD_FIRST
+        readiness: BUILD_FIRST
+  forbidden:
+    nvidia-inception: [NOW]
+    y-combinator: [NOW]

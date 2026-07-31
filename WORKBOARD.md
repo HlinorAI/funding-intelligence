@@ -2,7 +2,7 @@
 
 This file is the project's persistent operating memory. Keep it factual, short, and current. Update it when work is completed, a decision changes, or the next action changes.
 
-Last updated: 2026-07-30
+Last updated: 2026-07-31
 
 ## Current status
 
@@ -60,13 +60,15 @@ Last updated: 2026-07-30
 
 ## In progress
 
-- Four completed public-only benchmarks; six planned benchmark cases remain uncounted until their facts and expectations are reviewed.
+- Seven completed public-only benchmarks; three planned benchmark cases remain uncounted until their facts and expectations are reviewed.
 - Promotion and product claims remain blocked until additional cases and human feedback demonstrate practical decision quality.
 - Collect factual corrections and owner feedback for Orvixo before treating the benchmark as external validation.
 - External validation is intentionally awaiting a consented inbound project through the published Tally intake or voluntary owner contact; no outbound founder outreach is planned.
 - Prepare a public benchmark for a distinct project shape without committing private project evidence.
 - Perform new technical work only when a benchmark or external test identifies a confirmed defect.
 - Await one consented external project for the next complete intake-to-feedback cycle.
+- Added pre-pilot decision-quality coverage for open-source AI infrastructure, enterprise AI, and university-linked deeptech without expanding the knowledge base.
+- Fixed the external feedback metrics and interview order before the first owner review.
 
 The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved to the release-packaging commit because rewriting or force-pushing history is out of scope.
 
@@ -77,6 +79,7 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 3. Run the canonical ingestion-to-report workflow without modifying expectations during the case.
 4. Record factual corrections and feedback using `docs/external-test-feedback.md`.
 5. Open technical work only for a reproducible defect or a demonstrated coverage gap.
+6. If no consented case arrives within 21 days of an intake refresh, review the invitation and distribution channel instead of adding engine features.
 
 ## Decisions already made
 
