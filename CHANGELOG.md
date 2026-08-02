@@ -57,6 +57,7 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Fixed
 
+- Enforced all runner hard gates before score-band decisions so source-only routes cannot reach `NOW`, `NEXT`, or `LATER` when their application endpoint or card contract is incomplete.
 - Added a complete self-service workflow to the README and corrected the Base verifier example to describe `NO_ACTIONABLE_ENDPOINT` accurately.
 - Prevented official program pages from being treated as actionable application endpoints when no verified application or access route exists.
 - Required a confirmed source verification before a card can mark an application endpoint as confirmed or gated.

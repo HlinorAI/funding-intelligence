@@ -324,6 +324,11 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
         decision = "VERIFY_FIRST"
     elif not gate["status_verified"]:
         decision = "VERIFY_FIRST"
+    elif not gate["passed"]:
+        # Every remaining gate is hard: a route with a missing endpoint,
+        # incomplete card contract, or unverified affiliation must not reach
+        # a score-band decision such as NOW/NEXT/LATER.
+        decision = "VERIFY_FIRST"
     elif not truthy(evidence, "live_demo") and not truthy(evidence, "live_deployment"):
         decision = "BUILD_FIRST"
     elif score >= 80:

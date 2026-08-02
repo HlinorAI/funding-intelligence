@@ -427,3 +427,15 @@ class TestRunnerDecisions:
         assert aws["gate"]["stage_compatible"] is False
         assert "stage_mismatch (-20)" in aws["decision_trace"]["negative"]
         assert not any(item.startswith("no_native_fit") for item in aws["decision_trace"]["negative"])
+
+    def test_failed_endpoint_gate_cannot_reach_now(self):
+        project = load_yaml(REPO_ROOT / "tests" / "cases" / "web3.yaml")
+        card = load_card_yaml(REPO_ROOT / "knowledge" / "programs" / "base.yaml")
+        card["status"]["needs_verification"] = False
+
+        result = evaluate(project, card)
+
+        assert result["gate"]["application_endpoint_exists"] is False
+        assert result["gate"]["passed"] is False
+        assert result["decision"] == "VERIFY_FIRST"
+        assert result["decision"] != "NOW"
