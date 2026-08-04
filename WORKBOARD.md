@@ -2,7 +2,7 @@
 
 This file is the project's persistent operating memory. Keep it factual, short, and current. Update it when work is completed, a decision changes, or the next action changes.
 
-Last updated: 2026-07-31
+Last updated: 2026-08-04
 
 ## Current status
 
@@ -57,6 +57,7 @@ Last updated: 2026-07-31
 - Removed the incompatible draft schema and duplicate reporting implementation.
 - Added a public structured intake example and end-to-end CI coverage for ingestion through Markdown reporting.
 - Published a two-minute Tally intake form for consented pilot projects and linked it from GitHub Discussion #2.
+- Enforced all runner hard gates before score-band decisions so incomplete application endpoints, card contracts, or affiliations cannot reach `NOW`, `NEXT`, or `LATER`; added regression coverage.
 
 ## In progress
 
