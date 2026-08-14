@@ -19,7 +19,9 @@ gate:
   passed: false
 opportunities:
   - program_id: base-funding-ladder
-    score: 62
+    score: 62                 # legacy compatibility field
+    policy_score: 62          # deterministic routing policy score
+    score_semantics: deterministic_policy_score
     decision: VERIFY_FIRST
     mechanism: retro
     why: []
@@ -41,6 +43,10 @@ execution_plan:
   days_7: []
   days_30: []
   days_90: []
+
+quality:
+  status: not_calibrated
+  sample_size: 0
 ```
 
 `opportunities` contains at most seven routes. Closed or structurally invalid routes are listed in `do_not_apply`, not silently omitted.

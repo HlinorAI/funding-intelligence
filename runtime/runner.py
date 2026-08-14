@@ -12,8 +12,10 @@ import yaml
 
 try:
     from runtime.project_contract import ProjectValidationError, validate_project
+    from runtime.taxonomy import canonicalize, normalize_label
 except ImportError:
     from project_contract import ProjectValidationError, validate_project
+    from taxonomy import canonicalize, normalize_label
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,6 +23,11 @@ PROGRAM_DIR = ROOT / "knowledge" / "programs"
 ACTIVE_STATES = {"OPEN", "ROLLING", "ACTIVE"}
 UNCERTAIN_STATES = {"VERIFY", "WATCH", "UPCOMING", "BD-ONLY"}
 BLOCKED_STATES = {"CLOSED", "HOLD"}
+QUALITY_METADATA = {
+    "status": "not_calibrated",
+    "sample_size": 0,
+    "note": "Deterministic policy scores have no owner-reviewed outcome calibration yet.",
+}
 
 
 def load_yaml(path: Path) -> dict[str, Any]:
@@ -120,29 +127,34 @@ def current_program_affiliation(project: dict[str, Any], program_id: str | None)
 
 def text_tokens(project: dict[str, Any]) -> set[str]:
     product = project.get("product") or {}
-    values = []
-    for value in as_list(project.get("sector")) + as_list(project.get("geography")):
-        values.append(str(value))
+    tokens: set[str] = set()
+    for value in as_list(project.get("sector")):
+        tokens.add(canonicalize(value, "sectors"))
+    for value in as_list(project.get("geography")):
+        tokens.add(normalize_label(value))
     for key in ("description", "customers"):
-        values.extend(str(value) for value in as_list(product.get(key)))
-    values.extend(str(value) for value in as_list(product.get("technology")))
-    return {token.lower().replace("-", "_") for token in values}
+        tokens.update(normalize_label(value) for value in as_list(product.get(key)))
+    for value in as_list(product.get("technology")):
+        tokens.add(normalize_label(value))
+        tokens.add(canonicalize(value, "sectors"))
+        tokens.add(canonicalize(value, "ecosystems"))
+    return {token for token in tokens if token}
 
 
 def project_ecosystems(project: dict[str, Any]) -> set[str]:
     product = project.get("product") or {}
     constraints = project.get("constraints") or {}
     values = as_list(product.get("ecosystems")) + as_list(constraints.get("native_ecosystems")) + as_list(constraints.get("target_ecosystems"))
-    return {str(value).lower() for value in values}
+    return {canonicalize(value, "ecosystems") for value in values}
 
 
 def stage_fit(project: dict[str, Any], card: dict[str, Any]) -> str:
     """Classify a project's stage against an optional card stage boundary."""
     routing = card.get("routing") or {}
-    supported = {str(value).strip().lower() for value in as_list(routing.get("stages"))}
+    supported = {canonicalize(value, "stages") for value in as_list(routing.get("stages"))}
     if not supported:
         return "not_applicable"
-    project_stage = normalize_stage(project).strip().lower()
+    project_stage = canonicalize(normalize_stage(project), "stages")
     if project_stage in {"", "unknown"}:
         return "unknown"
     return "match" if project_stage in supported else "mismatch"
@@ -154,7 +166,7 @@ def project_fit(project: dict[str, Any], card: dict[str, Any]) -> tuple[bool, st
     if ecosystem_match(project, card):
         return True, "ecosystem"
     routing = card.get("routing") or {}
-    verticals = {str(value).lower() for value in as_list(routing.get("verticals"))}
+    verticals = {canonicalize(value, "sectors") for value in as_list(routing.get("verticals"))}
     project_values = text_tokens(project)
     if verticals & project_values:
         return True, "vertical"
@@ -361,6 +373,7 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
         "considered": route_fit,
         "rejected": decision == "DO_NOT_APPLY",
         "score": score,
+        "policy_score": score,
         "positive": positive,
         "negative": negative,
         "decision": decision,
@@ -371,6 +384,8 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
         "program": card.get("name"),
         "status": state,
         "score": score,
+        "policy_score": score,
+        "score_semantics": "deterministic_policy_score",
         "decision": decision,
         "mechanism": as_list(card.get("mechanism")),
         "resource_type": as_list(card.get("resource_type")),
@@ -474,6 +489,7 @@ def build_report(project: dict[str, Any]) -> dict[str, Any]:
         "do_not_apply": do_not_apply,
         "coverage_gaps": coverage_gaps,
         "missing_proof": sorted(set(missing_proof)),
+        "quality": dict(QUALITY_METADATA),
         "execution_plan": {"days_7": plan_7, "days_30": plan_30, "days_90": plan_90},
     }
 

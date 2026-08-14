@@ -1,0 +1,53 @@
+version: 1
+
+# Canonical labels used at ingestion and routing boundaries. Keep aliases
+# additive: changing a canonical value changes matching behavior.
+sectors:
+  artificial_intelligence:
+    - ai
+    - artificial intelligence
+    - genai
+    - generative ai
+    - machine learning
+    - ml
+  software:
+    - saas
+    - b2b saas
+    - software
+  hardware:
+    - deep tech
+    - deeptech
+    - physical ai
+    - robotics
+    - hardware
+  web3:
+    - blockchain
+    - crypto
+    - distributed ledger
+    - web3
+
+stages:
+  pre_seed:
+    - pre-seed
+    - pre seed
+    - preseed
+  early_product:
+    - early-product
+    - early product
+    - earlyproduct
+  series_a:
+    - series-a
+    - series a
+  series_b:
+    - series-b
+    - series b
+  series_c:
+    - series-c
+    - series c
+  revenue:
+    - growth
+
+ecosystems:
+  ethereum:
+    - eth
+    - ethereum mainnet

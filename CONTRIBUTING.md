@@ -11,16 +11,17 @@ Thank you for helping improve Funding Intelligence. Contributions should make ro
 ## Local setup
 
 ```bash
-python3 -m pip install -r requirements.txt
+python3 -m pip install -e ".[test]"
 ```
 
 Run the public checks before submitting a change:
 
 ```bash
-python3 runtime/runner.py --check-all
-python3 -m py_compile runtime/project_contract.py runtime/ingest.py runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py
-python3 runtime/validate_schemas.py
+python3 -m runtime.check
 ```
+
+The repository also commits `uv.lock`; with `uv`, use `uv sync --extra test`
+followed by `uv run python -m runtime.check` for the same clean setup.
 
 Validate public YAML files with the command in [README.md](README.md).
 
@@ -70,6 +71,9 @@ Use a focused title and describe:
 - any known limitation or follow-up.
 
 Do not include secrets, local absolute paths, private fixtures, or unrelated generated files.
+
+For local private artifacts, read [the security and privacy boundary](docs/security-and-privacy.md)
+and run `python3 -m runtime.privacy <path>` before sharing or storing them.
 
 ## License
 

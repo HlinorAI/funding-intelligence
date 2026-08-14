@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "funding-intelligence"
+version = "0.1.2"
+description = "Deterministic, evidence-gated funding and BD opportunity routing"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+dependencies = [
+  "PyYAML>=6.0,<7.0",
+  "jsonschema>=4.20,<5.0",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=7.0,<10.0"]
+
+[project.scripts]
+funding-check = "runtime.check:main"
+funding-ingest = "runtime.ingest:main"
+funding-render = "runtime.render_report:main"
+funding-route-verify = "runtime.verify_route:main"
+funding-runner = "runtime.runner:main"
+
+[tool.setuptools.packages.find]
+include = ["runtime*"]
