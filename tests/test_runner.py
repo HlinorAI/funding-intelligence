@@ -458,6 +458,7 @@ class TestRunnerDecisions:
             "report_version", "project", "classification", "gate",
             "opportunities", "do_not_apply", "coverage_gaps", "missing_proof",
             "execution_plan",
+            "quality",
         }
         missing = required_keys - set(report.keys())
         assert not missing, f"Report missing required keys: {missing}"
@@ -479,7 +480,7 @@ class TestRunnerDecisions:
         # Each opportunity must have required fields
         for opp in report.get("opportunities", []):
             opp_fields = {
-                "program_id", "program", "status", "score", "decision",
+                "program_id", "program", "status", "score", "policy_score", "score_semantics", "decision",
                 "mechanism", "gate", "why", "missing", "next_action",
                 "stop_condition", "decision_trace", "official_source",
                 "last_checked",
@@ -489,11 +490,13 @@ class TestRunnerDecisions:
                 f"Opportunity '{opp.get('program_id')}' missing: {missing_opp}"
             )
             assert opp.get("score", -1) >= 0, f"Negative score for {opp.get('program_id')}"
+            assert opp["policy_score"] == opp["score"]
+            assert opp["score_semantics"] == "deterministic_policy_score"
 
         # do_not_apply entries must also have the same fields
         for dna in report.get("do_not_apply", []):
             dna_fields = {
-                "program_id", "program", "status", "score", "decision",
+                "program_id", "program", "status", "score", "policy_score", "score_semantics", "decision",
                 "mechanism", "gate", "why", "missing", "next_action",
                 "stop_condition", "decision_trace", "official_source",
                 "last_checked",

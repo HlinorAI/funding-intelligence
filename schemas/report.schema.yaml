@@ -3,7 +3,7 @@ $id: https://github.com/HlinorAI/funding-intelligence/blob/main/schemas/report.s
 title: Funding Intelligence runner report
 type: object
 additionalProperties: true
-required: [report_version, project, classification, gate, opportunities, do_not_apply, coverage_gaps, missing_proof, execution_plan]
+required: [report_version, project, classification, gate, opportunities, do_not_apply, coverage_gaps, missing_proof, execution_plan, quality]
 properties:
   report_version:
     type: integer
@@ -38,6 +38,13 @@ properties:
       days_7: {type: array, items: {type: string}}
       days_30: {type: array, items: {type: string}}
       days_90: {type: array, items: {type: string}}
+  quality:
+    type: object
+    required: [status, sample_size]
+    properties:
+      status: {type: string, enum: [not_calibrated, pilot_pending, calibrated]}
+      sample_size: {type: integer, minimum: 0}
+      note: {type: string, minLength: 1}
 $defs:
   gate:
     type: object
@@ -56,12 +63,14 @@ $defs:
   route:
     type: object
     additionalProperties: true
-    required: [program_id, program, status, score, decision, mechanism, resource_type, components, gate, why, missing, next_action, stop_condition, decision_trace, official_source, last_checked]
+    required: [program_id, program, status, score, policy_score, score_semantics, decision, mechanism, resource_type, components, gate, why, missing, next_action, stop_condition, decision_trace, official_source, last_checked]
     properties:
       program_id: {type: string, pattern: '^[a-z0-9][a-z0-9-]*$'}
       program: {type: string, minLength: 1}
       status: {type: string, minLength: 1}
       score: {type: number, minimum: 0, maximum: 100}
+      policy_score: {type: number, minimum: 0, maximum: 100}
+      score_semantics: {type: string, const: deterministic_policy_score}
       decision: {type: string, enum: [NOW, NEXT, LATER, VERIFY_FIRST, BUILD_FIRST, DO_NOT_APPLY, APPLY_AGAIN_AFTER_CHANGE]}
       mechanism:
         type: array
@@ -92,12 +101,13 @@ $defs:
       stop_condition: {type: string, minLength: 1}
       decision_trace:
         type: object
-        required: [program, considered, rejected, score, positive, negative, decision, why]
+        required: [program, considered, rejected, score, policy_score, positive, negative, decision, why]
         properties:
           program: {type: string, minLength: 1}
           considered: {type: boolean}
           rejected: {type: boolean}
           score: {type: number, minimum: 0, maximum: 100}
+          policy_score: {type: number, minimum: 0, maximum: 100}
           positive: {type: array, items: {type: string}}
           negative: {type: array, items: {type: string}}
           decision: {type: string, enum: [NOW, NEXT, LATER, VERIFY_FIRST, BUILD_FIRST, DO_NOT_APPLY, APPLY_AGAIN_AFTER_CHANGE]}

@@ -10,6 +10,8 @@ The project uses semantic version tags for public releases. Program status chang
 
 #### Added
 
+- Reproducible Python packaging with `pyproject.toml`, committed `uv.lock`, console entry points, and a one-command validation gate.
+- A local privacy scanner/redaction helper and a documented threat model and pre-SaaS/API security boundary.
 - Shared runtime validation for the canonical `project.schema.yaml` contract.
 - Conservative raw-text scaffolding and structured JSON ingestion that produce runner-compatible project documents.
 - A public structured intake file for the synthetic AI example.
@@ -17,6 +19,7 @@ The project uses semantic version tags for public releases. Program status chang
 
 #### Changed
 
+- CI now installs the project and test extra through the package contract instead of maintaining a separate dependency-install sequence.
 - Runner and route verifier inputs now fail closed when they do not satisfy the canonical project schema.
 - Human-readable reporting is consolidated in `runtime/render_report.py` and tested against real runner and verifier output.
 - Project ingestion metadata and unresolved input fields are optional fields in the canonical project schema.
@@ -57,6 +60,9 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Fixed
 
+- Added controlled sector, stage, and ecosystem aliases at ingestion and routing boundaries so equivalent labels resolve to the same canonical values.
+- Added an optional source-backed provenance contract for program cards, including snapshot hash, semantic review, eligibility version, confidence, and diff-review state.
+- Made runner and route-verification outputs explicit about deterministic `policy_score` semantics and reported empirical quality as not calibrated until owner-reviewed outcomes exist.
 - Aligned the report-level aggregate gate with route-level affiliation hard gates so unknown or already-affiliated routes cannot be hidden by a passing summary gate.
 - Enforced all runner hard gates before score-band decisions so source-only routes cannot reach `NOW`, `NEXT`, or `LATER` when their application endpoint or card contract is incomplete.
 - Added a complete self-service workflow to the README and corrected the Base verifier example to describe `NO_ACTIONABLE_ENDPOINT` accurately.

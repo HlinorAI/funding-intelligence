@@ -1,10 +1,16 @@
 # Deterministic scoring engine
 
-The runner calculates a comparable score before the LLM writes prose.
+The runner calculates a comparable deterministic policy score before the LLM
+writes prose. It is a routing aid, not a probability of funding or acceptance.
 
 ## Components
 
-`score = strategic_fit + technical_fit + evidence + mechanism_fit + readiness + access - penalties`
+`policy_score = strategic_fit + technical_fit + evidence + mechanism_fit + readiness + access - penalties`
+
+The YAML report keeps the legacy `score` field for compatibility and emits the
+same value as `policy_score` with `score_semantics: deterministic_policy_score`.
+Empirical route quality is tracked separately in report metadata and is
+`not_calibrated` until owner-reviewed outcomes exist.
 
 Maximum positive score is 100:
 

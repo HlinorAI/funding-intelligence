@@ -29,6 +29,8 @@ $defs:
     properties:
       program: {type: string, minLength: 1}
       program_id: {type: string, pattern: '^[a-z0-9][a-z0-9-]*$'}
+      policy_score: {type: number, minimum: 0, maximum: 100}
+      score_semantics: {type: string, const: deterministic_policy_score}
       program_status:
         type: object
         additionalProperties: true

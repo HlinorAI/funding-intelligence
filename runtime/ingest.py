@@ -8,7 +8,6 @@ from copy import deepcopy
 from datetime import datetime, timezone
 import json
 from pathlib import Path
-import re
 import sys
 from typing import Any
 
@@ -16,26 +15,15 @@ import yaml
 
 try:
     from runtime.project_contract import ProjectValidationError, validate_project
+    from runtime.taxonomy import canonicalize
 except ImportError:
     from project_contract import ProjectValidationError, validate_project
+    from taxonomy import canonicalize
 
 
 ROOT = Path(__file__).resolve().parents[1]
 DRAFTS_DIR = ROOT / "drafts"
 UNKNOWN = "unknown"
-STAGE_ALIASES = {
-    "pre-seed": "pre_seed",
-    "preseed": "pre_seed",
-    "early product": "early_product",
-    "growth": "revenue",
-}
-SECTOR_ALIASES = {
-    "ai": "artificial_intelligence",
-    "artificial intelligence": "artificial_intelligence",
-    "saas": "software",
-}
-
-
 def timestamp() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
@@ -46,16 +34,14 @@ def as_text(value: Any, fallback: str = UNKNOWN) -> str:
 
 
 def normalize_stage(value: Any) -> str:
-    stage = as_text(value).lower().replace(" ", "_")
-    return STAGE_ALIASES.get(stage.replace("_", "-"), stage)
+    return canonicalize(as_text(value), "stages")
 
 
 def normalize_sector(value: Any) -> list[str]:
     values = value if isinstance(value, list) else [value]
     sectors = []
     for item in values:
-        token = re.sub(r"[^a-z0-9]+", "_", as_text(item).lower()).strip("_")
-        token = SECTOR_ALIASES.get(token.replace("_", " "), token)
+        token = canonicalize(item, "sectors")
         if token and token not in sectors:
             sectors.append(token)
     return sectors or [UNKNOWN]

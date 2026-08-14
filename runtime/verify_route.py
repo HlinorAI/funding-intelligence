@@ -15,6 +15,7 @@ import yaml
 
 from runner import ROOT, evaluate, load_yaml, program_affiliation_state, project_fit, project_goals, text_tokens, truthy
 from project_contract import ProjectValidationError, validate_project
+from taxonomy import canonicalize
 
 
 UNKNOWN = {None, "", "UNKNOWN", "unknown", "TODO", "NOT_PROVIDED", "not_provided"}
@@ -417,6 +418,8 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
         "project_fit": dict(fit),
         "project_readiness": readiness,
         "status": program_status["value"],
+        "policy_score": evaluation["policy_score"],
+        "score_semantics": "deterministic_policy_score",
         "eligibility": {
             "state": eligibility,
             "passed": [item["requirement"] for item in proofs if item["status"] == "PASS"],
@@ -459,7 +462,11 @@ def main() -> int:
         selected = [card for card in cards if card.get("id") in set(args.route)]
     elif args.all_ai:
         tokens = text_tokens(project)
-        selected = [card for card in cards if set(str(value).lower() for value in (card.get("routing") or {}).get("verticals", [])) & tokens]
+        selected = [
+            card
+            for card in cards
+            if {canonicalize(value, "sectors") for value in (card.get("routing") or {}).get("verticals", [])} & tokens
+        ]
     else:
         parser.error("use --route ID or --all-ai")
     if not selected:
