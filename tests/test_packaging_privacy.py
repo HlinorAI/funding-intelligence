@@ -22,17 +22,17 @@ def test_pyproject_declares_runtime_and_test_contract() -> None:
 
 
 def test_privacy_scan_reports_findings_without_leaking_values() -> None:
-    secret = "".join(("api", "_key: synthetic-secret"))
-    findings = scan_text(f"safe: true\n{secret}\n", "fixture")
+    sensitive_value = "".join(("api", "_key: synthetic-secret"))
+    findings = scan_text(f"safe: true\n{sensitive_value}\n", "fixture")
     assert findings == [{"source": "fixture", "line": 2, "pattern": 2}]
     assert "synthetic-secret" not in "\n".join(str(item) for item in findings)
-    assert "[REDACTED]" in redact_text(secret)
+    assert "[REDACTED]" in redact_text(sensitive_value)
 
 
 def test_privacy_cli_fails_closed_without_printing_secret(tmp_path: Path) -> None:
-    secret = "".join(("api", "_key: synthetic-secret"))
+    sensitive_value = "".join(("api", "_key: synthetic-secret"))
     path = tmp_path / "input.yaml"
-    path.write_text(secret, encoding="utf-8")
+    path.write_text(sensitive_value, encoding="utf-8")
     result = subprocess.run(
         [sys.executable, "-m", "runtime.privacy", str(path)],
         cwd=ROOT,
