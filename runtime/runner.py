@@ -409,17 +409,26 @@ def build_report(project: dict[str, Any]) -> dict[str, Any]:
     do_not_apply = rejected[:10]
     evidence = project.get("evidence") or {}
     readiness = project.get("readiness") or {}
-    all_gates = {
-        "project_fit": False,
-        "stage_compatible": False,
-        "status_verified": False,
-        "application_endpoint_exists": True,
-        "mechanism_identified": True,
-        "evidence_requirements_known": True,
-        "next_action_exists": True,
-    }
+    # Keep the report-level gate aligned with every route-level hard gate.
+    # In particular, an unknown affiliation must not be hidden by an
+    # aggregate gate that only checks fit and card completeness.
+    gate_keys = (
+        "project_fit",
+        "stage_compatible",
+        "status_verified",
+        "application_endpoint_exists",
+        "mechanism_identified",
+        "evidence_requirements_known",
+        "next_action_exists",
+        "affiliation_verified",
+        "not_already_affiliated",
+    )
+    all_gates = {key: False for key in gate_keys}
     if opportunities:
-        all_gates = {key: all(item["gate"].get(key, False) for item in opportunities) for key in all_gates}
+        all_gates = {
+            key: all(item["gate"].get(key, False) for item in opportunities)
+            for key in gate_keys
+        }
     all_gates["passed"] = all(all_gates.values())
     stage = project.get("stage", "UNKNOWN")
     goals = project_goals(project)

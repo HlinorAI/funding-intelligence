@@ -14,6 +14,7 @@ import jsonschema
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "runtime"))
 
+import runner as runner_module
 from runner import build_report, evaluate, load_yaml as load_card_yaml
 from render_report import render
 from verify_route import verify_route
@@ -42,6 +43,106 @@ def load_yaml(path: Path) -> dict:
 
 class TestRunnerDecisions:
     """Verify that runner decisions match expected outputs."""
+
+    def test_report_gate_includes_affiliation_hard_gates(self, tmp_path, monkeypatch):
+        """Aggregate gate must not hide an unknown program affiliation."""
+        card = {
+            "id": "synthetic-route",
+            "name": "Synthetic Route",
+            "mechanism": ["proposal_grant"],
+            "resource_type": ["grant"],
+            "status": {
+                "state": "OPEN",
+                "needs_verification": False,
+                "official_source": "https://example.com/program",
+                "last_checked": "2026-08-01",
+            },
+            "routing": {"verticals": ["artificial_intelligence"], "stages": ["pre_seed"]},
+            "verification": {
+                "application_url_state": "confirmed",
+                "application_url": "https://example.com/apply",
+            },
+            "required_evidence": ["product overview"],
+            "next_action": {
+                "action": "APPLY",
+                "deliverable": "Submit application",
+                "horizon_days": 7,
+            },
+            "stop_condition": "No longer eligible",
+        }
+        card_path = tmp_path / "synthetic-route.yaml"
+        card_path.write_text(yaml.safe_dump(card), encoding="utf-8")
+        monkeypatch.setattr(runner_module, "PROGRAM_DIR", tmp_path)
+        project = {
+            "schema_version": 1,
+            "name": "Synthetic AI Project",
+            "description": "Synthetic project for gate regression testing",
+            "source_type": "synthetic",
+            "stage": "pre_seed",
+            "sector": ["artificial_intelligence"],
+            "geography": ["global"],
+            "product": {
+                "description": "AI infrastructure",
+                "technology": ["artificial_intelligence"],
+            },
+            "needs": {"goals": ["funding"]},
+            "constraints": {},
+            "evidence": {"site": True, "live_demo": True},
+            "readiness": {"milestones": True, "budget": True},
+            "program_affiliations": [
+                {"program_id": "synthetic-route", "status": "unknown"}
+            ],
+        }
+        report = build_report(project)
+        route = next(item for item in report["opportunities"] if item["program_id"] == "synthetic-route")
+        assert route["decision"] == "VERIFY_FIRST"
+        assert route["gate"]["affiliation_verified"] is False
+        assert report["gate"]["affiliation_verified"] is False
+        assert report["gate"]["passed"] is False
+
+    def test_report_gate_excludes_do_not_apply_affiliation(self, tmp_path, monkeypatch):
+        """A current affiliation is rejected without poisoning the opportunity aggregate."""
+        card = {
+            "id": "synthetic-route",
+            "name": "Synthetic Route",
+            "mechanism": ["proposal_grant"],
+            "resource_type": ["grant"],
+            "status": {"state": "OPEN", "needs_verification": False},
+            "routing": {"verticals": ["artificial_intelligence"], "stages": ["pre_seed"]},
+            "verification": {
+                "application_url_state": "confirmed",
+                "application_url": "https://example.com/apply",
+            },
+            "required_evidence": ["product overview"],
+            "next_action": {"action": "APPLY", "deliverable": "Submit application", "horizon_days": 7},
+            "stop_condition": "Already affiliated",
+        }
+        card_path = tmp_path / "synthetic-route.yaml"
+        card_path.write_text(yaml.safe_dump(card), encoding="utf-8")
+        monkeypatch.setattr(runner_module, "PROGRAM_DIR", tmp_path)
+        project = {
+            "schema_version": 1,
+            "name": "Synthetic AI Project",
+            "description": "Synthetic project for gate regression testing",
+            "source_type": "synthetic",
+            "stage": "pre_seed",
+            "sector": ["artificial_intelligence"],
+            "geography": ["global"],
+            "product": {"description": "AI infrastructure", "technology": ["artificial_intelligence"]},
+            "needs": {"goals": ["funding"]},
+            "constraints": {},
+            "evidence": {"site": True, "live_demo": True},
+            "readiness": {"milestones": True, "budget": True},
+            "program_affiliations": [
+                {"program_id": "synthetic-route", "status": "current"}
+            ],
+        }
+        report = build_report(project)
+        route = next(item for item in report["do_not_apply"] if item["program_id"] == "synthetic-route")
+        assert route["decision"] == "DO_NOT_APPLY"
+        assert route["gate"]["not_already_affiliated"] is False
+        assert report["gate"]["not_already_affiliated"] is True
+        assert report["gate"]["passed"] is False
 
     def _check_expected(self, report: dict, expected: dict, case_name: str):
         """Assert that a report matches the expected constraints."""
@@ -370,7 +471,7 @@ class TestRunnerDecisions:
         gate_fields = {
             "project_fit", "stage_compatible", "status_verified", "application_endpoint_exists",
             "mechanism_identified", "evidence_requirements_known",
-            "next_action_exists", "passed",
+            "next_action_exists", "affiliation_verified", "not_already_affiliated", "passed",
         }
         missing_gate = gate_fields - set(gate.keys())
         assert not missing_gate, f"Gate missing fields: {missing_gate}"
