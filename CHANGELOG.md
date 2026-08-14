@@ -57,6 +57,9 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Fixed
 
+- Added controlled sector, stage, and ecosystem aliases at ingestion and routing boundaries so equivalent labels resolve to the same canonical values.
+- Added an optional source-backed provenance contract for program cards, including snapshot hash, semantic review, eligibility version, confidence, and diff-review state.
+- Made runner and route-verification outputs explicit about deterministic `policy_score` semantics and reported empirical quality as not calibrated until owner-reviewed outcomes exist.
 - Aligned the report-level aggregate gate with route-level affiliation hard gates so unknown or already-affiliated routes cannot be hidden by a passing summary gate.
 - Enforced all runner hard gates before score-band decisions so source-only routes cannot reach `NOW`, `NEXT`, or `LATER` when their application endpoint or card contract is incomplete.
 - Added a complete self-service workflow to the README and corrected the Base verifier example to describe `NO_ACTIONABLE_ENDPOINT` accurately.

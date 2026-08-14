@@ -22,3 +22,8 @@ Required fields include:
 - `failure_modes`, `next_action`, `stop_condition`.
 
 Dates and statuses are not permanent. Before a real application, the agent must open the official source and the actual intake endpoint.
+
+`taxonomy.yaml` is the controlled vocabulary for sector, stage, and ecosystem
+aliases. Cards may also include the optional `provenance` block described in
+`docs/knowledge-provenance.md`; cards without it are legacy snapshots awaiting
+source-backed metadata backfill.
