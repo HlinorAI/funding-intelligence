@@ -62,6 +62,8 @@ Last updated: 2026-08-14
 - Added controlled vocabulary aliases for sectors, stages, and ecosystems at ingestion and routing boundaries.
 - Added a validated, optional provenance contract for source-backed program-card review metadata.
 - Separated deterministic `policy_score` from empirical quality metadata; reports now state that quality is not calibrated before owner-reviewed outcomes exist.
+- Added reproducible packaging with `pyproject.toml`, `uv.lock`, console entry points, and `python -m runtime.check`.
+- Added a local credential privacy gate, explicit redaction helper, and documented security/privacy prerequisites before SaaS/API work.
 
 ## In progress
 
@@ -97,6 +99,7 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - Changes to `runtime/runner.py` and `runtime/verify_route.py` require explicit contract tests and changelog entries.
 - Legacy program cards without provenance remain valid until source-backed metadata can be backfilled; migration must not invent hashes or reviewers.
 - `score` remains a compatibility field equal to `policy_score`; neither field is a probability of acceptance.
+- SaaS/API work is blocked until tenant isolation, consent, retention/deletion, auditability, redaction, secret scanning, and external-provider controls are designed and tested.
 - Existing program affiliation precedence is a core policy: current/previous successful relationships override fit; rejected relationships require a material change before reapplication; unknown relationships require verification.
 - Public benchmark expectations are source-bound and must fail closed when the engine changes; benchmark cases are not evidence of funding outcomes.
 - Health checks may create or update a `stale-data` issue, but only a human may change a card's program status or verification date.

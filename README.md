@@ -88,13 +88,24 @@ Private evidence, live project fixtures, operational history, and generated repo
 
 ## Installation
 
-Python 3 with PyYAML and jsonschema is required:
+Python 3.11+ with the project dependencies is required. The reproducible setup
+uses `uv` and the committed `uv.lock` file:
 
 ```bash
-python3 -m pip install -r requirements.txt
+uv sync --extra test
+uv run python -m runtime.check
 ```
 
-No web service or database is required for the local runner.
+If `uv` is not available, the equivalent editable install is:
+
+```bash
+python3 -m pip install -e ".[test]"
+python3 -m runtime.check
+```
+
+No web service or database is required for the local runner. The package also
+provides `funding-ingest`, `funding-runner`, `funding-route-verify`, and
+`funding-render` console commands after installation.
 
 `VERSION` records the latest published repository release and is release metadata only; it does not control runtime behavior.
 
@@ -241,13 +252,22 @@ If an application endpoint was confirmed but a later HTTP probe cannot reach it,
 
 ## Tests
 
+Run the complete local validation gate with one command:
+
+```bash
+python3 -m runtime.check
+```
+
+The gate runs pytest, runner and benchmark regressions, Python compilation,
+workflow validation, health-check self-tests, schema validation, and the public
+safety checks below.
+
 Run the public regression suite:
 
 ```bash
 python3 runtime/runner.py --check-all
 python3 runtime/run_benchmarks.py
 python3 -m py_compile runtime/project_contract.py runtime/ingest.py runtime/runner.py runtime/verify_route.py runtime/validate_schemas.py runtime/render_report.py runtime/run_benchmarks.py
-python3 -m pip install -r tests/requirements-test.txt
 python3 -m pytest -q
 ```
 
@@ -258,6 +278,15 @@ python3 runtime/validate_schemas.py
 ```
 
 The validator checks every public YAML file, project fixtures, program-card structure, generated runner reports, a public route-verification record, issue forms, private-path exclusions, and credential-like patterns. GitHub Actions runs the same checks on every push and pull request.
+
+Before sharing a local project artifact, scan it for credential-like values:
+
+```bash
+python3 -m runtime.privacy /path/to/project.yaml
+```
+
+See [security and privacy boundary](docs/security-and-privacy.md) for the
+current local-only posture and the mandatory gates before SaaS/API work.
 
 Render a human-readable Markdown report from runner and verifier outputs:
 

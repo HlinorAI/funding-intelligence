@@ -10,6 +10,8 @@ The project uses semantic version tags for public releases. Program status chang
 
 #### Added
 
+- Reproducible Python packaging with `pyproject.toml`, committed `uv.lock`, console entry points, and a one-command validation gate.
+- A local privacy scanner/redaction helper and a documented threat model and pre-SaaS/API security boundary.
 - Shared runtime validation for the canonical `project.schema.yaml` contract.
 - Conservative raw-text scaffolding and structured JSON ingestion that produce runner-compatible project documents.
 - A public structured intake file for the synthetic AI example.
@@ -17,6 +19,7 @@ The project uses semantic version tags for public releases. Program status chang
 
 #### Changed
 
+- CI now installs the project and test extra through the package contract instead of maintaining a separate dependency-install sequence.
 - Runner and route verifier inputs now fail closed when they do not satisfy the canonical project schema.
 - Human-readable reporting is consolidated in `runtime/render_report.py` and tested against real runner and verifier output.
 - Project ingestion metadata and unresolved input fields are optional fields in the canonical project schema.
