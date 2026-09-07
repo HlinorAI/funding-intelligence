@@ -1,0 +1,31 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://github.com/HlinorAI/funding-intelligence/blob/main/schemas/lifecycle-state.schema.yaml
+title: Funding route lifecycle state
+type: object
+additionalProperties: false
+required: [schema_version, route_id, stage, owner, next_action, submission, outcome, history, updated_at]
+properties:
+  schema_version: {type: integer, const: 1}
+  route_id: {type: string, minLength: 1}
+  stage: {type: string, enum: [discovery, eligibility, application-ready, follow-up, outcome]}
+  owner: {type: string, minLength: 1}
+  next_action: {type: string, minLength: 1}
+  submission:
+    type: [object, 'null']
+    additionalProperties: false
+    required: [recorded_at, evidence_ref]
+    properties:
+      recorded_at: {type: string, minLength: 1}
+      evidence_ref: {type: string, minLength: 1}
+  outcome:
+    type: [object, 'null']
+    additionalProperties: false
+    required: [value, recorded_at]
+    properties:
+      value: {type: string, enum: [accepted, rejected, withdrawn, unknown]}
+      recorded_at: {type: string, minLength: 1}
+      evidence_ref: {type: string, minLength: 1}
+  history:
+    type: array
+    items: {type: object, additionalProperties: true}
+  updated_at: {type: string, minLength: 1}
