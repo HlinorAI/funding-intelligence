@@ -1,0 +1,47 @@
+id: filecoin-propgf
+name: Filecoin ProPGF
+ecosystem: Filecoin
+mechanism: [milestone_grant, proposal_grant]
+resource_type: [milestone_funding]
+status:
+  state: VERIFY
+  source_label: "Milestone-based public goods funding with RFP and track-specific routes"
+  last_checked: 2026-08-25
+  needs_verification: true
+  official_source: https://www.filecoin.io/blog/Announcing-Filecoin-ProPGF-Batch-3-General-Track
+pathway:
+  id: filecoin-propgf-batch-3
+  type: rfp
+  lifecycle: seasonal
+  source_changed_at: 2026-08-25
+  funding:
+    model: milestone
+    amount: "Batch 3 announced up to USD 2M across tracks"
+    terms: "Track, milestone and active intake must be confirmed from the current RFP"
+routing:
+  verticals: [web3, software, deeptech]
+  stages: [prototype, early_product, seed, revenue, testnet, mainnet]
+  goals: [funding, partnerships]
+best_fit:
+  - public-good or infrastructure project with measurable Filecoin ecosystem impact
+  - team with an RFP-aligned milestone plan
+  - open-source or reusable output with named users or integrators
+bad_fit:
+  - generic crypto runway request
+  - no Filecoin-specific impact
+  - roadmap without acceptance criteria
+required_evidence:
+  - exact track or RFP match
+  - technical deliverables and acceptance criteria
+  - adoption or integration plan
+  - milestone budget and public-good boundary
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - applying to a closed batch
+  - no track-specific impact
+  - milestones not independently verifiable
+next_action:
+  action: VERIFY
+  deliverable: "Identify the active Filecoin track and map deliverables to milestone acceptance criteria"
+  horizon_days: 3
+stop_condition: "No active track or no Filecoin-specific public-good outcome"

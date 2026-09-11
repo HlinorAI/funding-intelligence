@@ -20,7 +20,11 @@ Preserve the deterministic decision engine while making the public self-service 
 
 ## External-validation boundary
 
-The next product-quality signal must come from one consented external project. Its private evidence, generated reports, and feedback stay in Git-ignored local paths.
+The next product-quality signal must come from one consented operator/advisor
+pilot using a redacted batch of external project or applicant cases. Its
+private evidence, generated reports, and feedback stay in Git-ignored local
+paths. The pilot protocol is documented in
+`docs/operator-pilot-protocol.md`.
 
 Success requires:
 

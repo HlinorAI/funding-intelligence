@@ -1,0 +1,49 @@
+id: eic-transition
+name: EIC Transition 2026
+ecosystem: European Innovation Council
+mechanism: [research_grant, milestone_grant]
+resource_type: [non_dilutive_grant]
+status:
+  state: VERIFY
+  source_label: "Research-to-market route for validating and commercialising a prior eligible result"
+  last_checked: 2026-08-25
+  needs_verification: true
+  official_source: https://eic.ec.europa.eu/eic-funding-opportunities/eic-2026-work-programme_en
+pathway:
+  id: eic-transition-2026
+  type: grant
+  lifecycle: seasonal
+  source_changed_at: 2026-08-25
+  window:
+    label: "2026 EIC Transition call"
+  funding:
+    model: milestone
+    amount: "Up to approximately EUR 2.5M"
+    terms: "Requires an eligible prior research result and a credible technology-to-market plan"
+routing:
+  verticals: [ai, artificial_intelligence, deeptech, hardware]
+  stages: [prototype, early_product]
+  goals: [funding, technical_support]
+best_fit:
+  - university or research-linked team with an eligible technology result
+  - deep-tech prototype moving toward validation and market entry
+  - project with named technical and commercialisation milestones
+bad_fit:
+  - idea without a prior eligible research result
+  - mature scale-up seeking general working capital
+  - product-only pitch with no technology validation plan
+required_evidence:
+  - prior eligible research result
+  - technology validation plan
+  - intellectual property and ownership evidence
+  - commercialisation milestones and budget
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - missing prior-result eligibility
+  - unclear IP ownership
+  - milestones not tied to technology validation
+next_action:
+  action: VERIFY
+  deliverable: "Confirm prior-result eligibility and prepare a technology-to-market milestone map"
+  horizon_days: 5
+stop_condition: "No eligible prior result or no credible commercialisation owner"

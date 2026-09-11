@@ -30,3 +30,11 @@ PROJECT_STATUS_AND_ROADMAP.md
 
 # User-generated drafts (private)
 drafts/
+
+# Private operational outreach records (third-party contacts; keep local)
+docs/pilot-prospects-*.md
+docs/pilot-contact-questions-*.md
+docs/pilot-research-*.md
+docs/new-leads-*.md
+docs/outreach-drafts-*.md
+docs/continuous-lead-search.md

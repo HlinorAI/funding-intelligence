@@ -1,0 +1,50 @@
+id: base-batches-004
+name: Base Batches 004
+ecosystem: Base
+mechanism: [accelerator, investment]
+resource_type: [accelerator]
+status:
+  state: UPCOMING
+  source_label: "Early-stage Base cohort with funding and mentorship; cohort deadline is separate from Base rewards"
+  last_checked: 2026-08-25
+  needs_verification: true
+  official_source: https://blog.base.org/
+pathway:
+  id: base-batches-004
+  type: cohort
+  lifecycle: cohort
+  source_changed_at: 2026-08-25
+  window:
+    closes: 2026-09-09
+    label: "Base Batches 004 application window"
+  funding:
+    model: investment
+    amount: "Announced USD 100,000 funding plus eight weeks of mentorship"
+    terms: "Confirm the live application form and cohort eligibility before routing"
+routing:
+  verticals: [web3, software, artificial_intelligence]
+  stages: [idea, prototype, pre_seed, seed]
+  goals: [funding, accelerator, partnerships]
+best_fit:
+  - early-stage team building an onchain product
+  - founder with a clear Base distribution or user-acquisition thesis
+  - product concept that can be tested during the cohort
+bad_fit:
+  - mature company seeking a generic grant
+  - no onchain user or distribution hypothesis
+  - retroactive funding request for already shipped work
+required_evidence:
+  - product thesis and target user
+  - Base-specific distribution plan
+  - founder and execution evidence
+  - eight-week milestone plan
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - missed cohort deadline
+  - confusing cohort funding with open-ended Base grants
+  - no Base-native distribution plan
+next_action:
+  action: VERIFY
+  deliverable: "Confirm the live Base Batches 004 form and prepare the eight-week milestone plan"
+  horizon_days: 2
+stop_condition: "No active cohort form or no Base-specific distribution thesis"

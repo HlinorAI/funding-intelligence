@@ -16,16 +16,17 @@ import yaml
 from runner import ROOT, evaluate, load_yaml, program_affiliation_state, project_fit, project_goals, text_tokens, truthy
 from project_contract import ProjectValidationError, validate_project
 from taxonomy import canonicalize
+from freshness import source_freshness
 
 
 UNKNOWN = {None, "", "UNKNOWN", "unknown", "TODO", "NOT_PROVIDED", "not_provided"}
 GOAL_MECHANISMS = {
-    "funding": {"proposal_grant", "retro", "investment", "incentive", "subsidy"},
-    "partnerships": {"bd"},
+    "funding": {"proposal_grant", "retro", "investment", "incentive", "subsidy", "challenge_grant", "research_grant", "milestone_grant", "credits"},
+    "partnerships": {"bd", "pilot"},
     "partner": {"bd"},
     "accelerator": {"accelerator", "investment"},
     "distribution": {"bd", "incentive", "accelerator"},
-    "technical_support": {"bd", "subsidy", "accelerator"},
+    "technical_support": {"bd", "subsidy", "accelerator", "credits", "research_grant", "pilot"},
 }
 
 
@@ -49,9 +50,12 @@ def known(value: Any) -> bool:
     return value not in UNKNOWN
 
 
-def find_cards() -> list[dict[str, Any]]:
-    paths = list((ROOT / "knowledge" / "programs").glob("*.yaml"))
-    paths.extend((ROOT / "knowledge" / "packs").glob("*/programs/*.yaml"))
+def find_cards(ai_only: bool = False) -> list[dict[str, Any]]:
+    if ai_only:
+        paths = list((ROOT / "knowledge" / "packs" / "ai" / "programs").glob("*.yaml"))
+    else:
+        paths = list((ROOT / "knowledge" / "programs").glob("*.yaml"))
+        paths.extend((ROOT / "knowledge" / "packs").glob("*/programs/*.yaml"))
     return [load_yaml(path) for path in sorted(paths)]
 
 
@@ -252,12 +256,15 @@ def get_program_status(card: dict[str, Any], verified_at_override: str | None = 
     status = card.get("status") or {}
     verification = card.get("verification") or {}
     source_verified = verification.get("source_verified") is True
+    freshness = source_freshness(verified_at_override or status.get("last_checked"))
     return {
         "value": status.get("state", "UNKNOWN"),
+        "needs_verification": status.get("needs_verification"),
         "verified_at": verified_at_override or (str(verification.get("verified_at")) if source_verified and verification.get("verified_at") else None),
         "source": status.get("official_source"),
         "source_verified": source_verified,
         "verified_via": verification.get("verified_via"),
+        "source_freshness": freshness,
     }
 
 
@@ -360,7 +367,14 @@ def eligibility_state(
         return "INELIGIBLE"
     if program_status.get("value") in {"CLOSED", "HOLD"} or fit.get("value") == "NONE":
         return "INELIGIBLE"
-    if affiliation_state == "unknown" or endpoint_status.get("value") in {"MISSING", "UNKNOWN", "UNREACHABLE"}:
+    if (
+        affiliation_state == "unknown"
+        or (
+            program_status.get("needs_verification") is False
+            and program_status.get("source_freshness", {}).get("state") != "fresh"
+        )
+        or endpoint_status.get("value") in {"MISSING", "UNKNOWN", "UNREACHABLE"}
+    ):
         return "UNKNOWN"
     if missing:
         return "INCOMPLETE"
@@ -379,6 +393,11 @@ def decision_for(project: dict[str, Any], card: dict[str, Any], program_status: 
         return "DO_NOT_APPLY"
     if endpoint_status["value"] == "MISSING":
         return "NO_ACTIONABLE_ENDPOINT"
+    if (
+        program_status.get("needs_verification") is False
+        and program_status.get("source_freshness", {}).get("state") != "fresh"
+    ):
+        return "VERIFY_FIRST"
     policy = card.get("decision_policy") or {}
     if fit["value"] == "WEAK" and policy.get("weak_fit"):
         return policy["weak_fit"]
@@ -409,7 +428,7 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
     policy = card.get("decision_policy") or {}
     next_action = dict(card.get("next_action") or {})
     next_action["action"] = decision
-    return {
+    route = {
         "program": card.get("name"),
         "program_id": card.get("id"),
         "program_status": program_status,
@@ -439,6 +458,9 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
         "verified_at": application_endpoint.get("verified_at") or program_status.get("verified_at"),
         "decision": decision,
     }
+    if card.get("pathway"):
+        route["pathway"] = card["pathway"]
+    return route
 
 
 def main() -> int:
@@ -457,7 +479,7 @@ def main() -> int:
         validate_project(project, "route verifier input")
     except ProjectValidationError as error:
         parser.error(str(error))
-    cards = find_cards()
+    cards = find_cards(ai_only=args.all_ai)
     if args.route:
         selected = [card for card in cards if card.get("id") in set(args.route)]
     elif args.all_ai:

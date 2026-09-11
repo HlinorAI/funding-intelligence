@@ -58,7 +58,7 @@ expected:
     gate_passed: false
     routes: {}
     coverage_contains:
-      - No matching local program cards
+      - Deeptech routes are present but remain source-only
   verifier:
     routes:
       aws-activate:

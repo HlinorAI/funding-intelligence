@@ -1,0 +1,47 @@
+id: openai-economic-opportunity-fund
+name: OpenAI Economic Opportunity Funding
+ecosystem: OpenAI
+mechanism: [proposal_grant]
+resource_type: [non_dilutive_grant]
+status:
+  state: VERIFY
+  source_label: "Selected independent projects may receive funding and separate API credits for economic opportunity and resilience work"
+  last_checked: 2026-08-25
+  needs_verification: true
+  official_source: https://openai.com/index/new-policy-ideas-for-the-intelligence-age/
+pathway:
+  id: openai-economic-opportunity-funding-2026
+  type: grant
+  lifecycle: seasonal
+  source_changed_at: 2026-08-25
+  funding:
+    model: mixed
+    amount: "Announced support includes up to USD 1M funding and up to USD 1M in API credits for selected projects"
+    terms: "Confirm the current selection mechanism and whether the announcement has an active intake"
+routing:
+  verticals: [ai, artificial_intelligence, software]
+  stages: [prototype, early_product, seed, revenue]
+  goals: [funding, partnerships]
+best_fit:
+  - independent project with a concrete economic opportunity or resilience outcome
+  - AI product or research effort with a measurable public benefit
+  - team able to separate cash use from API credit use
+bad_fit:
+  - treating a policy announcement as an always-open startup grant
+  - generic API credit request
+  - no measurable economic or resilience outcome
+required_evidence:
+  - defined economic opportunity or resilience problem
+  - technical and deployment plan
+  - measurable beneficiaries and outcome metrics
+  - transparent budget separating grant and API consumption
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - stale announcement mistaken for an open application
+  - unclear independence or selection eligibility
+  - API credits presented as cash funding
+next_action:
+  action: VERIFY
+  deliverable: "Confirm whether an active intake exists and prepare an outcomes-first project brief"
+  horizon_days: 3
+stop_condition: "No active intake or no measurable economic/resilience outcome"

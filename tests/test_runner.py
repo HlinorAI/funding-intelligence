@@ -9,6 +9,7 @@ inclusion/exclusion criteria.
 from pathlib import Path
 import sys
 import subprocess
+from datetime import date, timedelta
 import yaml
 import jsonschema
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -259,11 +260,11 @@ class TestRunnerDecisions:
         exp = load_yaml(expected)
         self._check_expected(report, exp, "hardware")
 
-        # Hardware startup should get DO_NOT_APPLY — no AI or Web3 program matches
+        # Hardware startup may now match deep-tech routes, but none may be
+        # treated as actionable without status and endpoint verification.
         opps = report.get("opportunities", [])
-        assert len(opps) == 0 or opps[0].get("score", 0) < 50, (
-            f"hardware: expected no viable opportunities (score < 50), "
-            f"top opp: {opps[0] if opps else 'none'}"
+        assert all(item.get("decision") != "NOW" for item in opps), (
+            f"hardware: unverified deep-tech route reached NOW: {opps}"
         )
 
     def test_sme(self):
@@ -470,7 +471,7 @@ class TestRunnerDecisions:
         # Gate fields
         gate = report.get("gate", {})
         gate_fields = {
-            "project_fit", "stage_compatible", "status_verified", "application_endpoint_exists",
+            "project_fit", "stage_compatible", "status_verified", "source_fresh", "application_endpoint_exists",
             "mechanism_identified", "evidence_requirements_known",
             "next_action_exists", "affiliation_verified", "not_already_affiliated", "passed",
         }
@@ -543,3 +544,19 @@ class TestRunnerDecisions:
         assert result["gate"]["passed"] is False
         assert result["decision"] == "VERIFY_FIRST"
         assert result["decision"] != "NOW"
+
+    def test_stale_source_gate_cannot_reach_now(self):
+        project = load_yaml(REPO_ROOT / "tests" / "cases" / "ai_startup.yaml")
+        card = load_card_yaml(REPO_ROOT / "knowledge" / "packs" / "ai" / "programs" / "aws-activate.yaml")
+        card["status"]["needs_verification"] = False
+        card["status"]["last_checked"] = (date.today() - timedelta(days=8)).isoformat()
+
+        result = evaluate(project, card)
+
+        assert result["gate"]["source_fresh"] is False
+        assert result["gate"]["status_verified"] is False
+        assert result["decision"] == "VERIFY_FIRST"
+
+        route = verify_route(project, card, {}, False)
+        assert route["program_status"]["source_freshness"]["state"] == "stale"
+        assert route["decision"] == "VERIFY_FIRST"

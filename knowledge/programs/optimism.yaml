@@ -3,11 +3,19 @@ name: Optimism / Superchain Funding
 ecosystem: Optimism
 mechanism: [retro, proposal_grant, bd]
 status:
-  state: CLOSED
-  source_label: "Season 9 closed; governance/funding architecture is changing"
-  last_checked: 2026-07-20
+  state: HOLD
+  source_label: "Retro Funding is paused; Season 9 grant experiments closed while the governance/funding architecture changes"
+  last_checked: 2026-08-25
   needs_verification: true
   official_source: https://gov.optimism.io/
+pathway:
+  id: optimism-retro-and-grants
+  type: retro
+  lifecycle: paused
+  source_changed_at: 2026-08-25
+  funding:
+    model: retroactive
+    terms: "Do not infer an active intake from historical Retro Funding or closed Season 9 material"
 best_fit:
   - measurable public-good or Superchain impact
   - anchor deployment with downstream L2 demand

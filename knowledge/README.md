@@ -15,11 +15,17 @@ This directory contains only the operational data required for routing:
 Required fields include:
 
 - `id`, `name`, `ecosystem`;
-- `mechanism` — one or more of: `proposal_grant`, `retro`, `incentive`, `accelerator`, `investment`, `subsidy`, `bd`;
+- `mechanism` — one or more of: `proposal_grant`, `retro`, `incentive`, `accelerator`, `investment`, `subsidy`, `bd`, `challenge_grant`, `research_grant`, `milestone_grant`, `pilot`, `credits`;
 - `status.state` — `OPEN`, `ROLLING`, `ACTIVE`, `CLOSED`, `UPCOMING`, `VERIFY`, `WATCH`, `HOLD`, `BD-ONLY`;
 - `status.last_checked`, `status.needs_verification`, `status.official_source`;
 - `best_fit`, `bad_fit`, `required_evidence`;
 - `failure_modes`, `next_action`, `stop_condition`.
+
+Current cards may also declare a `pathway` block. It identifies the distinct
+cohort, RFP, retroactive route, credits route, or evergreen program represented
+by the card. `pathway.lifecycle`, `pathway.window`, and `pathway.source_changed_at`
+must be reviewed separately from the broader program status; one ecosystem
+brand must not imply one application route.
 
 Dates and statuses are not permanent. Before a real application, the agent must open the official source and the actual intake endpoint.
 

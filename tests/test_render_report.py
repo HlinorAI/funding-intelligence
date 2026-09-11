@@ -41,6 +41,7 @@ def test_render_accepts_real_runner_and_verifier_contracts(repo_root: Path) -> N
     assert "### Y Combinator" in rendered
     assert "## VERIFY_ACCESS_PATH" in rendered
     assert "### AWS Activate" in rendered
+    assert "Source freshness:" in rendered
     assert "Stop condition:" in rendered
     assert "## Sources and verification dates" in rendered
 

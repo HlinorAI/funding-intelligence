@@ -35,9 +35,16 @@ RESOURCE_TYPES = {
     "venture_investment",
     "founder_network",
     "community",
+    "non_dilutive_grant",
+    "milestone_funding",
+    "compute_credits",
+    "pilot_access",
+    "research_support",
+    "cash_prize",
+    "investor_matchmaking",
 }
-SUPPORT_RESOURCES = {"startup_program", "cloud_credits", "technical_support", "enterprise_bd", "community"}
-CAPITAL_RESOURCES = {"accelerator", "venture_investment", "founder_network"}
+SUPPORT_RESOURCES = {"startup_program", "cloud_credits", "technical_support", "enterprise_bd", "community", "compute_credits", "pilot_access", "research_support", "investor_matchmaking"}
+CAPITAL_RESOURCES = {"accelerator", "venture_investment", "founder_network", "non_dilutive_grant", "milestone_funding", "cash_prize"}
 ALLOWED_FORM_TYPES = {"markdown", "input", "textarea", "dropdown", "checkboxes"}
 
 PRIVATE_PATH_PATTERNS = (

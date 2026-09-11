@@ -1,7 +1,7 @@
 # Application endpoint coverage audit
 
-**Review date:** 2026-07-26  
-**Scope:** all 41 tracked program cards  
+**Review date:** 2026-08-25
+**Scope:** all 49 tracked program cards
 **Method:** read card metadata first, then manually inspect selected official sources. This audit does not change program status, eligibility, or application-endpoint metadata.
 
 ## Result
@@ -10,7 +10,7 @@
 | --- | ---: | --- |
 | `confirmed` | 4 | A card records a separately verified public application or access URL. |
 | `gated` | 1 | A card records a verified access path, but the requested benefit still needs a referral, partner path, or other gate. |
-| `missing` | 36 | The card has an official program source but no separately verified action URL. The source is not promoted to an application endpoint. |
+| `missing` | 44 | The card has an official program source but no separately verified action URL. The source is not promoted to an application endpoint. |
 
 The five cards with a recorded application endpoint are `aws-activate`, `microsoft-for-startups`, `nvidia-inception`, `openai-for-startups`, and `y-combinator`.
 
@@ -38,6 +38,11 @@ Some cards deliberately group multiple mechanisms or pathways. A single card-lev
 ## Remaining source-only cards
 
 The following cards remain intentionally source-only after this audit. Their `missing` state is an explicit safety boundary, not a claim that the underlying programs are closed.
+
+The August refresh added eight pathway cards from current AI, deep-tech and
+ecosystem announcements. They remain source-only until a route-specific intake
+is confirmed; this is intentional and does not imply that the programmes are
+closed.
 
 ```text
 aleo-developer-grants
@@ -76,6 +81,14 @@ tezos-foundation
 uniswap-hook-ladder
 usual-usd0
 xrpl-routes
+base-batches-004
+eic-accelerator
+eic-transition
+filecoin-propgf
+nsf-tech-accelerators
+openai-economic-opportunity-fund
+tether-developer-grants
+women-techeu
 ```
 
 ## Decision

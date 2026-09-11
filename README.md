@@ -14,6 +14,15 @@ Generic LLM workflows tend to produce long lists of plausible-looking programs. 
 
 The project is an internal capability and open-source engine prototype, not a funding marketplace or an application service.
 
+For a local route that has passed the evidence gates, track the downstream
+workflow explicitly with `runtime/funding_lifecycle.py`. It records
+`discovery → eligibility → application-ready → follow-up → outcome` in a local
+YAML file. The `submission_recorded` transition requires a human-supplied
+evidence reference; the script never submits an application or contacts a
+programme.
+
+The current market check is in [docs/market-landscape-2026-08-29.md](docs/market-landscape-2026-08-29.md). Discovery and matching are already crowded; the current wedge is evidence-gated operator/advisor triage with explicit source freshness and route-specific intake verification.
+
 ## What it does
 
 - classifies project stage, sector, goals, and mechanism fit;
@@ -21,6 +30,7 @@ The project is an internal capability and open-source engine prototype, not a fu
 - calculates a deterministic score and penalties;
 - gates recommendations on structured evidence;
 - keeps program status, endpoint status, endpoint transport, project fit, and project readiness independent;
+- exposes source freshness so dated snapshots cannot silently become current;
 - emits route-specific decisions;
 - preserves an explainable `decision_trace` in the machine report.
 
@@ -240,6 +250,7 @@ This is a deliberately bounded knowledge snapshot. It is not a comprehensive glo
 Route verification keeps these states separate:
 
 - `program_status` — the status recorded for the program, with source and verification date;
+- source freshness — whether the dated source snapshot is fresh under the seven-day policy;
 - `application_endpoint` — the distinct application or access URL, its access state, kind, and verification date; an official information source alone is not an application endpoint;
 - `endpoint_status` — whether that application endpoint is available, missing, unreachable, or unknown;
 - endpoint transport — whether the runtime could reach the application URL in a live probe;
@@ -249,6 +260,8 @@ Route verification keeps these states separate:
 - final `decision` — the route-specific action produced by the policy.
 
 If an application endpoint was confirmed but a later HTTP probe cannot reach it, the verifier preserves the source-backed program status and records endpoint transport as `UNREACHABLE`. It does not silently convert a network problem into `CLOSED`.
+
+A stale or invalid source date on a card that claims its status is verified produces `VERIFY_FIRST` and is visible in `source_freshness`; unverified source-snapshot routes remain explicitly non-live.
 
 ## Tests
 

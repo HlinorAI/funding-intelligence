@@ -2,15 +2,18 @@
 
 This file is the project's persistent operating memory. Keep it factual, short, and current. Update it when work is completed, a decision changes, or the next action changes.
 
-Last updated: 2026-08-14
+Last updated: 2026-09-03
 
 ## Current status
 
 **Release target:** none
-**Current phase:** external decision-quality validation
+**Current phase:** pathway freshness and external decision-quality validation
 **Next release:** `v0.2.0` only after benchmark breadth and external feedback justify it.
 **Repository mode:** public open-source release
 **Core state:** deterministic opportunity routing and verification is implemented; v0.1.2 is published and external evaluation is the active work.
+**Market state:** generic discovery/matching and grant-management products are crowded; no consented pilot or repeat-usage evidence exists yet. The next testable wedge is an evidence-integrity pre-screen for human operator/advisor reviewers.
+**Pilot prospect state:** four first-wave and four second-wave operator contacts were sent on 2026-08-29; a 2026-08-30 refresh added EIT Digital Co-Creation and FreeCAD as route-only candidates. No consented pilot exists yet.
+**Intake state:** The live Tally handler was repaired, the failed event was replayed with HTTP 200, and CRM/Sheets verification confirmed the resulting row on 2026-08-30.
 
 ## Completed
 
@@ -50,7 +53,7 @@ Last updated: 2026-08-14
 - Resolved the verifier eligibility/readiness contract mismatch identified by the technical audit and added rejected-affiliation schema coverage.
 - Added executable structured evidence policies for AI cards so route-specific requirements are evaluated as fields and operators rather than free-text heuristics.
 - Separated official program sources from verified application endpoints; routes without an explicit application or access URL now return `NO_ACTIONABLE_ENDPOINT` instead of inheriting a program information page.
-- Completed an all-card application-endpoint coverage audit: five cards have recorded endpoints, while 36 source-only cards remain intentionally non-actionable until a route-specific intake is verified.
+- Completed an all-card application-endpoint coverage audit: five cards have recorded endpoints, while 44 source-only cards remain intentionally non-actionable until a route-specific intake is verified.
 - Added a copy-and-run README workflow for self-service local analysis and corrected the Base route-verification example.
 - Consolidated project ingestion, routing, verification, and reporting around the canonical `project.schema.yaml` contract.
 - Added fail-closed project validation to the runner and route verifier.
@@ -64,16 +67,40 @@ Last updated: 2026-08-14
 - Separated deterministic `policy_score` from empirical quality metadata; reports now state that quality is not calibrated before owner-reviewed outcomes exist.
 - Added reproducible packaging with `pyproject.toml`, `uv.lock`, console entry points, and `python -m runtime.check`.
 - Added a local credential privacy gate, explicit redaction helper, and documented security/privacy prerequisites before SaaS/API work.
+- Added a pathway contract for lifecycle, windows, funding terms and source-change dates.
+- Expanded mechanism/resource vocabularies for challenge, research, milestone, pilot, credits and non-dilutive routes.
+- Added eight current announcement-backed source-only cards across EIC, NSF, Women TechEU, Filecoin, Tether, OpenAI and Base Batches.
+- Preserved verified endpoint routes in the runner shortlist when new source-only cards are added.
+- Kept `--all-ai` scoped to the AI opportunity pack and updated endpoint coverage to 49 cards / 44 source-only routes.
 
 ## In progress
+
+- K-18 Funding Match Research remains isolated from founder outreach; its first
+  live discovery pass was blocked by the DuckDuckGo human-verification
+  challenge. Four explicitly approved operator-pilot messages were sent on
+  2026-08-29; wait for replies and review the second-wave research before any
+  further outreach.
+- Automated/founder outreach remains disabled; the four-message send was a
+  one-shot operator-approved batch with `send_allowed=true` only in its private
+  manifest.
+- Four second-wave operator messages were sent after explicit approval and
+  reconciled in Zoho Sent; recipient inbox placement remains unverified.
+- K-18 search results now require an explicit `project` or `program_operator`
+  lane; unknown lanes cannot produce drafts.
+- The prepared K-18 systemd timer is disabled while the project remains in
+  preparation-only mode.
+- The runner and route verifier now enforce the seven-day source-freshness
+  policy; stale snapshots cannot reach `NOW`.
+- Re-ran the canonical public example through ingestion, runner, verifier and
+  Markdown rendering; the generated artifacts stayed in a temporary directory.
 
 - Seven completed public-only benchmarks; three planned benchmark cases remain uncounted until their facts and expectations are reviewed.
 - Promotion and product claims remain blocked until additional cases and human feedback demonstrate practical decision quality.
 - Collect factual corrections and owner feedback for Orvixo before treating the benchmark as external validation.
-- External validation is intentionally awaiting a consented inbound project through the published Tally intake or voluntary owner contact; no outbound founder outreach is planned.
+- External validation is intentionally awaiting a consented operator/advisor pilot through the published intake or a voluntary operator contact; no outbound founder outreach is planned.
 - Prepare a public benchmark for a distinct project shape without committing private project evidence.
 - Perform new technical work only when a benchmark or external test identifies a confirmed defect.
-- Await one consented external project for the next complete intake-to-feedback cycle.
+- Await one consented operator/advisor pilot for the next complete intake-to-feedback cycle.
 - Added pre-pilot decision-quality coverage for open-source AI infrastructure, enterprise AI, and university-linked deeptech without expanding the knowledge base.
 - Fixed the external feedback metrics and interview order before the first owner review.
 
@@ -81,12 +108,20 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 
 ## Next actions
 
-1. Monitor the published Tally intake and GitHub Discussion #2 for one consented inbound project.
-2. Store its intake, evidence, generated YAML, report, and feedback only under ignored local paths.
-3. Run the canonical ingestion-to-report workflow without modifying expectations during the case.
-4. Record factual corrections and feedback using `docs/external-test-feedback.md`.
-5. Open technical work only for a reproducible defect or a demonstrated coverage gap.
-6. If no consented case arrives within 21 days of an intake refresh, review the invitation and distribution channel instead of adding engine features.
+0. Monitor the repaired Tally intake for the next consented case and run the
+   canonical ingestion-to-report workflow without changing expectations.
+1. Review replies from the eight approved operator-pilot contacts; do not send
+   another batch before assessing response quality.
+2. Run one consented operator/advisor pilot through intake, triage, route
+   verification and feedback.
+3. Configure an approved search API/provider for K-18 only if the pilot needs
+   a live discovery pass; do not infer demand from search volume or drafts.
+4. Monitor the published Tally intake and GitHub Discussion #2 for one consented case.
+5. Store its intake, evidence, generated YAML, report, and feedback only under ignored local paths.
+6. Run the canonical ingestion-to-report workflow without modifying expectations during the case.
+7. Record factual corrections and feedback using `docs/external-test-feedback.md`.
+8. Open technical work only for a reproducible defect or a demonstrated coverage gap.
+9. If no consented case arrives within 21 days of an intake refresh, review the invitation and distribution channel instead of adding engine features.
 
 ## Decisions already made
 
@@ -106,6 +141,7 @@ The remote already contains tag `v0.1.0` at commit `d0103e8`. It was not moved t
 - Benchmark and external-test findings are the only authorized triggers for new technical work during the current phase.
 - A card's `routing.stages` is a hard boundary only when the project stage is known; `unknown` is not positive stage-fit evidence.
 - An official program source is evidence for program status only. `current affiliation > opportunity fit`, and a verified application endpoint is required before a route can be considered actionable.
+- The market has mature discovery, matching, application-support, and grant-management products; the current wedge is an evidence-integrity pre-screen with explicit source freshness and route-specific intake verification.
 
 ## Intentionally deferred
 
