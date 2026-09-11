@@ -1,0 +1,12 @@
+[Unit]
+Description=Hlinor K-18 official program operator research
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root/hlinor/k18
+ExecStart=/root/hlinor/k18/run_operator.sh
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true

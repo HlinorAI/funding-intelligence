@@ -12,9 +12,11 @@ import yaml
 
 try:
     from runtime.project_contract import ProjectValidationError, validate_project
+    from runtime.freshness import source_freshness
     from runtime.taxonomy import canonicalize, normalize_label
 except ImportError:
     from project_contract import ProjectValidationError, validate_project
+    from freshness import source_freshness
     from taxonomy import canonicalize, normalize_label
 
 
@@ -204,12 +206,12 @@ def mechanism_score(project: dict[str, Any], card: dict[str, Any]) -> tuple[int,
     score = 5
     reasons: list[str] = []
     goal_map = {
-        "funding": {"proposal_grant", "retro", "investment", "incentive", "subsidy"},
-        "partnerships": {"bd"},
+        "funding": {"proposal_grant", "retro", "investment", "incentive", "subsidy", "challenge_grant", "research_grant", "milestone_grant", "credits"},
+        "partnerships": {"bd", "pilot"},
         "partner": {"bd"},
         "accelerator": {"accelerator", "investment"},
         "distribution": {"bd", "incentive", "accelerator"},
-        "technical_support": {"bd", "subsidy", "accelerator"},
+        "technical_support": {"bd", "subsidy", "accelerator", "credits", "research_grant", "pilot"},
     }
     desired = set().union(*(goal_map.get(goal, set()) for goal in goals))
     if desired & mechanisms:
@@ -232,10 +234,14 @@ def gates(project: dict[str, Any], card: dict[str, Any]) -> dict[str, bool]:
     next_action = card.get("next_action") or {}
     affiliation_state = program_affiliation_state(project, str(card.get("id")))
     card_stage_fit = stage_fit(project, card)
+    freshness = source_freshness(status.get("last_checked"))
     return {
         "project_fit": project_fit(project, card)[0],
         "stage_compatible": card_stage_fit in {"match", "not_applicable"},
-        "status_verified": status.get("needs_verification") is False and status.get("state") in ACTIVE_STATES,
+        "status_verified": status.get("needs_verification") is False
+        and status.get("state") in ACTIVE_STATES
+        and freshness["state"] == "fresh",
+        "source_fresh": freshness["state"] == "fresh",
         "application_endpoint_exists": verification.get("application_url_state") in {"confirmed", "gated"}
         and bool(verification.get("application_url")),
         "mechanism_identified": bool(as_list(card.get("mechanism"))),
@@ -406,6 +412,7 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
         "decision_trace": trace,
         "official_source": status.get("official_source"),
         "last_checked": str(status.get("last_checked")) if status.get("last_checked") is not None else None,
+        "source_freshness": source_freshness(status.get("last_checked")),
     }
 
 
@@ -418,7 +425,10 @@ def build_report(project: dict[str, Any]) -> dict[str, Any]:
     cards = [load_yaml(path) for path in program_paths]
     evaluations = [evaluate(project, card) for card in cards]
     evaluations.sort(key=lambda item: (item["decision"] == "DO_NOT_APPLY", -item["score"]))
-    opportunities = [item for item in evaluations if item["decision"] != "DO_NOT_APPLY"][:7]
+    candidates = [item for item in evaluations if item["decision"] != "DO_NOT_APPLY"]
+    actionable = [item for item in candidates if item["gate"].get("application_endpoint_exists")]
+    supplemental = [item for item in candidates if not item["gate"].get("application_endpoint_exists")]
+    opportunities = (actionable[:12] + supplemental[: max(0, 12 - len(actionable))])[:12]
     rejected = [item for item in evaluations if item["decision"] == "DO_NOT_APPLY"]
     rejected.sort(key=lambda item: (item["gate"].get("not_already_affiliated", True), -item["score"]))
     do_not_apply = rejected[:10]
@@ -431,6 +441,7 @@ def build_report(project: dict[str, Any]) -> dict[str, Any]:
         "project_fit",
         "stage_compatible",
         "status_verified",
+        "source_fresh",
         "application_endpoint_exists",
         "mechanism_identified",
         "evidence_requirements_known",
@@ -473,7 +484,10 @@ def build_report(project: dict[str, Any]) -> dict[str, Any]:
     if not project_ecosystems(project) and not opportunities:
         coverage_gaps.append("No target/native ecosystem provided; chain-specific cards are excluded")
     if any(token in text_tokens(project) for token in {"hardware", "industrial", "sme"}):
-        coverage_gaps.append("Local knowledge base is currently Web3/ecosystem-heavy; generic AI, enterprise, deeptech and SME routes are not represented")
+        if opportunities:
+            coverage_gaps.append("Deeptech routes are present but remain source-only until status and application endpoints are verified")
+        else:
+            coverage_gaps.append("Local knowledge base has no matching generic AI, enterprise, deeptech or SME route")
     return {
         "report_version": 1,
         "project": project.get("name", "UNKNOWN"),

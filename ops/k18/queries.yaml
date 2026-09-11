@@ -1,0 +1,55 @@
+schema_version: 1
+department: K-18 Funding Match Research
+purpose: Find public signals of a current funding or support need among credible technical projects.
+queries:
+  - id: technical_grant_need
+    query: '"seeking grant" startup AI OR software'
+  - id: startup_funding_need
+    query: 'startup "looking for funding" technical founder'
+  - id: accelerator_need
+    query: 'technical startup "looking for an accelerator"'
+  - id: cloud_credit_need
+    query: 'startup "cloud credits" "apply"'
+  - id: open_source_grant_need
+    query: 'open source project "grant funding" maintainer'
+  - id: ecosystem_support_need
+    query: 'developer project "funding" "ecosystem" launch'
+    lane: project
+  - id: accelerator_operator_open_applications
+    query: '"applications open" accelerator startup program 2026 contact'
+    lane: program_operator
+  - id: grant_operator_active_cohort
+    query: '"grant program" cohort applications 2026 startup operator'
+    lane: program_operator
+  - id: program_operator_applicant_pipeline
+    query: 'accelerator "application deadline" "program team" startup 2026'
+    lane: program_operator
+  - id: program_operator_news_open
+    query: 'applications open accelerator startup program 2026'
+    lane: program_operator
+  - id: project_github_seeking_funding
+    query: '"seeking funding" in:title,body is:issue'
+    lane: project
+  - id: project_github_funding_needed
+    query: '"funding needed" in:title,body is:issue'
+    lane: project
+  - id: project_github_cloud_credits
+    query: '"cloud credits" in:title,body is:issue'
+    lane: project
+negative_terms:
+  - job
+  - jobs
+  - hiring
+  - directory
+  - marketplace
+  - agency
+  - consultant
+  - course
+  - newsletter
+  - press release
+  - generic startup list
+limits:
+  max_queries_per_run: 6
+  max_results_per_query: 5
+  max_candidates_for_manual_review: 10
+  freshness_days: 90

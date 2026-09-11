@@ -21,12 +21,13 @@ affiliation precedence gate
     └── no known affiliation → continue
     ↓
 anti-hallucination gate
+    ├── stale source/status/endpoint → VERIFY_FIRST
     ├── failed status/endpoint → VERIFY_FIRST
     ├── missing proof/readiness → BUILD_FIRST
     ├── closed/hold route → DO_NOT_APPLY
     └── all passed → NOW / NEXT / LATER
     ↓
-shortlist max 7 + DO_NOT_APPLY reasons
+shortlist max 12 + DO_NOT_APPLY reasons
     ↓
 report YAML/JSON
 ```

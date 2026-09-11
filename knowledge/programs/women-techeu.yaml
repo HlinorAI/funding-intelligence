@@ -1,0 +1,49 @@
+id: women-techeu
+name: Women TechEU
+ecosystem: Women TechEU
+mechanism: [proposal_grant, accelerator]
+resource_type: [non_dilutive_grant]
+status:
+  state: VERIFY
+  source_label: "Equity-free support for women-led deep-tech companies in the 2026-2028 programme"
+  last_checked: 2026-08-25
+  needs_verification: true
+  official_source: https://womentecheurope.eu/
+pathway:
+  id: women-techeu-2026-2028
+  type: cohort
+  lifecycle: cohort
+  source_changed_at: 2026-08-25
+  window:
+    label: "2026-2028 Women TechEU programme windows"
+  funding:
+    model: grant
+    amount: "EUR 75,000 equity-free grant per selected company"
+    terms: "Women-led deep-tech company; confirm the current open call and country/eligibility rules"
+routing:
+  verticals: [ai, artificial_intelligence, deeptech, hardware]
+  stages: [early_product, pre_seed, seed]
+  goals: [funding, accelerator]
+best_fit:
+  - women-led deep-tech company with a validated technology
+  - founder seeking equity-free funding plus mentoring and network access
+  - company able to show a technical and commercial growth plan
+bad_fit:
+  - software-only business without a deep-tech component
+  - no women founder or leadership eligibility
+  - idea-stage project without technical validation
+required_evidence:
+  - founder and leadership eligibility
+  - deep-tech technical validation
+  - company registration and country eligibility
+  - growth plan and milestone budget
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - eligibility inferred from a broad diversity label
+  - current call window not confirmed
+  - technical novelty not evidenced
+next_action:
+  action: VERIFY
+  deliverable: "Confirm the current call, founder eligibility and deep-tech evidence pack"
+  horizon_days: 3
+stop_condition: "No eligible women-led deep-tech company or current call"

@@ -128,6 +128,13 @@ def render_route(route: dict[str, Any]) -> list[str]:
     if route.get("program_status"):
         status = route["program_status"]
         lines.append(f"- Program status: `{text(status.get('value'))}`; checked {text(status.get('verified_at'))}")
+        freshness = status.get("source_freshness") or {}
+        if freshness:
+            lines.append(
+                f"- Source freshness: `{text(freshness.get('state'))}`; "
+                f"age {text(freshness.get('age_days'))} days; "
+                f"max {text(freshness.get('max_age_days'))} days"
+            )
     elif route.get("status"):
         lines.append(f"- Program status: `{text(route.get('status'))}`; checked {text(route.get('last_checked'))}")
     application_endpoint = route.get("application_endpoint") or {}

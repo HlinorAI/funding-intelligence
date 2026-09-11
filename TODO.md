@@ -122,6 +122,9 @@
   mailbox state.
 - [ ] Keep the six-hour lead search and HTML draft preparation running; require
   explicit approval for each future outbound batch.
+- [x] Disable the legacy K-18 Zoho writer by default while retaining its
+  official-source, public-email and recipient-deduplication settings for the
+  current controlled outreach workflow.
 - [x] Select and contact the first-wave operator-pilot prospects through the
   explicitly approved four-message batch; no consented pilot is implied.
 - [ ] Review first- and second-wave replies and select at most one candidate

@@ -1,0 +1,9 @@
+schema_version: 1
+department: K-18 Funding Match Research
+provider: Zoho Mail
+mailbox_login: hello@hlinor.com
+from_email: funding@hlinor.com
+reply_to_email: funding@hlinor.com
+alias_configured_by_owner: true
+verified_for_send: false
+send_allowed: false

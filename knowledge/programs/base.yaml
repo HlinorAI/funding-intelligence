@@ -4,10 +4,18 @@ ecosystem: Base
 mechanism: [retro, accelerator, investment]
 status:
   state: ACTIVE
-  source_label: "Ship-first rewards and Builder Grants; Base Batches has separate cohorts"
-  last_checked: 2026-07-20
+  source_label: "Ship-first rewards, Builder Grants, Base Batches and investor routes are separate pathways"
+  last_checked: 2026-08-25
   needs_verification: true
   official_source: https://docs.base.org/get-started/get-funded
+pathway:
+  id: base-shipping-and-funding
+  type: program
+  lifecycle: rolling
+  source_changed_at: 2026-08-25
+  funding:
+    model: mixed
+    terms: "Separate rewards, retroactive grants, cohort and investment routes require pathway-specific verification"
 best_fit:
   - shipped product on Base mainnet
   - public-good tooling with measurable usage

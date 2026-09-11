@@ -1,0 +1,46 @@
+id: nsf-tech-accelerators
+name: NSF Tech Accelerators
+ecosystem: National Science Foundation
+mechanism: [research_grant, accelerator]
+resource_type: [research_support]
+status:
+  state: VERIFY
+  source_label: "Fast-paced research acceleration with explicit market-readiness milestones and outcomes"
+  last_checked: 2026-08-25
+  needs_verification: true
+  official_source: https://www.nsf.gov/funding/initiatives/tech-accelerators
+pathway:
+  id: nsf-tech-accelerators-2026
+  type: cohort
+  lifecycle: rolling
+  source_changed_at: 2026-08-25
+  funding:
+    model: milestone
+    terms: "Confirm the active solicitation, eligibility and research milestone schedule"
+routing:
+  verticals: [ai, artificial_intelligence, deeptech, hardware, software]
+  stages: [prototype, early_product]
+  goals: [funding, technical_support, partnerships]
+best_fit:
+  - research output with a credible path to market-ready technology
+  - technical team able to define patent, license, pilot or entity milestones
+  - university, lab or research-linked commercialisation effort
+bad_fit:
+  - generic startup subsidy request
+  - no research output or technical milestone
+  - product growth plan without a technology transfer path
+required_evidence:
+  - underlying research result
+  - technical milestone plan
+  - commercialisation or technology transfer path
+  - pilot, license, patent or entity-formation outcome target
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - confusing research acceleration with a normal startup accelerator
+  - no measurable technology-transfer outcome
+  - solicitation eligibility not confirmed
+next_action:
+  action: VERIFY
+  deliverable: "Match the research result to the active NSF solicitation and define market-readiness outcomes"
+  horizon_days: 5
+stop_condition: "No qualifying research output or no active solicitation match"

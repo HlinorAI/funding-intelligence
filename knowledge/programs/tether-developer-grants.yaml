@@ -1,0 +1,46 @@
+id: tether-developer-grants
+name: Tether Developer Grants
+ecosystem: Tether
+mechanism: [proposal_grant, pilot]
+resource_type: [non_dilutive_grant]
+status:
+  state: VERIFY
+  source_label: "Technical grants for local-first AI and payments infrastructure tied to concrete deliverables"
+  last_checked: 2026-08-25
+  needs_verification: true
+  official_source: https://tether.io/news/tether-launches-developer-grants-program-to-fund-local-first-ai-and-payments-infrastructure/
+pathway:
+  id: tether-developer-grants-local-first-ai
+  type: grant
+  lifecycle: rolling
+  source_changed_at: 2026-08-25
+  funding:
+    model: milestone
+    terms: "No fixed total payout cap announced; current scope and deliverables require direct verification"
+routing:
+  verticals: [ai, artificial_intelligence, software, web3]
+  stages: [prototype, early_product, seed, revenue]
+  goals: [funding, technical_support, partnerships]
+best_fit:
+  - local-first or on-device AI infrastructure
+  - payments, stablecoin or financial infrastructure with a concrete technical deliverable
+  - open-source or ecosystem-reusable project with a measurable pilot
+bad_fit:
+  - generic hosted AI application with no local-first or payments thesis
+  - token or marketing request without a technical deliverable
+  - grant request framed as unrestricted runway
+required_evidence:
+  - architecture and local-first/payments dependency
+  - technical milestone and acceptance criteria
+  - pilot or integration plan
+  - security, privacy and open-source boundary
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - treating a technical grant as guaranteed funding
+  - no reproducible deliverable
+  - security or privacy claims not evidenced
+next_action:
+  action: VERIFY
+  deliverable: "Prepare a local-first/payments technical brief with milestone, pilot and security evidence"
+  horizon_days: 5
+stop_condition: "No concrete infrastructure deliverable or no current intake confirmation"

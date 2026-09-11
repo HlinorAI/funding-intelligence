@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 PYTHON_MODULES = [
     "runtime/__init__.py",
     "runtime/project_contract.py",
+    "runtime/freshness.py",
     "runtime/ingest.py",
     "runtime/runner.py",
     "runtime/verify_route.py",

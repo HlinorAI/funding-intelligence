@@ -5,9 +5,17 @@ mechanism: [proposal_grant]
 status:
   state: WATCH
   source_label: "Targeted Wishlist/RFP model; broad generic intake is not the default"
-  last_checked: 2026-07-20
+  last_checked: 2026-08-25
   needs_verification: true
   official_source: https://esp.ethereum.foundation/
+pathway:
+  id: ethereum-esp-wishlist-rfp
+  type: rfp
+  lifecycle: rolling
+  source_changed_at: 2026-08-25
+  funding:
+    model: grant
+    terms: "Match a current Wishlist or RFP; the ecosystem brand alone is not an application route"
 best_fit:
   - open-source public-good work
   - exact match to an active Wishlist or RFP

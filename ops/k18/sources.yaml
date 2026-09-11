@@ -1,0 +1,43 @@
+schema_version: 1
+purpose: Allowlisted official program pages for the K-18 program-operator buyer lane.
+official_pages:
+  - organization: CPA.com Startup Accelerator
+    url: https://accelerator.cpa.com/about-program
+    program_status: applications_open
+    role: alliance or accelerator program lead
+    contact_route: public_role_email
+    contact_url: https://accelerator.cpa.com/about-program
+    signal_date: '2026-08-25'
+    route_fit: true
+  - organization: Techstars Anywhere
+    url: https://www.techstars.com/accelerators/anywhere
+    program_status: applications_open
+    role: managing director or investment manager
+    contact_route: public_contact_form
+    contact_url: https://www.techstars.com/contact
+    signal_date: '2026-08-25'
+    route_fit: true
+  - organization: 100+ Accelerator
+    url: https://www.100accelerator.com/news/100-accelerator-or-cohort-8-applications-now-open
+    program_status: applications_closed
+    role: accelerator or partnerships lead
+    contact_route: unknown
+    contact_url: https://www.100accelerator.com/faq
+    signal_date: '2026-08-25'
+    route_fit: true
+  - organization: The Open Accelerator
+    url: https://the-open-accelerator.com/residency/
+    program_status: applications_upcoming
+    role: residency or program lead
+    contact_route: public_general_email
+    contact_url: https://the-open-accelerator.com/residency/
+    signal_date: '2026-08-25'
+    route_fit: true
+  - organization: EIT Urban Mobility Founder Catalyst
+    url: https://www.eiturbanmobility.eu/what-we-offer/support-to-startups/accelerate-startup/
+    program_status: applications_open
+    role: startup program or investment lead
+    contact_route: public_contact_form
+    contact_url: https://www.eiturbanmobility.eu/who-we-are/contact-us/
+    signal_date: '2026-08-25'
+    route_fit: true

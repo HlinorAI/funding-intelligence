@@ -20,6 +20,20 @@ sectors:
     - physical ai
     - robotics
     - hardware
+  research:
+    - research and development
+    - r&d
+    - research commercialization
+    - research commercialisation
+  payments:
+    - payment infrastructure
+    - payments infrastructure
+    - stablecoin payments
+  local_first_ai:
+    - local-first ai
+    - local first ai
+    - on-device ai
+    - on device ai
   web3:
     - blockchain
     - crypto
@@ -51,3 +65,17 @@ ecosystems:
   ethereum:
     - eth
     - ethereum mainnet
+  european_innovation_council:
+    - eic
+    - european innovation council
+  national_science_foundation:
+    - nsf
+    - national science foundation
+  filecoin:
+    - filecoin network
+  tether:
+    - tether limited
+  base:
+    - base network
+  optimism:
+    - optimism collective

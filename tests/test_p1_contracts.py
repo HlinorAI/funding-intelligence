@@ -57,3 +57,35 @@ def test_program_provenance_contract_accepts_review_metadata() -> None:
         "stop_condition": "No current source",
     }
     jsonschema.Draft202012Validator(load_schema("program-card.schema.yaml")).validate(card)
+
+
+def test_pathway_contract_distinguishes_lifecycle_and_window() -> None:
+    card = {
+        "id": "pathway-example",
+        "name": "Pathway Example",
+        "ecosystem": "Example",
+        "mechanism": ["challenge_grant"],
+        "resource_type": ["milestone_funding"],
+        "status": {
+            "state": "UPCOMING",
+            "last_checked": "2026-08-25",
+            "needs_verification": True,
+            "official_source": "https://example.com/program",
+        },
+        "pathway": {
+            "id": "pathway-example-2026",
+            "type": "cohort",
+            "lifecycle": "seasonal",
+            "source_changed_at": "2026-08-25",
+            "window": {"closes": "2026-09-09", "label": "2026 cohort"},
+            "funding": {"model": "milestone", "amount": "USD 100,000"},
+        },
+        "best_fit": ["milestone project"],
+        "bad_fit": ["unrelated project"],
+        "required_evidence": ["milestone plan"],
+        "score": {"strategic_fit": 1, "evidence": 1, "mechanism_fit": 1},
+        "failure_modes": ["stale source"],
+        "next_action": {"action": "VERIFY", "deliverable": "Confirm intake", "horizon_days": 1},
+        "stop_condition": "No current source",
+    }
+    jsonschema.Draft202012Validator(load_schema("program-card.schema.yaml")).validate(card)

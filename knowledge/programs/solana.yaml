@@ -5,9 +5,17 @@ mechanism: [proposal_grant, investment, accelerator]
 status:
   state: ROLLING
   source_label: "Rolling funding portal; grant, convertible and RFP routes are distinct"
-  last_checked: 2026-07-20
+  last_checked: 2026-08-25
   needs_verification: true
   official_source: https://solana.org/grants-funding
+pathway:
+  id: solana-foundation-grants-and-rfps
+  type: program
+  lifecycle: rolling
+  source_changed_at: 2026-08-25
+  funding:
+    model: mixed
+    terms: "Foundation grants, RFPs, milestone grants and convertible routes must be checked separately"
 best_fit:
   - open-source or public-good infrastructure
   - Solana-native research, tooling or high-throughput product

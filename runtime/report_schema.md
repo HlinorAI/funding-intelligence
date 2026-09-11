@@ -12,6 +12,7 @@ classification:
   confidence: medium
 gate:
   status_verified: false
+  source_fresh: false
   application_endpoint_exists: true
   mechanism_identified: true
   evidence_requirements_known: true
@@ -23,6 +24,7 @@ opportunities:
     policy_score: 62          # deterministic routing policy score
     score_semantics: deterministic_policy_score
     decision: VERIFY_FIRST
+    source_freshness: {state: stale, age_days: 8, max_age_days: 7}
     mechanism: retro
     why: []
     missing: []
@@ -49,4 +51,4 @@ quality:
   sample_size: 0
 ```
 
-`opportunities` contains at most seven routes. Closed or structurally invalid routes are listed in `do_not_apply`, not silently omitted.
+`opportunities` contains at most twelve routes. Closed or structurally invalid routes are listed in `do_not_apply`, not silently omitted. `source_fresh` and `source_freshness` make the dated-snapshot boundary explicit; a stale source cannot pass the status gate.

@@ -1,0 +1,49 @@
+id: eic-accelerator
+name: EIC Accelerator 2026
+ecosystem: European Innovation Council
+mechanism: [proposal_grant, investment]
+resource_type: [non_dilutive_grant, venture_investment]
+status:
+  state: VERIFY
+  source_label: "2026 work programme combines grant and equity routes for deep-tech scale-up"
+  last_checked: 2026-08-25
+  needs_verification: true
+  official_source: https://eic.ec.europa.eu/eic-funding-opportunities/eic-2026-work-programme_en
+pathway:
+  id: eic-accelerator-2026
+  type: cohort
+  lifecycle: seasonal
+  source_changed_at: 2026-08-25
+  window:
+    label: "2026 EIC Accelerator cut-offs and application windows"
+  funding:
+    model: mixed
+    amount: "Grant up to approximately EUR 2.5M plus equity typically EUR 1M-10M"
+    terms: "Deep-tech commercialisation; confirm the current cut-off and short/full application path"
+routing:
+  verticals: [ai, artificial_intelligence, deeptech, hardware, software]
+  stages: [early_product, pre_seed, seed, series_a, series_b]
+  goals: [funding, partnerships]
+best_fit:
+  - deep-tech company with a defensible technology and commercialisation plan
+  - startup with validation, market evidence and a scale-up milestone
+  - team able to separate grant-funded work from equity financing
+bad_fit:
+  - generic SaaS without a deep-tech innovation claim
+  - grant request framed only as unrestricted runway
+  - no technical validation or route-specific cut-off fit
+required_evidence:
+  - technical novelty and validation evidence
+  - market and customer adoption evidence
+  - commercialisation milestones and budget
+  - legal entity, ownership and funding history
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - confusing grant eligibility with equity readiness
+  - missing the applicable cut-off or submission stage
+  - overstating technology readiness
+next_action:
+  action: VERIFY
+  deliverable: "Map the project to the 2026 EIC cut-off, grant/equity route and commercialisation evidence"
+  horizon_days: 3
+stop_condition: "No deep-tech novelty, validation or matching EIC application window"
