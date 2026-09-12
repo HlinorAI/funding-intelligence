@@ -222,6 +222,19 @@ python3 runtime/health_check.py \
 
 See [program-card health check](docs/program-card-health-check.md). A transport failure is reported as `UNREACHABLE`, never as `CLOSED`, and the check does not mutate knowledge cards.
 
+To detect substantive content changes on official pages — not just transport availability — run the read-only source watch:
+
+```bash
+python3 runtime/source_watch.py \
+  --output /tmp/source-watch-report.yaml \
+  --summary /tmp/source-watch-summary.md \
+  --update-state
+```
+
+The first run records a digest for every official source; later runs report
+`CHANGED` pages as human-review signals. Digest state is stored outside Git in
+`reports/source-watch-state.yaml`, and the tool never mutates knowledge cards.
+
 ## Example output
 
 The public fixture `tests/cases/ai_startup.yaml` represents an `Example AI Infrastructure Startup`. Its current expected contract is:
