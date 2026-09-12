@@ -52,3 +52,36 @@ The next meaningful signal is one consented operator or advisor pilot with a
 before/after comparison of manual triage time, false positives, false
 negatives, and unsupported facts. Until that exists, the project remains a
 validated prototype rather than a market-proven funding platform.
+
+## 2026-09-11 delta check
+
+A two-week follow-up review confirmed the positioning decision and found no
+reason to widen the wedge.
+
+**Competitive signals.**
+
+- [Optimy](https://www.optimy.com/blog-optimy/grant-application-screening) now
+  publishes a 2026 guide selling automated grant-application screening to
+  funders: eligibility rules, pre-qualification, weighted scoring, and
+  AI-assisted review workflows. Funder-side triage is no longer an empty niche.
+- [Granted AI](https://grantedai.com/) combines AI grant discovery across
+  133K+ foundations with proposal drafting;
+  [GrantWatch](https://www.prnewswire.com/news-releases/grantwatchs-2026-ai-tools-redefine-grant-discovery-and-writing-302742442.html)
+  shipped 2026 AI discovery and writing tools; [MZN
+  International](https://ai.mzninternational.com/grant-opportunities) runs an
+  AI grant-opportunity scanner for NGOs.
+- None of the reviewed vendors advertises evidence gating, a source-freshness
+  policy, or route-specific application-endpoint verification. The
+  differentiator holds, but the window for a consented pilot is narrowing.
+
+**Program facts refreshed in the knowledge base the same day.**
+
+- EIC Accelerator 2026: EUR 634M budget, continuous short-proposal submission,
+  six full-proposal cut-offs (next: 2026-11-04).
+- Y Combinator: Winter 2027 intake with a 2026-11-02 on-time deadline.
+- Base Batches 004: applications closed 2026-09-10.
+- NSF Tech Accelerators: initiative live, no open solicitation window yet.
+
+**Conclusion.** Keep the operator/advisor evidence-pre-screen wedge. Competitor
+momentum in AI screening increases the cost of waiting for pilot evidence;
+distribution review (not engine features) remains the constraint.

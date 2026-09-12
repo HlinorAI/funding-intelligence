@@ -29,6 +29,11 @@
 - [x] Add a pathway contract for lifecycle, window and funding model.
 - [x] Add current announcement-backed cards for EIC, NSF, Women TechEU,
   Filecoin, Tether, OpenAI and Base Batches.
+- [x] Enforce declared pathway windows as hard gates in the runner and route
+  verifier; a closed window rejects the route and a future window requires
+  verification.
+- [x] Re-verify the five actionable AI endpoint cards and the new
+  announcement-backed cards against official pages (2026-09-11).
 - [ ] Verify application/intake endpoints for selected pathways before marking
   them actionable.
 - [ ] Split additional multi-route ecosystem cards when a real case selects a
@@ -66,6 +71,8 @@
 
 - [x] Enforce the seven-day source snapshot freshness rule in runner and route
   verifier decisions.
+- [x] Add a read-only official-page content watch that flags changed sources
+  as a human-review signal without mutating knowledge cards.
 - [ ] Re-verify the five recorded application/access endpoints before a real
   pilot report is delivered.
 
