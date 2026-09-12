@@ -2,7 +2,7 @@
 
 This file is the project's persistent operating memory. Keep it factual, short, and current. Update it when work is completed, a decision changes, or the next action changes.
 
-Last updated: 2026-09-03
+Last updated: 2026-09-11
 
 ## Current status
 
@@ -72,6 +72,10 @@ Last updated: 2026-09-03
 - Added eight current announcement-backed source-only cards across EIC, NSF, Women TechEU, Filecoin, Tether, OpenAI and Base Batches.
 - Preserved verified endpoint routes in the runner shortlist when new source-only cards are added.
 - Kept `--all-ai` scoped to the AI opportunity pack and updated endpoint coverage to 49 cards / 44 source-only routes.
+- Committed the previously uncommitted outreach contour, freshness policy, planning docs, and eight new program cards after a credential and third-party-contact scan; outreach contact records stay local via `.gitignore`.
+- Added a deterministic pathway-window gate: a declared `pathway.window.closes` in the past rejects the route and a future `opens` holds it at `VERIFY_FIRST`; runner and verifier outputs expose `pathway_window` and the report gate gained `window_open`.
+- Re-verified eight program cards against official pages on 2026-09-11: YC Winter 2027 intake (deadline 2026-11-02), EIC continuous submission with the 2026-11-04 cut-off, Base Batches 004 closed 2026-09-10, NSF initiative live without an open solicitation, and the five actionable AI endpoints.
+- Added `runtime/source_watch.py`, a read-only official-page content watch that flags changed sources as a human-review signal with a Git-ignored digest state; its self-test joined the validation gate.
 
 ## In progress
 
