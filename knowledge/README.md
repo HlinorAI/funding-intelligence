@@ -27,6 +27,11 @@ by the card. `pathway.lifecycle`, `pathway.window`, and `pathway.source_changed_
 must be reviewed separately from the broader program status; one ecosystem
 brand must not imply one application route.
 
+A declared `pathway.window` is a hard temporal boundary enforced by the runner
+and route verifier: a `closes` date in the past rejects the route with
+`DO_NOT_APPLY`, and a future `opens` date keeps the route at `VERIFY_FIRST`
+until a human re-verifies the card and updates the window.
+
 Dates and statuses are not permanent. Before a real application, the agent must open the official source and the actual intake endpoint.
 
 `taxonomy.yaml` is the controlled vocabulary for sector, stage, and ecosystem

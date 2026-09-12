@@ -12,11 +12,11 @@ import yaml
 
 try:
     from runtime.project_contract import ProjectValidationError, validate_project
-    from runtime.freshness import source_freshness
+    from runtime.freshness import pathway_window_state, source_freshness
     from runtime.taxonomy import canonicalize, normalize_label
 except ImportError:
     from project_contract import ProjectValidationError, validate_project
-    from freshness import source_freshness
+    from freshness import pathway_window_state, source_freshness
     from taxonomy import canonicalize, normalize_label
 
 
@@ -235,6 +235,7 @@ def gates(project: dict[str, Any], card: dict[str, Any]) -> dict[str, bool]:
     affiliation_state = program_affiliation_state(project, str(card.get("id")))
     card_stage_fit = stage_fit(project, card)
     freshness = source_freshness(status.get("last_checked"))
+    window = pathway_window_state(card.get("pathway"))
     return {
         "project_fit": project_fit(project, card)[0],
         "stage_compatible": card_stage_fit in {"match", "not_applicable"},
@@ -249,6 +250,7 @@ def gates(project: dict[str, Any], card: dict[str, Any]) -> dict[str, bool]:
         "next_action_exists": bool(next_action.get("action") and next_action.get("deliverable")),
         "affiliation_verified": affiliation_state != "unknown",
         "not_already_affiliated": affiliation_state not in {"current", "previous_successful"},
+        "window_open": window["state"] in {"open", "unknown"},
     }
 
 
@@ -313,6 +315,7 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
         penalties["no_distribution_plan"] = -10
 
     affiliation_state = program_affiliation_state(project, str(card.get("id")))
+    window = pathway_window_state(card.get("pathway"))
     if affiliation_state in {"current", "previous_successful"}:
         reasons.append(f"project already has {affiliation_state.replace('_', ' ')} {card.get('name')} affiliation")
         penalties["already_affiliated"] = -100
@@ -322,6 +325,10 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
     elif affiliation_state == "unknown":
         reasons.append(f"project {card.get('name')} affiliation outcome is unknown")
         missing.append("verified program affiliation status")
+    if window["state"] == "closed":
+        reasons.insert(0, f"application window closed on {window['closes']}")
+    elif window["state"] == "not_open":
+        reasons.insert(0, f"application window opens on {window['opens']}")
 
     raw_score = strategic + technical + evidence_points + mechanism + max(0, readiness) + access + sum(penalties.values())
     score = max(0, min(100, raw_score))
@@ -330,8 +337,12 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
 
     if affiliation_state in {"current", "previous_successful"}:
         decision = "DO_NOT_APPLY"
+    elif window["state"] == "closed":
+        decision = "DO_NOT_APPLY"
     elif affiliation_state == "rejected":
         decision = "APPLY_AGAIN_AFTER_CHANGE"
+    elif window["state"] == "not_open":
+        decision = "VERIFY_FIRST"
     elif affiliation_state == "unknown":
         decision = "VERIFY_FIRST"
     elif state in BLOCKED_STATES:
@@ -413,6 +424,7 @@ def evaluate(project: dict[str, Any], card: dict[str, Any]) -> dict[str, Any]:
         "official_source": status.get("official_source"),
         "last_checked": str(status.get("last_checked")) if status.get("last_checked") is not None else None,
         "source_freshness": source_freshness(status.get("last_checked")),
+        "pathway_window": window,
     }
 
 
@@ -448,6 +460,7 @@ def build_report(project: dict[str, Any]) -> dict[str, Any]:
         "next_action_exists",
         "affiliation_verified",
         "not_already_affiliated",
+        "window_open",
     )
     all_gates = {key: False for key in gate_keys}
     if opportunities:
