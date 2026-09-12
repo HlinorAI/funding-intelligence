@@ -6,7 +6,7 @@ resource_type: [startup_program, cloud_credits, technical_support, enterprise_bd
 status:
   state: ACTIVE
   source_label: "Application route with startup credits, AI capabilities, technical support and eligible enterprise GTM resources"
-  last_checked: 2026-07-22
+  last_checked: 2026-09-11
   needs_verification: true
   official_source: https://learn.microsoft.com/en-us/startups/microsoft-for-startups/overview
 verification:
@@ -15,7 +15,7 @@ verification:
   application_kind: application_portal
   status_check: "Confirm direct application, country eligibility and current credit tier"
   source_verified: true
-  verified_at: 2026-07-22
+  verified_at: 2026-09-11
   verified_via: official_web_source
 decision_policy:
   missing_eligibility: COMPLETE_ELIGIBILITY_DATA

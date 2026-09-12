@@ -4,19 +4,19 @@ ecosystem: Base
 mechanism: [accelerator, investment]
 resource_type: [accelerator]
 status:
-  state: UPCOMING
-  source_label: "Early-stage Base cohort with funding and mentorship; cohort deadline is separate from Base rewards"
-  last_checked: 2026-08-25
+  state: CLOSED
+  source_label: "Applications closed 2026-09-10; cohort 004 runs 2026-09-21 to 2026-11-15 with Demo Day 2026-11-17; watch base.org/batches for the next cohort"
+  last_checked: 2026-09-11
   needs_verification: true
-  official_source: https://blog.base.org/
+  official_source: https://www.base.org/batches
 pathway:
   id: base-batches-004
   type: cohort
   lifecycle: cohort
-  source_changed_at: 2026-08-25
+  source_changed_at: 2026-09-11
   window:
-    closes: 2026-09-09
-    label: "Base Batches 004 application window"
+    closes: 2026-09-10
+    label: "Base Batches 004 application window (closed)"
   funding:
     model: investment
     amount: "Announced USD 100,000 funding plus eight weeks of mentorship"

@@ -5,8 +5,8 @@ mechanism: [accelerator, investment]
 resource_type: [accelerator, venture_investment, founder_network]
 status:
   state: OPEN
-  source_label: "Official application page listed Summer 2026 applications, including late applications; batch windows change"
-  last_checked: 2026-07-22
+  source_label: "Official application page currently lists the Winter 2027 batch (January-March, San Francisco) with an on-time deadline of November 2, 8pm PT; four batches per year, late applications reviewed without timing promise"
+  last_checked: 2026-09-11
   needs_verification: true
   official_source: https://www.ycombinator.com/apply
 verification:
@@ -15,7 +15,7 @@ verification:
   application_kind: cohort_application
   status_check: "Confirm current batch, deadline/late-application policy and application availability"
   source_verified: true
-  verified_at: 2026-07-22
+  verified_at: 2026-09-11
   verified_via: official_web_source
 decision_policy:
   missing_proof: BUILD_FIRST

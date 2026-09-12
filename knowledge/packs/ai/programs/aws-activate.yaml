@@ -5,8 +5,8 @@ mechanism: [subsidy]
 resource_type: [cloud_credits, technical_support]
 status:
   state: ACTIVE
-  source_label: "Founders and Portfolio credit packages; current page lists stage/provider-dependent tiers"
-  last_checked: 2026-07-22
+  source_label: "Founders and Portfolio credit packages; current page lists USD 1,000-200,000 in credits with stage/provider-dependent tiers"
+  last_checked: 2026-09-11
   needs_verification: true
   official_source: https://aws.amazon.com/startups/credits/
 verification:
@@ -15,7 +15,7 @@ verification:
   application_kind: application_page
   status_check: "Confirm Founders vs Portfolio tier, AWS account and provider requirements"
   source_verified: true
-  verified_at: 2026-07-22
+  verified_at: 2026-09-11
   verified_via: official_web_source
 decision_policy:
   missing_eligibility: COMPLETE_ELIGIBILITY_DATA
