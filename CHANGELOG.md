@@ -1,5 +1,22 @@
 # Changelog
 
+## 2026-09-11
+
+### Added
+
+- Added a deterministic pathway-window gate: a declared `pathway.window.closes`
+  date in the past rejects the route with `DO_NOT_APPLY`, and a future
+  `pathway.window.opens` date holds the route at `VERIFY_FIRST` until a human
+  re-verifies the card. Runner and route-verifier outputs expose
+  `pathway_window`, the aggregate report gate gained a `window_open` key, and a
+  closed window overrides reapplication advice for previously rejected
+  applicants.
+
+### Fixed
+
+- Replaced a real third-party contact email in Zoho draft test fixtures with a
+  synthetic address before the outreach contour was committed.
+
 ## 2026-09-07
 
 ### Added

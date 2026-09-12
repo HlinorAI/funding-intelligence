@@ -473,7 +473,7 @@ class TestRunnerDecisions:
         gate_fields = {
             "project_fit", "stage_compatible", "status_verified", "source_fresh", "application_endpoint_exists",
             "mechanism_identified", "evidence_requirements_known",
-            "next_action_exists", "affiliation_verified", "not_already_affiliated", "passed",
+            "next_action_exists", "affiliation_verified", "not_already_affiliated", "window_open", "passed",
         }
         missing_gate = gate_fields - set(gate.keys())
         assert not missing_gate, f"Gate missing fields: {missing_gate}"
@@ -560,3 +560,82 @@ class TestRunnerDecisions:
         route = verify_route(project, card, {}, False)
         assert route["program_status"]["source_freshness"]["state"] == "stale"
         assert route["decision"] == "VERIFY_FIRST"
+
+    def test_expired_pathway_window_is_rejected(self):
+        """A declared window that has closed rejects the route for every project."""
+        project = load_yaml(REPO_ROOT / "tests" / "cases" / "ai_startup.yaml")
+        card = load_card_yaml(REPO_ROOT / "knowledge" / "packs" / "ai" / "programs" / "aws-activate.yaml")
+        card["pathway"] = {
+            "id": "synthetic-window",
+            "type": "cohort",
+            "lifecycle": "cohort",
+            "window": {"closes": (date.today() - timedelta(days=1)).isoformat()},
+        }
+
+        result = evaluate(project, card)
+        route = verify_route(project, card, {}, False)
+
+        assert result["decision"] == "DO_NOT_APPLY"
+        assert result["gate"]["window_open"] is False
+        assert result["pathway_window"] == {"state": "closed", "opens": None, "closes": (date.today() - timedelta(days=1)).isoformat()}
+        assert any("window closed" in reason for reason in result["why"])
+        assert route["decision"] == "DO_NOT_APPLY"
+        assert route["pathway_window"]["state"] == "closed"
+        assert route["eligibility"]["state"] == "INELIGIBLE"
+
+    def test_future_pathway_window_requires_verification(self):
+        """A declared window that has not opened cannot produce an actionable decision."""
+        project = load_yaml(REPO_ROOT / "tests" / "cases" / "ai_startup.yaml")
+        card = load_card_yaml(REPO_ROOT / "knowledge" / "packs" / "ai" / "programs" / "aws-activate.yaml")
+        card["pathway"] = {
+            "id": "synthetic-window",
+            "type": "cohort",
+            "lifecycle": "cohort",
+            "window": {"opens": (date.today() + timedelta(days=30)).isoformat()},
+        }
+
+        result = evaluate(project, card)
+        route = verify_route(project, card, {}, False)
+
+        assert result["decision"] == "VERIFY_FIRST"
+        assert result["gate"]["window_open"] is False
+        assert result["pathway_window"]["state"] == "not_open"
+        assert any("window opens" in reason for reason in result["why"])
+        assert route["decision"] == "VERIFY_FIRST"
+        assert route["pathway_window"]["state"] == "not_open"
+        assert route["eligibility"]["state"] == "UNKNOWN"
+
+    def test_open_pathway_window_does_not_change_the_decision(self):
+        """A declared window that is currently open leaves the normal gates in charge."""
+        project = load_yaml(REPO_ROOT / "tests" / "cases" / "ai_startup.yaml")
+        card = load_card_yaml(REPO_ROOT / "knowledge" / "packs" / "ai" / "programs" / "aws-activate.yaml")
+        card["pathway"] = {
+            "id": "synthetic-window",
+            "type": "cohort",
+            "lifecycle": "cohort",
+            "window": {"closes": (date.today() + timedelta(days=30)).isoformat()},
+        }
+
+        with_window = evaluate(project, card)
+        without_window = evaluate(project, load_card_yaml(REPO_ROOT / "knowledge" / "packs" / "ai" / "programs" / "aws-activate.yaml"))
+
+        assert with_window["pathway_window"]["state"] == "open"
+        assert with_window["gate"]["window_open"] is True
+        assert with_window["decision"] == without_window["decision"]
+
+    def test_window_closed_overrides_previous_rejection_advice(self):
+        """A closed window must not tell a rejected applicant to reapply into it."""
+        project = load_yaml(REPO_ROOT / "tests" / "cases" / "program_rejected.yaml")
+        card = load_card_yaml(REPO_ROOT / "knowledge" / "packs" / "ai" / "programs" / "y-combinator.yaml")
+        card["pathway"] = {
+            "id": "synthetic-window",
+            "type": "cohort",
+            "lifecycle": "cohort",
+            "window": {"closes": (date.today() - timedelta(days=1)).isoformat()},
+        }
+
+        result = evaluate(project, card)
+        route = verify_route(project, card, {}, False)
+
+        assert result["decision"] == "DO_NOT_APPLY"
+        assert route["decision"] == "DO_NOT_APPLY"

@@ -16,7 +16,7 @@ import yaml
 from runner import ROOT, evaluate, load_yaml, program_affiliation_state, project_fit, project_goals, text_tokens, truthy
 from project_contract import ProjectValidationError, validate_project
 from taxonomy import canonicalize
-from freshness import source_freshness
+from freshness import pathway_window_state, source_freshness
 
 
 UNKNOWN = {None, "", "UNKNOWN", "unknown", "TODO", "NOT_PROVIDED", "not_provided"}
@@ -360,15 +360,19 @@ def eligibility_state(
     endpoint_status: dict[str, Any],
     fit: dict[str, Any],
     missing: list[str],
+    window_state: str | None = None,
 ) -> str:
     """Report program eligibility separately from proof/readiness workflow state."""
 
     if affiliation_state in {"current", "previous_successful"}:
         return "INELIGIBLE"
+    if window_state == "closed":
+        return "INELIGIBLE"
     if program_status.get("value") in {"CLOSED", "HOLD"} or fit.get("value") == "NONE":
         return "INELIGIBLE"
     if (
         affiliation_state == "unknown"
+        or window_state == "not_open"
         or (
             program_status.get("needs_verification") is False
             and program_status.get("source_freshness", {}).get("state") != "fresh"
@@ -383,7 +387,10 @@ def eligibility_state(
 
 def decision_for(project: dict[str, Any], card: dict[str, Any], program_status: dict[str, Any], endpoint_status: dict[str, Any], fit: dict[str, Any], readiness: str) -> str:
     affiliation_state = program_affiliation_state(project, str(card.get("id")))
+    window_state = pathway_window_state(card.get("pathway"))["state"]
     if affiliation_state in {"current", "previous_successful"}:
+        return "DO_NOT_APPLY"
+    if window_state == "closed":
         return "DO_NOT_APPLY"
     if affiliation_state == "rejected":
         return "APPLY_AGAIN_AFTER_CHANGE"
@@ -393,6 +400,8 @@ def decision_for(project: dict[str, Any], card: dict[str, Any], program_status: 
         return "DO_NOT_APPLY"
     if endpoint_status["value"] == "MISSING":
         return "NO_ACTIONABLE_ENDPOINT"
+    if window_state == "not_open":
+        return "VERIFY_FIRST"
     if (
         program_status.get("needs_verification") is False
         and program_status.get("source_freshness", {}).get("state") != "fresh"
@@ -422,8 +431,9 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
     missing = [item["requirement"] for item in proofs if item["status"] != "PASS"]
     fit = project_fit_state(project, card, evaluation)
     affiliation_state = program_affiliation_state(project, str(card.get("id")))
+    window = pathway_window_state(card.get("pathway"))
     readiness = readiness_state(card, fit, missing, affiliation_state)
-    eligibility = eligibility_state(affiliation_state, program_status, endpoint_status, fit, missing)
+    eligibility = eligibility_state(affiliation_state, program_status, endpoint_status, fit, missing, window["state"])
     decision = decision_for(project, card, program_status, endpoint_status, fit, readiness)
     policy = card.get("decision_policy") or {}
     next_action = dict(card.get("next_action") or {})
@@ -447,6 +457,7 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
                 (card.get("verification") or {}).get("status_check", "Confirm official eligibility and endpoint"),
                 f"Decision policy: {policy or 'default'}",
                 *( [f"Affiliation state: {affiliation_state}"] if affiliation_state else [] ),
+                *( [f"Pathway window: {window['state']}"] if window["state"] != "unknown" else [] ),
             ],
         },
         "resource_type": card.get("resource_type", card.get("mechanism", [])),
@@ -460,6 +471,7 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
     }
     if card.get("pathway"):
         route["pathway"] = card["pathway"]
+    route["pathway_window"] = window
     return route
 
 

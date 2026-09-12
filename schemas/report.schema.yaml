@@ -60,6 +60,7 @@ $defs:
       next_action_exists: {type: boolean}
       affiliation_verified: {type: boolean}
       not_already_affiliated: {type: boolean}
+      window_open: {type: boolean}
       passed: {type: boolean}
   route:
     type: object
@@ -124,3 +125,10 @@ $defs:
           state: {type: string, enum: [fresh, stale, unknown, future]}
           age_days: {type: [integer, 'null']}
           max_age_days: {type: integer, minimum: 0}
+      pathway_window:
+        type: object
+        required: [state]
+        properties:
+          state: {type: string, enum: [open, closed, not_open, unknown]}
+          opens: {type: [string, 'null']}
+          closes: {type: [string, 'null']}
