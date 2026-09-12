@@ -5,15 +5,15 @@ mechanism: [research_grant, accelerator]
 resource_type: [research_support]
 status:
   state: VERIFY
-  source_label: "Fast-paced research acceleration with explicit market-readiness milestones and outcomes"
-  last_checked: 2026-08-25
+  source_label: "2026 NSF initiative translating research outputs into market-ready technology; official page confirms the initiative but lists no open solicitation window"
+  last_checked: 2026-09-11
   needs_verification: true
   official_source: https://www.nsf.gov/funding/initiatives/tech-accelerators
 pathway:
   id: nsf-tech-accelerators-2026
   type: cohort
   lifecycle: rolling
-  source_changed_at: 2026-08-25
+  source_changed_at: 2026-09-11
   funding:
     model: milestone
     terms: "Confirm the active solicitation, eligibility and research milestone schedule"

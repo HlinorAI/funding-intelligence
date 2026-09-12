@@ -4,22 +4,23 @@ ecosystem: European Innovation Council
 mechanism: [proposal_grant, investment]
 resource_type: [non_dilutive_grant, venture_investment]
 status:
-  state: VERIFY
-  source_label: "2026 work programme combines grant and equity routes for deep-tech scale-up"
-  last_checked: 2026-08-25
+  state: ROLLING
+  source_label: "2026 work programme: EUR 634M total (EUR 414M Open, EUR 220M Challenges); short proposals accepted continuously, full proposals only at six cut-off dates"
+  last_checked: 2026-09-11
   needs_verification: true
-  official_source: https://eic.ec.europa.eu/eic-funding-opportunities/eic-2026-work-programme_en
+  official_source: https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en
 pathway:
   id: eic-accelerator-2026
   type: cohort
   lifecycle: seasonal
-  source_changed_at: 2026-08-25
+  source_changed_at: 2026-09-11
   window:
-    label: "2026 EIC Accelerator cut-offs and application windows"
+    closes: 2026-11-04
+    label: "Next full-proposal cut-off 2026-11-04; short proposals accepted continuously and batched monthly"
   funding:
     model: mixed
-    amount: "Grant up to approximately EUR 2.5M plus equity typically EUR 1M-10M"
-    terms: "Deep-tech commercialisation; confirm the current cut-off and short/full application path"
+    amount: "Grant lump sum below EUR 2.5M (TRL 6-8 within 24 months) plus equity EUR 1M-10M; higher amounts via STEP ScaleUP"
+    terms: "Deep-tech commercialisation; one active application per applicant; confirm the current cut-off and short/full application path"
 routing:
   verticals: [ai, artificial_intelligence, deeptech, hardware, software]
   stages: [early_product, pre_seed, seed, series_a, series_b]

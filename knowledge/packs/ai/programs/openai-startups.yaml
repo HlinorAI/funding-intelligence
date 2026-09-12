@@ -5,8 +5,8 @@ mechanism: [bd, subsidy]
 resource_type: [startup_program, cloud_credits, technical_support, community]
 status:
   state: ACTIVE
-  source_label: "Founder resources, Build Hours and startup community; API credits and enhanced benefits may require VC referral"
-  last_checked: 2026-07-23
+  source_label: "Founder resources, Build Hours and startup community; API credits require a VC referral code and are not self-serve"
+  last_checked: 2026-09-11
   needs_verification: true
   official_source: https://openai.com/startups
   health_check:
@@ -18,7 +18,7 @@ verification:
   application_kind: gated_partner_route
   status_check: "Confirm the founder route and whether the requested benefit requires a VC referral"
   source_verified: true
-  verified_at: 2026-07-23
+  verified_at: 2026-09-11
   verified_via: official_web_source
 decision_policy:
   access_unknown: VERIFY_ACCESS_PATH

@@ -6,7 +6,7 @@ resource_type: [startup_program, technical_support, cloud_credits, enterprise_bd
 status:
   state: ACTIVE
   source_label: "Free, no cohort/deadline program with developer resources, preferred pricing, partner offers, investor and GTM access"
-  last_checked: 2026-07-22
+  last_checked: 2026-09-11
   needs_verification: true
   official_source: https://www.nvidia.com/en-us/startups/
 verification:
@@ -15,7 +15,7 @@ verification:
   application_kind: rolling_application
   status_check: "Confirm application access and incorporation, developer and website eligibility"
   source_verified: true
-  verified_at: 2026-07-22
+  verified_at: 2026-09-11
   verified_via: official_web_source
 decision_policy:
   weak_fit: BUILD_NVIDIA_USE_CASE
