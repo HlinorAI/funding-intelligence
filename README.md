@@ -235,6 +235,20 @@ The first run records a digest for every official source; later runs report
 `CHANGED` pages as human-review signals. Digest state is stored outside Git in
 `reports/source-watch-state.yaml`, and the tool never mutates knowledge cards.
 
+To surface candidate application endpoints for the intentionally source-only
+cards, run the read-only endpoint scanner:
+
+```bash
+python3 runtime/endpoint_scan.py
+```
+
+It fetches each official page, extracts links that plausibly lead to an
+application or intake (apply pages, portals, hosted forms), and writes a
+review queue to `reports/endpoint-candidates.yaml`. Candidates are unverified
+leads: a human must open each URL and confirm a route-specific intake before
+the card's `verification.application_url` may be recorded. Transport failures
+and empty pages prove nothing about endpoints.
+
 ## Example output
 
 The public fixture `tests/cases/ai_startup.yaml` represents an `Example AI Infrastructure Startup`. Its current expected contract is:

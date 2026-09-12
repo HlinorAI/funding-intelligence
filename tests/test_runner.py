@@ -463,6 +463,20 @@ class TestRunnerDecisions:
             f"{result.stderr}\n{result.stdout[:500]}"
         )
 
+    def test_endpoint_scan_selftest(self):
+        """Smoke test: endpoint_scan --self-test exits cleanly."""
+        result = subprocess.run(
+            [sys.executable, "runtime/endpoint_scan.py", "--self-test"],
+            capture_output=True,
+            text=True,
+            timeout=60,
+            cwd=Path(__file__).resolve().parent.parent,
+        )
+        assert result.returncode == 0, (
+            f"Endpoint scan self-test failed (exit {result.returncode}):\n"
+            f"{result.stderr}\n{result.stdout[:500]}"
+        )
+
     def test_report_schema_conformance(self):
         """Verify that runner output conforms to the report schema."""
         case = Path(__file__).resolve().parent / "cases" / "ai_startup.yaml"

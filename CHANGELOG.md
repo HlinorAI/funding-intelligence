@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-09-12
+
+### Added
+
+- Added a read-only application-endpoint scanner (`runtime/endpoint_scan.py`)
+  that fetches the official page of every source-only card, extracts links
+  plausibly leading to an application or intake, and writes a human-review
+  queue to `reports/endpoint-candidates.yaml`. Candidates are unverified
+  leads; a card's `verification.application_url` may still be recorded only
+  by a human who confirmed the route. Transport failures and pages without
+  candidate links are not evidence about endpoints. Its self-test joined the
+  local validation gate.
+
 ## 2026-09-11
 
 ### Added
