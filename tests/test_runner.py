@@ -15,10 +15,10 @@ import jsonschema
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "runtime"))
 
-import runner as runner_module
-from runner import build_report, evaluate, load_yaml as load_card_yaml
-from render_report import render
-from verify_route import verify_route
+import runner as runner_module  # noqa: E402
+from runner import build_report, evaluate, load_yaml as load_card_yaml  # noqa: E402
+from render_report import render  # noqa: E402
+from verify_route import verify_route  # noqa: E402
 
 
 def run_runner(case_path: Path, timeout: int = 60) -> dict:
