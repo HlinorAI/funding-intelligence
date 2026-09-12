@@ -13,7 +13,7 @@ from urllib.request import Request, urlopen
 
 import yaml
 
-from runner import ROOT, evaluate, load_yaml, program_affiliation_state, project_fit, project_goals, text_tokens, truthy
+from runner import ROOT, evaluate, load_yaml, program_affiliation_state, project_goals, text_tokens, truthy
 from project_contract import ProjectValidationError, validate_project
 from taxonomy import canonicalize
 from freshness import pathway_window_state, source_freshness
@@ -456,8 +456,8 @@ def verify_route(project: dict[str, Any], card: dict[str, Any], pack: dict[str, 
             "notes": [
                 (card.get("verification") or {}).get("status_check", "Confirm official eligibility and endpoint"),
                 f"Decision policy: {policy or 'default'}",
-                *( [f"Affiliation state: {affiliation_state}"] if affiliation_state else [] ),
-                *( [f"Pathway window: {window['state']}"] if window["state"] != "unknown" else [] ),
+                *([f"Affiliation state: {affiliation_state}"] if affiliation_state else []),
+                *([f"Pathway window: {window['state']}"] if window["state"] != "unknown" else []),
             ],
         },
         "resource_type": card.get("resource_type", card.get("mechanism", [])),

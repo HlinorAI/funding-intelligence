@@ -199,7 +199,6 @@ def evidence_score(project: dict[str, Any]) -> int:
 
 
 def mechanism_score(project: dict[str, Any], card: dict[str, Any]) -> tuple[int, list[str]]:
-    needs = project.get("needs") or {}
     goals = set(project_goals(project))
     mechanisms = {str(value).lower() for value in as_list(card.get("mechanism"))}
     stage = normalize_stage(project).lower()

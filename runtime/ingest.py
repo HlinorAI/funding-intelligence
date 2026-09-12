@@ -24,6 +24,8 @@ except ImportError:
 ROOT = Path(__file__).resolve().parents[1]
 DRAFTS_DIR = ROOT / "drafts"
 UNKNOWN = "unknown"
+
+
 def timestamp() -> str:
     return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
