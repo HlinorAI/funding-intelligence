@@ -11,6 +11,11 @@
   `pathway_window`, the aggregate report gate gained a `window_open` key, and a
   closed window overrides reapplication advice for previously rejected
   applicants.
+- Added a read-only official-source content watch (`runtime/source_watch.py`)
+  that hashes official page bodies and reports changed pages as a
+  human-review signal. Digest state is stored outside Git; the tool never
+  mutates knowledge cards, and transport failures are never evidence that a
+  program changed or closed. Its self-test joined the local validation gate.
 
 ### Fixed
 

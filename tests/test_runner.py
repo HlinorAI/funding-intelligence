@@ -449,6 +449,20 @@ class TestRunnerDecisions:
             f"{result.stderr}\n{result.stdout[:500]}"
         )
 
+    def test_source_watch_selftest(self):
+        """Smoke test: source_watch --self-test exits cleanly."""
+        result = subprocess.run(
+            [sys.executable, "runtime/source_watch.py", "--self-test"],
+            capture_output=True,
+            text=True,
+            timeout=60,
+            cwd=Path(__file__).resolve().parent.parent,
+        )
+        assert result.returncode == 0, (
+            f"Source watch self-test failed (exit {result.returncode}):\n"
+            f"{result.stderr}\n{result.stdout[:500]}"
+        )
+
     def test_report_schema_conformance(self):
         """Verify that runner output conforms to the report schema."""
         case = Path(__file__).resolve().parent / "cases" / "ai_startup.yaml"
