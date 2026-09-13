@@ -4,10 +4,18 @@ ecosystem: Arbitrum
 mechanism: [proposal_grant, bd]
 status:
   state: CLOSED
-  source_label: "D.A.O. Grant Program Season 3 intake closed; prepare for a future window"
-  last_checked: 2026-07-20
+  source_label: "D.A.O. Grant Program Season 3 intake closed; the procurement-nominations forum category hosts application threads for DAO programs (RAD, OAT, Firestarter, Audit) and future windows"
+  last_checked: 2026-09-13
   needs_verification: true
   official_source: https://forum.arbitrum.foundation/
+verification:
+  application_url: https://forum.arbitrum.foundation/c/procurement-nominations/44
+  application_url_state: confirmed
+  application_kind: forum_category
+  status_check: "Confirm the active DAO program application thread and reply per its instructions"
+  source_verified: true
+  verified_at: 2026-09-13
+  verified_via: official_web_source
 best_fit:
   - exact DAO domain with shipped Arbitrum usage
   - clear leverage and independently verifiable milestones

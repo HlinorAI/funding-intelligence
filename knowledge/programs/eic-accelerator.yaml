@@ -9,6 +9,14 @@ status:
   last_checked: 2026-09-11
   needs_verification: true
   official_source: https://eic.ec.europa.eu/eic-funding-opportunities/eic-accelerator_en
+verification:
+  application_url: https://ec.europa.eu/info/funding-tenders/opportunities/portal/screen/opportunities/topic-details/HORIZON-EIC-2026-ACCELERATOR-01
+  application_url_state: gated
+  application_kind: application_portal
+  status_check: "Sign in to the EU Funding and Tenders Portal, confirm the HORIZON-EIC-2026-ACCELERATOR-01 topic and the submission form"
+  source_verified: true
+  verified_at: 2026-09-13
+  verified_via: official_web_source
 pathway:
   id: eic-accelerator-2026
   type: cohort

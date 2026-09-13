@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-09-13
+
+### Added
+
+- Recorded the first human-confirmed application endpoints from the
+  endpoint-candidate review: the Ethereum Foundation ESP applicants page and
+  the Arbitrum DAO program forum category as `confirmed`, and the EIC
+  Accelerator portal topic as `gated` behind EU portal sign-in. Eight of 50
+  cards now carry a recorded endpoint.
+- Split the Sui Ecosystem Academic Research Awards into a dedicated rolling
+  research-grant card after the endpoint scan surfaced the program. The card
+  stays source-only until the submission link in the program-page callout is
+  opened and confirmed by a human.
+
 ## 2026-09-12
 
 ### Added

@@ -36,8 +36,11 @@
   announcement-backed cards against official pages (2026-09-11).
 - [x] Add a read-only endpoint-candidate scanner that builds a human-review
   queue of plausible intake links for the 44 source-only cards.
-- [ ] Confirm candidate intake endpoints by hand and record
-  `verification.application_url` on selected cards.
+- [x] Confirm the first candidate endpoints by hand and record
+  `verification.application_url`: Ethereum ESP (`confirmed`), Arbitrum DAO
+  forum category (`confirmed`), EIC Accelerator portal topic (`gated`).
+- [ ] Confirm the Sui Academic Research Awards submission link behind the
+  program-page callout and the EIC portal topic after portal sign-in.
 - [ ] Verify application/intake endpoints for selected pathways before marking
   them actionable.
 - [ ] Split additional multi-route ecosystem cards when a real case selects a
