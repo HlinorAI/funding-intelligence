@@ -77,6 +77,7 @@ Last updated: 2026-09-11
 - Re-verified eight program cards against official pages on 2026-09-11: YC Winter 2027 intake (deadline 2026-11-02), EIC continuous submission with the 2026-11-04 cut-off, Base Batches 004 closed 2026-09-10, NSF initiative live without an open solicitation, and the five actionable AI endpoints.
 - Added `runtime/source_watch.py`, a read-only official-page content watch that flags changed sources as a human-review signal with a Git-ignored digest state; its self-test joined the validation gate.
 - Added `runtime/endpoint_scan.py`, a read-only application-endpoint scanner for source-only cards; its first live run surfaced the EIC Accelerator intake on the EU Funding and Tenders portal as an unconfirmed candidate, which stays out of card verification until a human confirms the route.
+- Recorded the first human-confirmed endpoints from the candidate queue on 2026-09-13: Ethereum ESP applicants page (confirmed), Arbitrum DAO program forum category (confirmed), and the EIC Accelerator portal topic (gated behind portal sign-in); endpoint coverage is now 8 of 50 cards. Split the Sui Academic Research Awards into a dedicated rolling research-grant card that stays source-only until its submission link is confirmed.
 
 ## In progress
 

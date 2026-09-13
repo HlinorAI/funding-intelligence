@@ -1,0 +1,46 @@
+id: sui-academic-research-awards
+name: Sui Ecosystem Academic Research Awards
+ecosystem: Sui
+mechanism: [research_grant]
+resource_type: [research_support]
+status:
+  state: ROLLING
+  source_label: "Rolling call for proposals; applications are submitted via the link in the rolling-call callout on the official program page and evaluated on a rolling basis"
+  last_checked: 2026-09-13
+  needs_verification: true
+  official_source: https://suifoundation.notion.site/Sui-Ecosystem-Academic-Research-Awards-18537af41c6e80688ca0ff37cf2e617b
+pathway:
+  id: sui-academic-research-awards
+  type: rfp
+  lifecycle: rolling
+  source_changed_at: 2026-09-13
+  funding:
+    model: grant
+    amount: "USD 25,000 research award"
+    terms: "Proposals led by a Principal Investigator affiliated with a recognized academic institution; confirm the current submission link on the program page"
+routing:
+  verticals: [research, web3, software]
+  stages: [idea, prototype, early_product]
+  goals: [funding]
+best_fit:
+  - academic team with a peer-reviewed record advancing Sui, Move or web3 science
+  - security, cryptography or economics research with a Sui-relevant outcome
+  - PI able to commit to a defined research deliverable
+bad_fit:
+  - product growth pitch without a research question
+  - PI without a recognized institutional affiliation
+  - generic blockchain marketing study
+required_evidence:
+  - PI affiliation and publication track record
+  - research proposal with a Sui-relevant question and outcome
+  - budget and timeline
+score: {strategic_fit: 25, evidence: 20, mechanism_fit: 15}
+failure_modes:
+  - product pitch without a research question
+  - PI eligibility missed
+  - submission link assumed without opening the program page
+next_action:
+  action: VERIFY_AND_APPLY
+  deliverable: "Open the rolling-call submission link on the official program page and submit the PI proposal"
+  horizon_days: 7
+stop_condition: "No Sui-relevant research question or no PI eligibility"

@@ -5,9 +5,17 @@ mechanism: [proposal_grant]
 status:
   state: WATCH
   source_label: "Targeted Wishlist/RFP model; broad generic intake is not the default"
-  last_checked: 2026-08-25
+  last_checked: 2026-09-13
   needs_verification: true
   official_source: https://esp.ethereum.foundation/
+verification:
+  application_url: https://esp.ethereum.foundation/applicants
+  application_url_state: confirmed
+  application_kind: application_page
+  status_check: "Browse the current Wishlist or RFP, then submit the matching application from the How to Apply process"
+  source_verified: true
+  verified_at: 2026-09-13
+  verified_via: official_web_source
 pathway:
   id: ethereum-esp-wishlist-rfp
   type: rfp
