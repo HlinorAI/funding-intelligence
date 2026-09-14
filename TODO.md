@@ -39,8 +39,9 @@
 - [x] Confirm the first candidate endpoints by hand and record
   `verification.application_url`: Ethereum ESP (`confirmed`), Arbitrum DAO
   forum category (`confirmed`), EIC Accelerator portal topic (`gated`).
-- [ ] Confirm the Sui Academic Research Awards submission link behind the
-  program-page callout and the EIC portal topic after portal sign-in.
+- [x] Confirm the Sui Academic Research Awards submission link and record the
+  hosted Tally application form as the confirmed card endpoint.
+- [ ] Confirm the EIC Accelerator portal topic after EU portal sign-in.
 - [ ] Verify application/intake endpoints for selected pathways before marking
   them actionable.
 - [ ] Split additional multi-route ecosystem cards when a real case selects a

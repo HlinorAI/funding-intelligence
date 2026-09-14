@@ -5,10 +5,18 @@ mechanism: [research_grant]
 resource_type: [research_support]
 status:
   state: ROLLING
-  source_label: "Rolling call for proposals; applications are submitted via the link in the rolling-call callout on the official program page and evaluated on a rolling basis"
-  last_checked: 2026-09-13
+  source_label: "Rolling call for proposals; applications are submitted via the hosted Tally form linked from the rolling-call callout and evaluated on a rolling basis"
+  last_checked: 2026-09-14
   needs_verification: true
   official_source: https://suifoundation.notion.site/Sui-Ecosystem-Academic-Research-Awards-18537af41c6e80688ca0ff37cf2e617b
+verification:
+  application_url: https://tally.so/r/3X85rz
+  application_url_state: confirmed
+  application_kind: hosted_form
+  status_check: "Open the Tally form and confirm the current round, PI fields and proposal template upload before submitting"
+  source_verified: true
+  verified_at: 2026-09-14
+  verified_via: official_web_source
 pathway:
   id: sui-academic-research-awards
   type: rfp
