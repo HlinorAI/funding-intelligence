@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-09-14
+
+### Added
+
+- Confirmed the Sui Ecosystem Academic Research Awards intake at its hosted
+  Tally application form (`tally.so/r/3X85rz`). A human visually confirmed the
+  form, the link was extracted from the program page's own data, and the form
+  answered a live probe. Endpoint coverage is now 9 of 50 cards.
+
 ## 2026-09-13
 
 ### Added
