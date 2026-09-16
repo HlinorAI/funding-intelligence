@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-09-16
+
+### Added
+
+- Added `ops/k18/run_contour.py`: a single local command chaining the
+  browser-free searches, contact enrichment, qualification, a fail-closed
+  Drafts/Sent dedup view, and a reply check into one status report. Reply
+  checks now discover K-18 recipients from manifests plus the mailbox Sent
+  history (K-18 alias or pilot subjects; K16 traffic excluded), retry
+  transport failures with a cooldown, and report per-candidate address
+  verdicts. The contour remains fully read-only toward the mailbox.
+
 ## 2026-09-14
 
 ### Added
