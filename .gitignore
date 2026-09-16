@@ -38,3 +38,8 @@ docs/pilot-research-*.md
 docs/new-leads-*.md
 docs/outreach-drafts-*.md
 docs/continuous-lead-search.md
+
+# Internal outreach operations - never publish
+ops/
+tests/test_k18_workflow.py
+tests/test_zoho_drafts.py
