@@ -11,6 +11,12 @@
   history (K-18 alias or pilot subjects; K16 traffic excluded), retry
   transport failures with a cooldown, and report per-candidate address
   verdicts. The contour remains fully read-only toward the mailbox.
+- The contour run now appends review drafts to the Zoho Drafts folder under
+  the `K18_DRAFTS_MODE=enabled` approval gate: multipart HTML/text drafts
+  from the funded alias with idempotency headers, refused for any recipient
+  already in Drafts or Sent. `create_zoho_drafts.py` reads the local
+  gitignored env file when present. EBN joined the allowlisted official
+  sources; the first enabled run created one EBN review draft.
 
 ## 2026-09-14
 
