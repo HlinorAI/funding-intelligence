@@ -1,28 +1,5 @@
 # Changelog
 
-## 2026-09-16
-
-### Added
-
-- Added `ops/k18/run_contour.py`: a single local command chaining the
-  browser-free searches, contact enrichment, qualification, a fail-closed
-  Drafts/Sent dedup view, and a reply check into one status report. Reply
-  checks now discover K-18 recipients from manifests plus the mailbox Sent
-  history (K-18 alias or pilot subjects; K16 traffic excluded), retry
-  transport failures with a cooldown, and report per-candidate address
-  verdicts. The contour remains fully read-only toward the mailbox.
-- The contour run now appends review drafts to the Zoho Drafts folder under
-  the `K18_DRAFTS_MODE=enabled` approval gate: multipart HTML/text drafts
-  from the funded alias with idempotency headers, refused for any recipient
-  already in Drafts or Sent. `create_zoho_drafts.py` reads the local
-  gitignored env file when present. EBN joined the allowlisted official
-  sources; the first enabled run created one EBN review draft.
-- Added hand-written draft-copy overrides: per-candidate copy in a gitignored
-  local file replaces the generated template (subject, intro, ask, body),
-  because a generic template produced no replies across thirteen sends. The
-  templated EBN draft was replaced by an individualized EIC-focused letter
-  with the value demonstration inside the message.
-
 ## 2026-09-14
 
 ### Added
@@ -76,11 +53,6 @@
   mutates knowledge cards, and transport failures are never evidence that a
   program changed or closed. Its self-test joined the local validation gate.
 
-### Fixed
-
-- Replaced a real third-party contact email in Zoho draft test fixtures with a
-  synthetic address before the outreach contour was committed.
-
 ## 2026-09-07
 
 ### Added
@@ -98,34 +70,6 @@ The project uses semantic version tags for public releases. Program status chang
 
 ## [Unreleased]
 
-### 2026-09-06
-
-#### Fixed
-
-- Added a fail-closed normalized-recipient deduplication gate across Zoho
-  Drafts and Sent before draft creation and again before SMTP send, closing the
-  gap where a different subject could be drafted to a previously contacted
-  address.
-- Kept continuous discovery and HTML draft preparation in the recurring
-  contour while retaining explicit approval for future outbound batches.
-
-### 2026-09-09
-
-#### Fixed
-
-- Disabled the legacy K-18 Zoho draft writer by default so old allowlisted
-  programme records cannot be reintroduced by the source runner. Preserved
-  official-source collection, public-email evidence and fail-closed recipient
-  checks for the current controlled outreach workflow.
-
-### 2026-09-05
-
-#### Added
-
-- Enabled an active six-hour Codex heartbeat for continuous public-source
-  operator/advisor lead discovery, deduplication and qualification. The monitor
-  does not send messages, submit forms or mutate CRM records.
-
 ### Product validation boundary
 
 #### Changed
@@ -136,8 +80,7 @@ The project uses semantic version tags for public releases. Program status chang
 - Added a consented operator-pilot protocol with redaction, frozen decision
   rules, evidence fields, metrics, pass conditions, and stop conditions.
 - Marked the July strategic status document as historical and aligned the
-  current roadmap and K-18 safety documentation with the actual repository
-  state.
+  current roadmap with the actual repository state.
 
 ### Market and verification boundary
 
@@ -146,54 +89,6 @@ The project uses semantic version tags for public releases. Program status chang
 - Added the 2026-08-29 market-landscape review. It records the crowded
   discovery/matching market, the stronger operator/advisor wedge, and the
   absence of public pilot or demand evidence.
-- Added a research-only shortlist of six concrete operator/advisor pilot
-  prospects, with official evidence, fit, entry points, risks, and a single-
-  prospect approach order. No contact or outbound action is enabled.
-- Added a public-contact map, one WIT-specific draft, and tailored discovery
-  questions for the first pilot conversation; all outreach remains unsent.
-- Added multipart HTML/text Zoho review drafts with individualized copy for
-  each pilot contact; the four pilot drafts were physically verified in Zoho
-  Drafts with sending disabled.
-- Added the public repository link organically to each individualized draft
-  body and verified it in both HTML and plain-text parts.
-- Added an explicit four-message K-18 pilot send runner with manifest
-  allowlisting, SMTP/IMAP reconciliation, backup, locking, and no implicit
-  send permission.
-- Sent the four explicitly approved pilot messages and reconciled one
-  server-saved Zoho `Sent` copy per idempotency key; removed only four verified
-  duplicate manual archive copies after private backup.
-- Fixed the K-18 send runner to wait for Zoho's server-side `Sent` auto-save
-  instead of appending a second copy, and to fail closed when that evidence is
-  absent.
-- Added a second research wave from GitHub-native programmes, Google News/IT
-  coverage, and current official accelerator calls, with freshness, contact
-  routes, caveats, and tailored questions; no second-wave outreach was sent.
-- Added four individualized, styled Zoho review drafts for the second-wave
-  candidates with public email routes; physically verified their recipients,
-  HTML/plain alternatives, repository links, and send-disabled headers.
-- Sent exactly the four explicitly approved second-wave messages and verified
-  one server-saved Zoho `Sent` copy per recipient with zero target Drafts
-  remaining; recipient inbox delivery remains unverified.
-- Added subset-manifest recovery support to the K-18 send runner so an
-  ambiguous SMTP/Zoho auto-save result stops safely and only unattempted
-  recipients can continue.
-- Repaired the live Tally Webhooks handler's nested `data.fields` parsing after
-  the 2026-08-30 HTTP 400 incident, replayed the failed event, and verified the
-  resulting CRM/Sheets row.
-- Added a fresh public-source pilot-prospect refresh covering EIT Digital
-  Co-Creation, FreeCAD's GitHub-native grant process, and a revalidation of AI
-  Launchpad; no new outreach was sent.
-- Added a dated, source-backed shortlist of five new B2B operator/advisor
-  leads and draft-only pilot proposals; no outreach or CRM changes were made
-  at that preparation stage.
-- Created and verified three new Zoho review drafts for public email routes;
-  two form-only proposals remain local.
-- Reworked the three Zoho drafts into compact, readable outreach emails with
-  short paragraphs, value bullets, and one clear call to action.
-- Sent the three explicitly approved compact emails to Nexus Grant Solutions,
-  Sploro, and INTERALTER; verified one matching Zoho Sent copy per recipient.
-  Recipient inbox delivery remains unverified, and the two form-only leads
-  were not contacted.
 - Added explicit source-freshness metadata to runner and route-verifier
   outputs.
 
@@ -237,42 +132,6 @@ The project uses semantic version tags for public releases. Program status chang
 
 - Report and route schemas now accept the expanded mechanism vocabulary and
   pathway metadata without weakening the existing fail-closed gates.
-
-### Added
-
-- Added the K-18 adapter for the shared free public-email finder. It traverses
-  official record/contact/source URLs, decodes public Cloudflare-obfuscated
-  addresses, verifies domain syntax and MX, deduplicates by account, and keeps
-  Zoho and outbound sending disabled.
-- Prepared the isolated `K-18 Funding Match Research` workflow for a
-  controlled, public-signal-only outreach experiment.
-- Added a separate target-audience contract, funding-need search queries,
-  fail-closed qualification gates, and draft-only output with sending disabled.
-- K-18 now records search-provider anti-bot challenges as `blocked` instead of
-  misreporting them as an empty successful run.
-- Added a separate `program_operator` buyer lane for accelerator, grant,
-  residency, and venture-program teams, with an evidence-gated applicant
-  triage offer and no outbound send capability.
-- Added an allowlisted `official_pages` collector so K-18 can continue when
-  public search engines present human-verification challenges. Each source is
-  fetched independently and failures are reported rather than collapsing the
-  whole run into a false empty success.
-- Added a six-hour Hermes timer for search and qualification only; Zoho drafts
-  and outbound sending remain disabled.
-- Added separate Google News RSS and GitHub issue discovery queues. News links
-  require official-page enrichment; GitHub results exclude known aggregators,
-  pull requests, generic issue noise, and private contact harvesting.
-- Fixed the K-18 timer schedule to use explicit six-hour UTC calendar slots so
-  it cannot become an elapsed one-shot after a manual service run.
-- Added contact enrichment and an idempotent Zoho Drafts append step. It only
-  creates review-only drafts after current relevance and public-email gates pass;
-  it never sends or deletes mail.
-- Fixed K-18 lane leakage: generic search results now receive an explicit
-  audience lane, unlabelled queries default only to `project`, incompatible
-  provider/lane combinations fail before search, and unknown lanes cannot
-  produce drafts.
-- Disabled the prepared Hermes K-18 timer while the contour remains in
-  preparation-only mode; re-enabling it is a separate approval step.
 
 ### Integration coherence
 
@@ -376,7 +235,7 @@ The project uses semantic version tags for public releases. Program status chang
 
 ### Added
 
-- Apache-2.0 licensing, contribution guidance, and maintained changelog/workboard files.
+- Apache-2.0 licensing, contribution guidance, and maintained changelog files.
 - GitHub repository metadata and public issue forms for open-source maintenance.
 
 ### Changed

@@ -22,30 +22,9 @@ contains 49 cards, including eight refreshed pathway cards for current AI,
 deep-tech and ecosystem funding signals. New announcement-backed cards remain
 non-actionable until a route-specific intake endpoint is verified.
 
-K-18 Funding Match Research is installed as an isolated research contour on
-Hermes. Public search-engine paths were verified as unreliable: DuckDuckGo and
-Google returned human-verification challenges, while Bing returned irrelevant
-results. The current pipeline uses allowlisted official pages, Google News RSS,
-and GitHub public issues, then performs relevance and public-contact enrichment.
-The operator enrichment now also uses the shared free public-email finder for
-official-page traversal, Cloudflare-obfuscated addresses, MX evidence, and
-account-level deduplication. Confirmed operator records receive idempotent Zoho
-review drafts. Automated/founder sending remains disabled; two explicitly
-approved four-message operator batches have now been sent and reconciled on the
-sender side, while recipient inbox delivery remains unverified.
-
-An active Codex heartbeat runs a six-hour public-source new-lead search. The
-permanent outreach contour deduplicates normalized recipients across local
-records, Zoho Drafts and Zoho Sent before creating a draft or sending. It
-creates only styled HTML/text review drafts for verified public addresses;
-future outbound sends remain approval-gated, and every approved send must be
-reconciled in Zoho Sent before the draft is archived.
-
-The legacy Hermes K-18 source runner is research-only: its Zoho draft writer is
-disabled by default to prevent old allowlisted programme records from being
-reintroduced as drafts. Its useful official-page, public-email and
-fail-closed qualification settings remain available to the controlled current
-outreach workflow.
+Outreach and lead research run as a separate, local-only operational contour
+outside this repository. No private operational state, contacts, or mailbox
+integration belongs in the public tree.
 
 ## Product boundary
 

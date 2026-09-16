@@ -21,8 +21,7 @@ rechecked before external use.
 ## Repository reality
 
 - Local `main` is at `4cd5eb4`, the same commit as `origin/main`; the working
-  tree also contains an uncommitted knowledge/runtime expansion and the
-  isolated K-18 contour.
+  tree also contains an uncommitted knowledge/runtime expansion.
 - The local validation gate passes: 45 tests, 7 public decision-quality
   benchmarks, schema/privacy checks, workflow validation, and compilation.
 - The current local snapshot contains 49 cards, but only five have a recorded

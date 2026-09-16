@@ -367,7 +367,7 @@ When adding a program card:
 
 Do not add real project evidence, credentials, contacts, internal metrics, or generated private reports.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md), [CHANGELOG.md](CHANGELOG.md), and [WORKBOARD.md](WORKBOARD.md) for contribution and project-state guidance.
+See [CONTRIBUTING.md](CONTRIBUTING.md) and [CHANGELOG.md](CHANGELOG.md) for contribution and release guidance.
 
 ## Limitations
 

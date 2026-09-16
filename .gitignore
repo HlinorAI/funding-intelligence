@@ -43,3 +43,5 @@ docs/continuous-lead-search.md
 ops/
 tests/test_k18_workflow.py
 tests/test_zoho_drafts.py
+WORKBOARD.md
+TODO.md
