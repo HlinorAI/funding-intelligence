@@ -17,6 +17,11 @@
   already in Drafts or Sent. `create_zoho_drafts.py` reads the local
   gitignored env file when present. EBN joined the allowlisted official
   sources; the first enabled run created one EBN review draft.
+- Added hand-written draft-copy overrides: per-candidate copy in a gitignored
+  local file replaces the generated template (subject, intro, ask, body),
+  because a generic template produced no replies across thirteen sends. The
+  templated EBN draft was replaced by an individualized EIC-focused letter
+  with the value demonstration inside the message.
 
 ## 2026-09-14
 
