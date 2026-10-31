@@ -667,3 +667,30 @@ class TestRunnerDecisions:
 
         assert result["decision"] == "DO_NOT_APPLY"
         assert route["decision"] == "DO_NOT_APPLY"
+
+
+class TestReviewedFundingCards:
+    """Source-reviewed closures must not be offered as application opportunities."""
+
+    def test_discontinued_general_grants_are_rejected(self):
+        project = load_yaml(REPO_ROOT / "tests/cases/web3.yaml")
+        card = load_card_yaml(REPO_ROOT / "knowledge/programs/polkadot.yaml")
+        project.setdefault("constraints", {})["target_ecosystems"] = ["Polkadot"]
+        assert evaluate(project, card)["decision"] == "DO_NOT_APPLY"
+        assert verify_route(project, card, {}, False)["decision"] == "DO_NOT_APPLY"
+
+    def test_completed_openai_round_is_rejected(self):
+        project = load_yaml(REPO_ROOT / "tests/cases/ai_startup.yaml")
+        card = load_card_yaml(REPO_ROOT / "knowledge/programs/openai-economic-opportunity-fund.yaml")
+        assert evaluate(project, card)["decision"] == "DO_NOT_APPLY"
+        assert verify_route(project, card, {}, False)["decision"] == "DO_NOT_APPLY"
+        assert str(card["pathway"]["window"]["closes"]) == "2026-06-28"
+
+    def test_near_discovery_does_not_confirm_intake(self):
+        project = load_yaml(REPO_ROOT / "tests/cases/web3.yaml")
+        project.setdefault("constraints", {})["target_ecosystems"] = ["NEAR"]
+        card = load_card_yaml(REPO_ROOT / "knowledge/programs/near.yaml")
+        result = evaluate(project, card)
+        assert result["decision"] == "VERIFY_FIRST"
+        assert result["gate"]["status_verified"] is False
+        assert result["gate"]["application_endpoint_exists"] is False
