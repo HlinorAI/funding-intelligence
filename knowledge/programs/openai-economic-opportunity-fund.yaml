@@ -1,23 +1,27 @@
 id: openai-economic-opportunity-fund
-name: OpenAI Economic Opportunity Funding
+name: OpenAI Industrial Policy Grants — 2026 round
 ecosystem: OpenAI
 mechanism: [proposal_grant]
 resource_type: [non_dilutive_grant]
 status:
-  state: VERIFY
-  source_label: "Selected independent projects may receive funding and separate API credits for economic opportunity and resilience work"
-  last_checked: 2026-08-25
-  needs_verification: true
-  official_source: https://openai.com/index/new-policy-ideas-for-the-intelligence-age/
+  state: CLOSED
+  source_label: "2026 round closed on June 28; awards announced August 17; future rounds unconfirmed"
+  last_checked: 2026-10-31
+  needs_verification: false
+  official_source: https://grants.openai.com/prog/industrial_policy_grants/
 pathway:
   id: openai-economic-opportunity-funding-2026
   type: grant
-  lifecycle: seasonal
-  source_changed_at: 2026-08-25
+  lifecycle: closed
+  source_changed_at: 2026-08-17
+  window:
+    opens: 2026-05-12
+    closes: 2026-06-28
+    label: "2026 intake; deadline June 28 at 23:59 PDT"
   funding:
     model: mixed
-    amount: "Announced support includes up to USD 1M funding and up to USD 1M in API credits for selected projects"
-    terms: "Confirm the current selection mechanism and whether the announcement has an active intake"
+    amount: "Announced support includes USD 1M funding and up to USD 1M in API credits for selected projects"
+    terms: "Awards for 14 selected projects; this round no longer accepts applications"
 routing:
   verticals: [ai, artificial_intelligence, software]
   stages: [prototype, early_product, seed, revenue]
@@ -41,7 +45,20 @@ failure_modes:
   - unclear independence or selection eligibility
   - API credits presented as cash funding
 next_action:
-  action: VERIFY
-  deliverable: "Confirm whether an active intake exists and prepare an outcomes-first project brief"
+  action: WATCH
+  deliverable: "Do not apply to the completed 2026 round; watch official sources for a separately announced future intake"
   horizon_days: 3
 stop_condition: "No active intake or no measurable economic/resilience outcome"
+
+source_review:
+  semantic_reviewed_at: 2026-10-31
+  reviewer: Codex
+  scope: completed 2026 funding round, not permanent program closure
+  sources:
+    - https://grants.openai.com/prog/industrial_policy_grants/
+    - https://openai.com/index/new-policy-ideas-for-the-intelligence-age/
+  notes: >-
+    The portal records May 12 opening and June 28, 2026 at 23:59 PDT closing.
+    The August 17 announcement reports 14 selected projects. No future intake
+    was confirmed. The publication HTTP 403 reported in issue 5 was a transport
+    observation, not closure evidence; its content was accessible in this review.

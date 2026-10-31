@@ -2,12 +2,13 @@ id: near-funding-ladder
 name: NEAR Protocol Rewards, Horizon and Hackathons
 ecosystem: NEAR
 mechanism: [retro, accelerator, investment]
+resource_type: [accelerator, venture_investment, founder_network]
 status:
-  state: ACTIVE
-  source_label: "Mixed funding ladder; generic old Foundation grant framing is deprecated"
-  last_checked: 2026-07-20
+  state: VERIFY
+  source_label: "Official Founder Hub links Protocol Rewards and Horizon; specific intake dates and availability remain unconfirmed"
+  last_checked: 2026-10-31
   needs_verification: true
-  official_source: https://www.near.org/founders
+  official_source: https://www.near.org/founder-hub
 best_fit:
   - product-native NEAR account/UX/chain abstraction use case
   - founder team with market and growth case
@@ -26,7 +27,24 @@ failure_modes:
   - no distribution advantage
   - rewards treated as grant
 next_action:
-  action: ROUTE
-  deliverable: "Ship/use NEAR first, then choose rewards, Horizon or founder/investor path"
+  action: VERIFY
+  deliverable: "Follow Founder Hub to Protocol Rewards; verify the linked cohort form and dates before selecting a route"
   horizon_days: 21
 stop_condition: "No product-native reason to use NEAR"
+
+source_review:
+  semantic_reviewed_at: 2026-10-31
+  reviewer: Codex
+  scope: official discovery route confirmed; specific intake unknown
+  sources:
+    - https://www.near.org/founder-hub
+    - https://near.org/funding
+    - https://www.nearprotocolrewards.com/
+  candidate_application_url: https://airtable.com/appFoIqAoY0ikoVIb/shr4u30KcGeNJwhKu
+  application_state: unknown
+  notes: >-
+    Founder Hub links Protocol Rewards and Horizon. Protocol Rewards links a
+    next-cohort form, but the form fetch timed out during this review; neither
+    acceptance of applications nor cohort dates were confirmed. The old
+    /founders HTTP 404 does not establish program closure. This mixed card
+    does not establish an open intake for every listed mechanism.

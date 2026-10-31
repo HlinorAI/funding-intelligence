@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-10-31
+
+### Corrected
+
+- Reviewed issue #5 against official sources: discontinued Web3 Foundation general grants, completed OpenAI 2026 round with its deadline, and restored NEAR Founder Hub discovery with unconfirmed intake retained as VERIFY. Preserved route IDs and recorded source URLs, semantic review dates, and transport limitations in each card.
+
 ## 2026-09-14
 
 ### Added

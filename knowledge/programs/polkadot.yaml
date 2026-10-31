@@ -1,13 +1,14 @@
 id: web3-foundation-polkadot
-name: Web3 Foundation / Polkadot Grants
+name: Web3 Foundation General Grants Program (discontinued)
 ecosystem: Polkadot
 mechanism: [proposal_grant]
+resource_type: [non_dilutive_grant, milestone_funding]
 status:
-  state: VERIFY
-  source_label: "Technical milestone grant; exact current track and intake must be checked"
-  last_checked: 2026-07-20
-  needs_verification: true
-  official_source: https://grants.web3.foundation/
+  state: CLOSED
+  source_label: "General Grants Program discontinued; no new applications; other Polkadot funding mechanisms are separate"
+  last_checked: 2026-10-31
+  needs_verification: false
+  official_source: https://github.com/w3f/Grants-Program
 best_fit:
   - open-source component, API, integration or tooling
   - precise technical scope with tests and docs
@@ -26,7 +27,26 @@ failure_modes:
   - no review/fix cycle
   - no open-source boundary
 next_action:
-  action: PREPARE
-  deliverable: "Reverse-engineer similar accepted proposals and write a technical milestone table"
+  action: STOP
+  deliverable: "Do not apply to the discontinued general program; independently verify alternative ecosystem mechanisms"
   horizon_days: 14
-stop_condition: "Deliverable cannot be independently verified as open-source technical work"
+stop_condition: "General Grants Program is discontinued; do not submit new applications"
+
+pathway:
+  id: web3-foundation-general-grants
+  type: grant
+  lifecycle: sunset
+  source_changed_at: 2025-12-30
+source_review:
+  semantic_reviewed_at: 2026-10-31
+  reviewer: Codex
+  scope: general program discontinued
+  sources:
+    - https://github.com/w3f/Grants-Program/blob/master/README.md
+    - https://web3.foundation/blog/aligning-grants-program-with-polkadot-vision
+  notes: >-
+    The current repository notice explicitly discontinues the general program
+    and rejects new applications. The Foundation announcement dated 2025-12-30
+    describes a shift to targeted support and ecosystem governance funding.
+    Closure applies only to this general program, not all Polkadot funding.
+    Historical fit and evidence fields above are retained for context.
